@@ -142,15 +142,15 @@ La La La.
 
 <p>
     <img alt="Trello" width="24px" height="24px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/trello.png" />
-    Tasks Manager - <a href="https://trello.com/b/xPWClGaB/the-exhibit" target="_blank">Trello Board</a> 
+    Tasks Manager - <a href="" target="_blank">Trello Board</a> 
 </p>
 <p>
     <img alt="Lucid" width="24px" height="24px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/lucid.png" />
-    Database Model - <a href="https://lucid.app/lucidchart/f1cb0294-cac3-4005-bc56-06b03bd44496/edit?invitationId=inv_8aaa1e39-3596-4e43-a717-998f718ab440" target="_blank">Lucid Chart</a> 
+    Database Model - <a href="https://lucid.app/lucidchart/e3f4d64d-43ba-4273-ab6e-a62b10dc7b76/edit?invitationId=inv_672ac030-02e6-40b1-83ca-73f11e0a8b37" target="_blank">Lucid Chart</a> 
 </p>
 <p>
     <img alt="Figma" width="24px" height="24px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/figma.png" />
-    Wireframe and Prototype - <a href="https://www.figma.com/file/3MCP8fdtxnw1WWuRhua2A2/Project-Sharing-App?node-id=0%3A1" target="_blank">Figma + Figjam</a>
+    Wireframe and Prototype - <a href="https://www.figma.com/file/DCyBe30lFiKKaIpQ4LTUUs/Financial-Wellness-Hackathon?node-id=0%3A1" target="_blank">Figma + Figjam</a>
 </p>
 
 
