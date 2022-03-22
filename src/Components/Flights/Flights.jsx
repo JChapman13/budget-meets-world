@@ -1,22 +1,30 @@
 import './Flights.css'
 import React , {useEffect, useState} from 'react'
-
+import Flight from '../Flight/Flight'
+const axios = require('axios').default
 
 
 export default function Flights(props) {
     const[flights, setFlights] = useState([])
+let carriers = [];
 
 useEffect(() => {
-    fetch('/flights', {
+    axios.get('/api/flights', {
         params: {
-            // key:value for the backend
-
+            country: 'CA',
+            currency: 'cad',
+            locale: 'en-US',
+            originPlace: 'YYZ',
+            destinationPlace: 'YVR',
+            outboundPartialDate: 'anytime',
+            inboundPartialDate: 'anytime'
         }
     })
     .then((result) => {
-        console.log(result) //dot notation to get specific data
-        
-        setFlights(result)
+        console.log(result.data) //dot notation to get specific data
+        carriers = result.data.Carriers
+        setFlights(result.data.Quotes)
+        // setFlights(result.data)
     })
     .catch((err) => console.log(err, "flight result error")) 
 }, [])
@@ -24,11 +32,10 @@ useEffect(() => {
 
     return (
         <div className='Flights'>
-            <p>Flights</p>
             
             {flights.map((f, idx) => {
                 return (
-                    <Flight flightInfo={f}/>
+                    <Flight flightInfo={f} carriers={carriers}/>
                 )
             })}
         </div>
