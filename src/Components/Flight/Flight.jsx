@@ -9,7 +9,9 @@ export default function Flight(props) {
         <div className='Flight'>
             <p>Flight</p>
          <div>
-             <p>carrier</p>
+             <p>carrier
+                 {props.flightInfo}
+             </p>
              <p>departure time</p>
              <p>arrival time</p>
              <p>departure city</p>

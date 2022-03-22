@@ -16,15 +16,14 @@ useEffect(() => {
             locale: 'en-US',
             originPlace: 'YYZ',
             destinationPlace: 'YVR',
-            outboundPartialDate: 'anytime',
-            inboundPartialDate: 'anytime'
+            outboundPartialDate: '2022-04-01',
+            inboundPartialDate: '2022-04-10'
         }
     })
     .then((result) => {
         console.log(result.data) //dot notation to get specific data
         carriers = result.data.Carriers
         setFlights(result.data.Quotes)
-        // setFlights(result.data)
     })
     .catch((err) => console.log(err, "flight result error")) 
 }, [])
@@ -35,7 +34,9 @@ useEffect(() => {
             
             {flights.map((f, idx) => {
                 return (
-                    <Flight flightInfo={f} carriers={carriers}/>
+                    <Flight 
+                    flightInfo={f} 
+                    carriers={carriers}/>
                 )
             })}
         </div>
