@@ -1,0 +1,12 @@
+.Signup {
+    height: 100vh;
+    padding: 0 20px;
+
+}
+
+.Signup form input {
+    height: 30px;
+    width:  90%;
+    border-radius: 5px;
+    padding: 0 5px;
+}
