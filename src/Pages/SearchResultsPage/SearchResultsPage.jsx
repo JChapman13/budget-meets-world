@@ -20,6 +20,7 @@ export default function SearchResultsPage(props) {
             { props.currentCat === "hotel" ? <Hotels hotels={props.hotels}/> : false }
             { props.currentCat === "rest" ? <Foods /> : false }
             <Footer />
+            // add lalala
         </div>
     )
 }
