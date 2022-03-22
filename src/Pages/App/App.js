@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react'
 import {Link, useNavigate, Route, Routes} from 'react-router-dom'
 import AuthPage from '../AuthPage/AuthPage';
+import SearchPage from '../SearchPage/SearchPage';
 import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SavedTripsPage from '../SavedTripsPage/SavedTripsPage';
@@ -31,7 +32,6 @@ export default function App(props) {
     let token = localStorage.getItem('token')
     if (token){
       const payload = await JSON.parse(atob(token.split('.')[1]))
-      console.log(payload)
       if (payload.exp < (Date.now() / 1000)) {
         localStorage.removeItem('token')
         token = null
@@ -60,6 +60,10 @@ export default function App(props) {
         <Route
           path="/"
           element={<SearchResultsPage />}
+        />
+        <Route
+          path="/create"
+          element={<SearchPage user={user} />}
         />
         <Route 
           path="/profile"
