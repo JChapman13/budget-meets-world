@@ -11,9 +11,26 @@ import Signup from '../../Components/Signup/Signup';
 
 
 export default function App(props) {
+  let navigate = useNavigate()
   const [user, setUser] = useState(null)
 
-  let navigate = useNavigate()
+  const [currentCat, setCurrentCat] = useState('flight')
+
+  const [trip, setTrip] = useState({
+    name: '',
+    budget: 0,
+    people: 1,
+    origin: '',
+    destination: 'New York City, NY',
+    flight: 0,
+    accommodation: 0,
+    restaurant: 0,
+    startDate: '04/25/2022',
+    endDate: '04/27/2022',
+  })
+
+  const [hotelList, setHotelList] = useState([])
+  
 
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData)
@@ -28,13 +45,32 @@ export default function App(props) {
     }
   }
 
-  findHotels = async () => {
+  async function findHotels() {
     try {
-      let fetchHotelList = await fetch('/api/hotels')
+      let fetchHotelList = await fetch('/api/hotels', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          budget: 2000,
+          people: 2,
+          destination: 'New York City, NY',
+          accommodation: 500,
+          startDate: '2022-03-25',
+          endDate: '2022-03-27'
+        })
+    })
       let hotels = await fetchHotelList.json()
+      setHotelList(hotels)
+      setCurrentCat('hotel')
     } catch (err) {
       console.log(err)
     }
+  }
+
+  async function createTrip(object) {
+    console.log(object)
+    setTrip(object)
+    navigate('/')
   }
 
   useEffect(async () => {
@@ -68,11 +104,15 @@ export default function App(props) {
         </Route>
         <Route
           path="/"
-          element={<SearchResultsPage />}
+          element={<SearchResultsPage 
+            findHotels={findHotels} 
+            hotels={hotelList}
+            currentCat={currentCat}
+          />}
         />
         <Route
           path="/create"
-          element={<SearchPage user={user} />}
+          element={<SearchPage user={user} createTrip={createTrip} />}
         />
         <Route 
           path="/profile"

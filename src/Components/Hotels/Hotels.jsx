@@ -8,8 +8,13 @@ export default function Hotels(props) {
 
     return (
         <div className='Hotels'>
-            <p>Hotels</p>
-            <Hotel />
+            {props.hotels.map(hotel => 
+                
+                    <Hotel 
+                        hotel={hotel}
+                    />
+                
+            )}
         </div>
     )
 }

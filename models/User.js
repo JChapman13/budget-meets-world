@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const saveSchema = new Schema({
+const hotelSchema = new Schema({
     category: String,
     name: String,
     cost: Number,
@@ -21,7 +21,7 @@ const tripSchema = new Schema({
     startDate: Date,
     endDate: Date,
     people: Number,
-    save: [saveSchema]
+    hotel: [hotelSchema]
 }, {
     timestamps: true
 })
