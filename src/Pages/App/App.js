@@ -28,6 +28,15 @@ export default function App(props) {
     }
   }
 
+  findHotels = async () => {
+    try {
+      let fetchHotelList = await fetch('/api/hotels')
+      let hotels = await fetchHotelList.json()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(async () => {
     let token = localStorage.getItem('token')
     if (token){
