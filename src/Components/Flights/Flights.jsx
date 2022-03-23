@@ -24,7 +24,7 @@ export default function Flights(props) {
             outboundLeg={f.OutboundLeg}
             inboundLeg={f.InboundLeg}
             price={f.MinPrice}
-            carriers={carriers}
+            carriers={props.carriers}
           />
         );
       })}
