@@ -9,6 +9,7 @@ export default function Hotel(props) {
         <div className='Hotel'>
             {/* <Link to={`/hotel/${props.hotel.id}`}> */}
             <button onClick={() => props.openHotelDetail(props.hotel.id)} >see more</button>
+            <button onClick={() => props.saveHotel()}>Save</button>
             <p>Hotel</p>
             <p>Hotel Name: {props.hotel.name}</p>
             <p>Star Rating: {props.hotel.starRating}</p>

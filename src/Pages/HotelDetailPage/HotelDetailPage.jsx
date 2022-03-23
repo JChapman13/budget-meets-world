@@ -3,6 +3,26 @@ import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
 
 export default function HotelDetailPage(props) {
+    const [index, setIndex] = useState(0)
+    
+    let newIndex = 0
+    function goToLeft() {
+        if (index === 0) {
+            newIndex = props.project.images.length - 1
+            setIndex(newIndex)
+        } else {
+            newIndex = index
+            setIndex(newIndex - 1)
+        }
+    }
+    function goToRight() {
+        if (index === props.project.images.length - 1) {
+            setIndex(0)
+        } else {
+            let newIndex = index
+            setIndex(newIndex + 1)
+        }
+    }
 
     return (
         <div>

@@ -11,6 +11,7 @@ import Login from "../../Components/Login/Login";
 import Signup from "../../Components/Signup/Signup";
 import TripDetailPage from "../TripDetailPage/TripDetailPage";
 import Flights from "../../Components/Flights/Flights";
+const axios = require("axios");
 
 export default function App(props) {
   let navigate = useNavigate();
@@ -57,28 +58,7 @@ export default function App(props) {
     }
   }
 
-  async function findHotels() {
-    setCurrentCat("hotel");
-    try {
-      let fetchHotelList = await fetch("/api/hotels", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          budget: 2000,
-          people: 2,
-          destination: "New York City, NY",
-          accommodation: 500,
-          startDate: "2022-03-25",
-          endDate: "2022-03-27",
-        }),
-      });
-      let hotels = await fetchHotelList.json();
-      setHotelList(hotels);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
+  
   async function createTrip(object, userId) {
     if (!object.id) {
       let fetchTrip = await fetch("/api/users/create/trip", {
@@ -131,6 +111,29 @@ export default function App(props) {
     }
   }
 
+  // for hotels
+    async function findHotels() {
+      setCurrentCat("hotel");
+      try {
+        let fetchHotelList = await fetch("/api/hotels", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            budget: 2000,
+            people: 2,
+            destination: "New York City, NY",
+            accommodation: 500,
+            startDate: "2022-03-25",
+            endDate: "2022-03-27",
+          }),
+        });
+        let hotels = await fetchHotelList.json();
+        setHotelList(hotels);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
   async function findOneHotel(id) {
     try {
       let fetchOneHotel = await fetch("/api/hotels/one", {
@@ -170,6 +173,11 @@ export default function App(props) {
     navigate(`/hotel/${id}`);
   }
 
+  async function saveHotel(id) {
+    user.trip
+  }
+
+  // for restaurants
   const restaurantPrice = () => {
     const date1 = new Date(trip.startDate);
     const date2 = new Date(trip.endDate);
@@ -199,6 +207,7 @@ export default function App(props) {
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
 
+  // for flights
   async function getFlights(params) {
     setCurrentCat("flight");
     axios
@@ -273,6 +282,8 @@ export default function App(props) {
               getFlights={getFlights}
               flights={flights}
               carriers={carriers}
+              user={user}
+              saveHotel={saveHotel}
             />
           }
         />
