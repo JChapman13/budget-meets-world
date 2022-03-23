@@ -52,28 +52,6 @@ export default function App(props) {
 		}
 	}
 
-	async function findHotels() {
-		setCurrentCat('hotel');
-		try {
-			let fetchHotelList = await fetch('/api/hotels', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					budget: 2000,
-					people: 2,
-					destination: 'New York City, NY',
-					accommodation: 500,
-					startDate: '2022-03-25',
-					endDate: '2022-03-27',
-				}),
-			});
-			let hotels = await fetchHotelList.json();
-			setHotelList(hotels);
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
 	async function createTrip(object, userId) {
 		if (!object.id) {
 			let fetchTrip = await fetch('/api/users/create/trip', {
@@ -150,25 +128,6 @@ export default function App(props) {
 		setPlaces({ origin: city1 , destination: city2 })
 	}
 
-	async function findOneHotel(id) {
-		try {
-		let fetchOneHotel = await fetch("/api/hotels/one", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-			id: id,
-			people: 2,
-			startDate: "2022-03-25",
-			endDate: "2022-03-27",
-			}),
-		});
-		let hotel = await fetchOneHotel.json();
-		console.log(hotel);
-		setOneHotel(hotel);
-		} catch (err) {
-		console.log(err);
-		}
-	}
 
 	async function openOneTrip(id) {
 		let fetchTrip = await fetch('/api/users/trip/detail', { headers: { "userId": user._id , "tripId": id } })
@@ -300,7 +259,11 @@ export default function App(props) {
 		await getHotelPhotos(id);
 		navigate(`/hotel/${id}`);
 	}
-
+  
+  async function saveHotel(id) {
+    user.trip
+  }
+  
 	const restaurantPrice = () => {
 		const date1 = new Date(trip.startDate);
 		const date2 = new Date(trip.endDate);
@@ -314,9 +277,6 @@ export default function App(props) {
 		if (dailyPrice <= 10) return '1';
 	};
 
-  async function saveHotel(id) {
-    user.trip
-  }
 
   // for restaurants
   // const restaurantPrice = () => {
@@ -364,52 +324,9 @@ export default function App(props) {
 			.catch((err) => console.log(err, 'flight result error'));
 	}
 
-	useEffect(async () => {
-		let token = localStorage.getItem('token');
-		if (token) {
-			const payload = await JSON.parse(atob(token.split('.')[1]));
-			if (payload.exp < Date.now() / 1000) {
-				localStorage.removeItem('token');
-				token = null;
-				navigate('/account/login');
-			} else {
-				try {
-					let fetchUser = await fetch('/api/users/', {
-						headers: { userId: payload.user._id },
-					});
-					let user = await fetchUser.json();
-					setUser(user);
-					setTrips(user.trip);
-				} catch (err) {
-					console.log('home page error: ', err);
-				}
-			}
-		} else {
-			navigate('/account/login');
-		}
-	}, []);
 
-  // for flights
-  async function getFlights(params) {
-    setCurrentCat("flight");
-    axios
-      .get("/api/flights", {
-        params: {
-          country: "CA",
-          currency: "cad",
-          locale: "en-US",
-          originPlace: "YYZ",
-          destinationPlace: "YVR",
-          outboundPartialDate: "2022-04",
-          inboundPartialDate: "2022-06",
-        },
-      })
-      .then((result) => {
-        setCarriers(result.data.Carriers);
-        setFlights(result.data.Quotes);
-      })
-      .catch((err) => console.log(err, "flight result error"));
-  }
+
+  
 
   useEffect(async () => {
     let token = localStorage.getItem("token");
