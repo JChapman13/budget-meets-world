@@ -21,10 +21,17 @@ export default function Login(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         const fetchResponse = await fetch('/api/users/login', {
+<<<<<<< HEAD
             method: 'post',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 username: user.name,
+=======
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: user.name,
+>>>>>>> 42f06f696d4262adfc1eeb74d7ea231b67f3558a
                 password: user.password,
             })
         })
