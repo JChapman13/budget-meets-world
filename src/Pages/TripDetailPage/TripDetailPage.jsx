@@ -1,7 +1,7 @@
 import './TripDetailPage.css'
 import moment from 'moment'
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
 
 export default function TripDetailPage(props) {
@@ -10,10 +10,16 @@ export default function TripDetailPage(props) {
     let hotelPercent = Math.round((props.trip.accommodation / total) * 100)
     let restPercent = Math.round((props.trip.restaurant / total) * 100)
 
+    let navigate = useNavigate()
+    async function goBack() {
+        navigate('/trips')
+    }
+    
     return (
         <div className='TripDetailPage'>
             <h1>Trip to {props.trip.destination}</h1>
-            <button className='TripDetailPage-edit-btn' onClick={() => console.log("hello")}>edit</button>
+            <button className='TripDetailPage-back-btn' onClick={() => goBack()}>back</button>
+            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip()}>edit</button>
             <div className='TripDetailPage-img'>
 
             </div>

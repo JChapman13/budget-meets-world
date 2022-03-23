@@ -1,6 +1,7 @@
 import "./Foods.css";
 import React, { useState, useEffect } from "react";
-import Food from "../Food";
+import Food from "../Food/Food";
+const axios = require('axios').default
 
 export default function Foods(props) {
   const [restaurants, setRestaurants] = useState([]);
@@ -13,7 +14,7 @@ export default function Foods(props) {
         params: {
           latitude: 43.6532,
           longitude: 79.3832,
-          price: $$,
+          price: "$$",
         },
       })
       .then((res) => {

@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import {Link, useNavigate, Route, Routes} from 'react-router-dom'
+import {useNavigate, Route, Routes} from 'react-router-dom'
 import AuthPage from '../AuthPage/AuthPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
@@ -14,11 +14,13 @@ import TripDetailPage from '../TripDetailPage/TripDetailPage';
 
 export default function App(props) {
   let navigate = useNavigate()
+
   const [user, setUser] = useState(null)
   const [trips, setTrips] = useState([])
-
   const [currentCat, setCurrentCat] = useState("flight");
-
+  const [hotelList, setHotelList] = useState([])
+  const [oneHotel, setOneHotel] = useState({})
+  const [hotelPhotos, setHotelPhotos] = useState({})
   const [trip, setTrip] = useState({
     name: 'la la la',
     budget: 5000,
@@ -31,12 +33,12 @@ export default function App(props) {
     startDate: '04/25/2022',
     endDate: '04/27/2022',
   })
+  const [currentTrip, setCurrentTrip] = useState({})
+  const [places, setPlaces] = useState({
+    origin: 'anywhere',
+    destination: 'anywhere'
+  })
 
-  const [hotelList, setHotelList] = useState([])
-
-  const [oneHotel, setOneHotel] = useState({})
-  
-  const [hotelPhotos, setHotelPhotos] = useState({})
 
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData);
@@ -121,6 +123,30 @@ export default function App(props) {
     }
   }
 
+  async function getCityCode(ori, des) {
+    let origin = ori.replace(' ','%20');
+    let fetchOrigin = await fetch("/api/flights/city", {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        city: origin
+      })
+    })
+    let city1 = await fetchOrigin.json()
+
+    let destination = des.replace(' ','%20');
+    let fetchDestination = await fetch("/api/flights/city", {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        city: destination
+      })
+    })
+    let city2 = await fetchDestination.json()
+
+    setPlaces({ origin: city1 , destination: city2 })
+  }
+
   async function findOneHotel(id) {
     try {
       let fetchOneHotel = await fetch('/api/hotels/one', {
@@ -139,6 +165,23 @@ export default function App(props) {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  async function openOneTrip(id) {
+    let fetchTrip = await fetch('/api/users/trip/detail', { headers: { "userId": user._id , "tripId": id } })
+    let trip = await fetchTrip.json()
+    setCurrentTrip(trip)
+    navigate(`/trips/${id}`)
+  }
+
+  async function editOneTrip(id) {
+    setTrip(currentTrip)
+    navigate(`/create`)
+  }
+
+  async function createNewTrip(id) {
+    setTrip({})
+    navigate(`/create`)
   }
 
   async function getHotelPhotos(id) {
@@ -211,6 +254,7 @@ export default function App(props) {
             user={user} 
             createTrip={createTrip} 
             trip={trip}
+            getCityCode={getCityCode}
           />}
         />
         <Route 
@@ -222,13 +266,16 @@ export default function App(props) {
           element={<SavedTripsPage
             user={user}
             trips={trips}
+            openOneTrip={openOneTrip}
+            createNewTrip={createNewTrip}
           />}
         />
         <Route 
           path="/trips/:id"
           element={<TripDetailPage
             user={user}
-            trip={trip}
+            trip={currentTrip}
+            editOneTrip={editOneTrip}
           />}
         />
         <Route 

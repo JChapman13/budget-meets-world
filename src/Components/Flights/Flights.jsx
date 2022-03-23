@@ -23,7 +23,7 @@ useEffect(() => {
     .then((result) => {
         console.log(result.data) //dot notation to get specific data
         carriers = result.data.Carriers
-        setFlights(result.data.Quotes)
+        // setFlights(result.data.Quotes)
     })
     .catch((err) => console.log(err, "flight result error")) 
 }, [])

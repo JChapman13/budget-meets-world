@@ -9,6 +9,7 @@ module.exports = {
     getAll,
     createTrip,
     editTrip,
+    getTrip,
 }
 
 async function login(req, res) {
@@ -90,3 +91,14 @@ async function editTrip(req,res){
     }
 }
 
+async function getTrip(req, res) {
+    try {
+        let userId = req.get('userId')
+        const users = await UserModel.findById(userId)
+        let tripId = req.get('tripId')
+        const theTrip = await users.trip.find(trip => trip._id == tripId )
+        res.status(200).json(theTrip)
+    } catch(err) {
+        res.status(400).json(err)
+    }
+}
