@@ -12,6 +12,7 @@ export default function Hotels(props) {
                 
                     <Hotel 
                         hotel={hotel}
+                        openHotelDetail={props.openHotelDetail}
                     />
                 
             )}

@@ -6,16 +6,17 @@ import moment from 'moment'
 
 export default function SearchPage(props) {
     const [trip, setTrip] = useState({
-        name: '',
-        budget: 0,
-        people: 1,
-        origin: '',
-        destination: '',
-        flight: 0,
-        accommodation: 0,
-        restaurant: 0,
-        startDate: '',
-        endDate: '',
+        id: props.trip._id,
+        name: props.trip.name,
+        budget: props.trip.budget,
+        people: props.trip.people,
+        origin: props.trip.origin,
+        destination: props.trip.destination,
+        flight: props.trip.flight,
+        accommodation: props.trip.accommodation,
+        restaurant: props.trip.restaurant,
+        startDate: props.trip.startDate,
+        endDate: props.trip.endDate,
         submitError: '',
     })
     
@@ -43,55 +44,59 @@ export default function SearchPage(props) {
             setSubmitError('Please edit budget for your trip')
         }
         if (valid) {
-            await props.createTrip(trip)
+            await props.createTrip(trip, props.user._id)
             // navigate('/')
         }
     }
 
     async function getUserLocation() {
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-        async function success(pos) {
-            let crd = pos.coords;
-            let location = await fetch(`https://api.geocod.io/v1.7/reverse?q=${crd.latitude},${crd.longitude}&limit=1&api_key=${process.env.REACT_APP_GEO_KEY}`)
-            let trueLocation = await location.json()
-            setTrip({...trip, origin:`${trueLocation.results[0].address_components.city}, ${trueLocation.results[0].address_components.state}` })
+        if (props.trip.origin) {
+            setTrip({...trip, origin: props.trip.origin})
+        } else {
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+            async function success(pos) {
+                let crd = pos.coords;
+                let location = await fetch(`https://api.geocod.io/v1.7/reverse?q=${crd.latitude},${crd.longitude}&limit=1&api_key=${process.env.REACT_APP_GEO_KEY}`)
+                let trueLocation = await location.json()
+                setTrip({...trip, origin:`${trueLocation.results[0].address_components.city}, ${trueLocation.results[0].address_components.state}` })
+            }
+            function error(err) {
+                setTrip({...trip, origin:'' })
+            }
+            navigator.geolocation.getCurrentPosition(success, error, options)
         }
-        function error(err) {
-            setTrip({...trip, origin:'' })
-        }
-        navigator.geolocation.getCurrentPosition(success, error, options)
     }
 
 
     // It's not working right now, we'll do it later
-    async function getDefaultDate() {
-        let startdate = new Date()
-        let dayOfWeek = 5;
-        let diff = startdate.getDay() - dayOfWeek;
-        if (diff > 0) {
-            startdate.setDate(startdate.getDate() + 6);
-        } else if (diff < 0) {
-            startdate.setDate(startdate.getDate() + ((-1) * diff))
-        }
-        let enddate = new Date()
-        let enddayOfWeek = 7;
-        let enddiff = enddate.getDay() - enddayOfWeek;
-        if (enddiff > 0) {
-            enddate.setDate(enddate.getDate() + 6);
-        } else if (enddiff < 0) {
-            enddate.setDate(enddate.getDate() + ((-1) * enddiff))
-        }
-        let one = moment(startdate).format('YYYY-MM-DD')
-        setTrip({...trip, startDate: one, endDate: moment(enddate).format('YYYY-MM-DD') })
-    }
+    // async function getDefaultDate() {
+    //     let startdate = new Date()
+    //     let dayOfWeek = 5;
+    //     let diff = startdate.getDay() - dayOfWeek;
+    //     if (diff > 0) {
+    //         startdate.setDate(startdate.getDate() + 6);
+    //     } else if (diff < 0) {
+    //         startdate.setDate(startdate.getDate() + ((-1) * diff))
+    //     }
+    //     let enddate = new Date()
+    //     let enddayOfWeek = 7;
+    //     let enddiff = enddate.getDay() - enddayOfWeek;
+    //     if (enddiff > 0) {
+    //         enddate.setDate(enddate.getDate() + 6);
+    //     } else if (enddiff < 0) {
+    //         enddate.setDate(enddate.getDate() + ((-1) * enddiff))
+    //     }
+    //     let one = moment(startdate).format('YYYY-MM-DD')
+    //     setTrip({...trip, startDate: one, endDate: moment(enddate).format('YYYY-MM-DD') })
+    // }
     
     useEffect(() => {
         getUserLocation()
-        getDefaultDate()
+        // getDefaultDate()
     }, [])
 
     useEffect(() => {
@@ -125,14 +130,14 @@ export default function SearchPage(props) {
         <div className='SearchPage'>
             <h1>SearchPage</h1>
             <form onSubmit={handleSubmit} >
-                    <input onChange={handleChange} type="text" name="name" placeholder='Trips name?' required />
+                    <input onChange={handleChange} type="text" name="name" value={trip.name} placeholder='Trips name?' required />
                 <div className='duo-input'>
                     <input onChange={handleChange} type="number" pattern='[0-9]' name="budget" value={trip.budget} required />
                     <input onChange={handleChange} type="number" name="people" value={trip.people} />
                 </div>
                 <div className='duo-input'>
                     <input onChange={handleChange} type="text" name="origin" placeholder='From?' value={trip.origin} required />
-                    <input onChange={handleChange} type="text" name="destination" placeholder='To?' required />
+                    <input onChange={handleChange} type="text" name="destination" value={trip.destination} required />
                 </div>
                 <div className='duo-input'>
                     <input onChange={handleChange} type="date" name="startDate" value={trip.startDate} required />
