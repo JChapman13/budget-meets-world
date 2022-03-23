@@ -11,7 +11,7 @@ import Login from "../../Components/Login/Login";
 import Signup from "../../Components/Signup/Signup";
 import TripDetailPage from "../TripDetailPage/TripDetailPage";
 import Flights from "../../Components/Flights/Flights";
-import axios from "axios";
+const axios = require("axios").default;
 
 export default function App(props) {
   let navigate = useNavigate();
@@ -298,7 +298,7 @@ export default function App(props) {
             <HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />
           }
         />
-        <Route path="/flights" element={<Flights />} />
+        <Route path="/flights" element={<Flights flights={flights} />} />
       </Routes>
     </div>
   );

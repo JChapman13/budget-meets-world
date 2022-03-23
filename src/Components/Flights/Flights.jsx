@@ -1,7 +1,7 @@
 import "./Flights.css";
 import React, { useEffect, useState } from "react";
 import Flight from "../Flight/Flight";
-const axios = require("axios").default;
+
 
 export default function Flights(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +17,7 @@ export default function Flights(props) {
   }
   return (
     <div className="Flights">
+        {console.log(props.flights)}
       {props.flights.map((f, idx) => {
         return (
           <Flight
