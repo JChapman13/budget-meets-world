@@ -30,6 +30,7 @@ export default function SearchResultsPage(props) {
         <Foods
           getRestaurants={props.restaurants}
           restaurants={props.restaurants}
+          getRestaurantDetail={props.getRestaurantDetail}
         />
       ) : (
         false

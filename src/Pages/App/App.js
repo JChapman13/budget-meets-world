@@ -11,6 +11,7 @@ import Login from "../../Components/Login/Login";
 import Signup from "../../Components/Signup/Signup";
 import TripDetailPage from "../TripDetailPage/TripDetailPage";
 import Flights from "../../Components/Flights/Flights";
+import RestaurantDetailPage from "../RestaurantDetailPage/RestaurantDetailPage";
 const axios = require("axios").default;
 
 export default function App(props) {
@@ -40,6 +41,8 @@ export default function App(props) {
   const [hotelPhotos, setHotelPhotos] = useState({});
 
   const [restaurants, setRestaurants] = useState([]);
+
+  const [restaurantDetail, setRestaurantDetail] = useState();
 
   const [flights, setFlights] = useState([]);
 
@@ -190,12 +193,28 @@ export default function App(props) {
       .get("/api/foods", {
         params: {
           latitude: 43.6532,
-          longitude: 79.3832,
+          longitude: -79.3832,
           price: restaurantPrice(),
         },
       })
       .then((res) => {
+        console.log(res.data.businesses);
         setRestaurants(res.data.businesses);
+      })
+      .catch((err) => console.log(err, "this is a restaurant finder error"));
+  }
+
+  async function getRestaurantDetail(params) {
+    console.log(params);
+    axios
+      .get(`/api/foods/detail/${params}`, {
+        params: {
+          id: params,
+        },
+      })
+      .then((res) => {
+        setRestaurantDetail(res.data);
+        navigate("/restaurant/:id");
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
@@ -271,6 +290,7 @@ export default function App(props) {
               getRestaurants={getRestaurants}
               restaurantPrice={restaurantPrice}
               restaurants={restaurants}
+              getRestaurantDetail={getRestaurantDetail}
               getFlights={getFlights}
               flights={flights}
               carriers={carriers}
@@ -297,6 +317,10 @@ export default function App(props) {
           element={
             <HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />
           }
+        />
+        <Route
+          path="/restaurant/:id"
+          element={<RestaurantDetailPage restaurantDetail={restaurantDetail} />}
         />
         <Route path="/flights" element={<Flights flights={flights} />} />
       </Routes>
