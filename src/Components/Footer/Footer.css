@@ -10,3 +10,10 @@
     width: 100vw;
     height: 50px;
 }
+.footer div {
+    display: grid;
+    place-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}

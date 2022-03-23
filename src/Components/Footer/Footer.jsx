@@ -6,7 +6,7 @@ export default function Footer(props) {
   return (
     <div className="footer">
       <div>
-        <Link to="/">MY TRIPS</Link>
+        <Link to="/trips">MY TRIPS</Link>
       </div>
       <div>
         <Link to="/create">SEARCH</Link>

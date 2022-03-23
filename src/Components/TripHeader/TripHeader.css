@@ -9,6 +9,7 @@
     background-color: #0D47A1;
     color: white;
     font-weight: 600;
+    position: relative;
 }
 
 .TripHeader-detail-bar {
@@ -65,4 +66,15 @@
     background-color: #5f5f5f;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.edit-btn {
+    background-color: white;
+    color: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50px;
+    margin: 10px;
+    padding: 2px 5px;
 }

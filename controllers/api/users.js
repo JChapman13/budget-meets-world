@@ -7,6 +7,8 @@ module.exports = {
     signup,
     getOne,
     getAll,
+    createTrip,
+    editTrip,
 }
 
 async function login(req, res) {
@@ -56,3 +58,35 @@ async function getAll(req,res){
         res.status(400).json(err)
     }
 }
+
+async function createTrip(req,res){
+    let userId = req.get('userId')
+    const users = await UserModel.findById(userId)
+    try {
+        await users.trip.push(req.body)
+        await users.save()
+        const theTrip = await users.trip.find(trip => trip.name == req.body.name )
+        res.status(200).json({ users: users, trip: theTrip })
+    } catch(err) {
+        res.status(400).json(err)
+    }
+}
+
+async function editTrip(req,res){
+    let userId = req.get('userId')
+    const users = await UserModel.findById(userId)
+    let tripId = req.get('tripId')
+    try {
+        let popedTrip = await users.trip.splice(users.trip.indexOf(trip => {
+            trip._id === tripId
+        }), 1)
+        req.body.hotel = popedTrip.hotel
+        await users.trip.push(req.body)
+        await users.save()
+        const theTrip = await users.trip.find(trip => trip.name == req.body.name )
+        res.status(200).json({ users: users, trip: theTrip })
+    } catch(err) {
+        res.status(400).json(err)
+    }
+}
+
