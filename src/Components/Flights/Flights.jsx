@@ -1,11 +1,10 @@
 import "./Flights.css";
 import React, { useEffect, useState } from "react";
 import Flight from "../Flight/Flight";
-
+const axios = require('axios').default;
 
 export default function Flights(props) {
   const [isLoading, setIsLoading] = useState(true);
-  
   useEffect(() => {
       console.log(props.flights)
     if (props.flights.length !== 0) {
