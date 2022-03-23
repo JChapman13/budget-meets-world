@@ -14,7 +14,7 @@ export default function Footer(props) {
             </div>
             <div>
                 <img src={require('../../Images/search-btn.svg')} alt="svg icon" />
-                <Link to="/create">CREATE</Link>
+                <Link to="/create">SEARCH</Link>
             </div>
             <div>
                 <img src={require('../../Images/profile-btn.svg')} alt="svg icon" />

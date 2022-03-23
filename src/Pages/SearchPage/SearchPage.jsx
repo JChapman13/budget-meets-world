@@ -20,7 +20,6 @@ export default function SearchPage(props) {
         submitError: '',
     })
 
-
   const [submitError, setSubmitError] = useState("");
 
   let navigate = useNavigate();

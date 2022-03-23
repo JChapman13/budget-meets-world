@@ -25,7 +25,7 @@ export default function Foods(props) {
 
   return (
     <div className="Foods">
-      {restaurants.map((item, idx) => {
+      {props.restaurants.map((item, idx) => {
         return <Food key={item + idx} restaurant={item} />;
       })}
     </div>

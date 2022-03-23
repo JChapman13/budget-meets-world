@@ -1,15 +1,16 @@
 const UserModel = require("../../models/User.js");
 const axios = require("axios");
+require("dotenv").config();
 
 module.exports = {
   getFoods,
 };
 
-function getFoods(req, res) {
+async function getFoods(req, res) {
   console.log(req.query);
   axios
     .get(
-      `https://api.yelp.com/v3/businesses/search?term=restaurants,${req.query.price}&limit=20&latitude=${req.query.latitude}&longitude=${req.query.longitude}`,
+      `https://api.yelp.com/v3/businesses/search?term=restaurants&price=2&limit=20&latitude=${req.query.latitude}&longitude=${req.query.longitude}`,
       {
         headers: { Authorization: `Bearer ${process.env.YELP_KEY}` },
       }

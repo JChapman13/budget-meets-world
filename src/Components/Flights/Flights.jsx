@@ -1,12 +1,10 @@
-import './Flights.css'
-import React , {useEffect, useState} from 'react'
-import Flight from '../Flight/Flight'
-const axios = require('axios').default
+import "./Flights.css";
+import React, { useEffect, useState } from "react";
+import Flight from "../Flight/Flight";
 
 
 export default function Flights(props) {
-    const[flights, setFlights] = useState([])
-let carriers = [];
+  const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
     axios.get('/api/flights', {
@@ -27,18 +25,30 @@ useEffect(() => {
     })
     .catch((err) => console.log(err, "flight result error")) 
 }, [])
+  useEffect(() => {
+      console.log(props.flights)
+    if (props.flights.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [props.flights]);
 
-
-    return (
-        <div className='Flights'>
-            
-            {flights.map((f, idx) => {
-                return (
-                    <Flight 
-                    flightInfo={f} 
-                    carriers={carriers}/>
-                )
-            })}
-        </div>
-    )
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
+  return (
+    <div className="Flights">
+        {console.log(props.flights)}
+      {props.flights.map((f, idx) => {
+        return (
+          <Flight
+            key={f + idx}
+            outboundLeg={f.OutboundLeg}
+            inboundLeg={f.InboundLeg}
+            price={f.MinPrice}
+            carriers={props.carriers}
+          />
+        );
+      })}
+    </div>
+  );
 }
