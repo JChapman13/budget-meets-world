@@ -184,6 +184,7 @@ export default function App(props) {
 	};
 
 	async function getRestaurants(params) {
+		setCurrentCat('rest');
 		axios
 			.get('/api/foods', {
 				params: {
@@ -199,6 +200,7 @@ export default function App(props) {
 	}
 
 	async function getFlights(params) {
+		setCurrentCat('flight');
 		axios
 			.get('/api/flights', {
 				params: {

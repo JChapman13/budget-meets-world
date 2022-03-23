@@ -4,18 +4,17 @@ import Flight from "../Flight/Flight";
 
 
 export default function Flights(props) {
-    const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-      if (props.flights.length !== 0) {
-        setIsLoading(false);
-      }
-    }, [props.flights]);
-  
-    if (isLoading) {
-      return <h1>Loading</h1>;
+  useEffect(() => {
+    if (props.flights.length !== 0) {
+      setIsLoading(false);
     }
+  }, [props.flights]);
 
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <div className="Flights">
         {console.log(props.flights)}
