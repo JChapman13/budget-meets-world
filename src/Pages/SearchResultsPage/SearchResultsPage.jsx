@@ -12,18 +12,25 @@ export default function SearchResultsPage(props) {
     <div className="SearchResultsPage">
       <TripHeader trip={props.trip} />
       <div className="SearchResultsPage-btn-bar">
-        <button onClick={() => console.log("hello")}>Flight</button>
+        <button onClick={() => props.getFlights()}>Flight</button>
         <button onClick={() => props.findHotels()}>Hotels</button>
         <button onClick={() => props.getRestaurants()}>Restaurant</button>
       </div>
-      {props.currentCat === "flight" ? <Flights /> : false}
+      {props.currentCat === "flight" ? (
+        <Flights flights={props.flights} carriers={props.carriers} />
+      ) : (
+        false
+      )}
       {props.currentCat === "hotel" ? (
         <Hotels hotels={props.hotels} openHotelDetail={props.openHotelDetail} />
       ) : (
         false
       )}
       {props.currentCat === "rest" ? (
-        <Foods getRestaurants={props.restaurants} />
+        <Foods
+          getRestaurants={props.restaurants}
+          restaurants={props.restaurants}
+        />
       ) : (
         false
       )}

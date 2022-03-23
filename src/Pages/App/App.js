@@ -40,6 +40,10 @@ export default function App(props) {
 
   const [restaurants, setRestaurants] = useState([]);
 
+  const [flights, setFlights] = useState([]);
+
+  const [carriers, setCarriers] = useState([]);
+
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData);
   }
@@ -185,7 +189,7 @@ export default function App(props) {
         params: {
           latitude: 43.6532,
           longitude: 79.3832,
-          price: 2,
+          price: restaurantPrice(),
         },
       })
       .then((res) => {
@@ -193,6 +197,27 @@ export default function App(props) {
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
+
+  async function getFlights(params) {
+    axios
+      .get("/api/flights", {
+        params: {
+          country: "CA",
+          currency: "cad",
+          locale: "en-US",
+          originPlace: "YYZ",
+          destinationPlace: "YVR",
+          outboundPartialDate: "2022-04",
+          inboundPartialDate: "2022-06",
+        },
+      })
+      .then((result) => {
+        setCarriers(result.data.Carriers);
+        setFlights(result.data.Quotes);
+      })
+      .catch((err) => console.log(err, "flight result error"));
+  }
+
   useEffect(async () => {
     let token = localStorage.getItem("token");
     if (token) {
@@ -242,6 +267,10 @@ export default function App(props) {
               openHotelDetail={openHotelDetail}
               getRestaurants={getRestaurants}
               restaurantPrice={restaurantPrice}
+              restaurants={restaurants}
+              getFlights={getFlights}
+              flights={flights}
+              carriers={carriers}
             />
           }
         />
