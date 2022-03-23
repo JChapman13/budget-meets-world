@@ -1,8 +1,8 @@
-import './SearchPage.css'
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Footer from '../../Components/Footer/Footer'
-import moment from 'moment'
+import "./SearchPage.css";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
+import moment from "moment";
 
 export default function SearchPage(props) {
     const [trip, setTrip] = useState({
@@ -19,19 +19,11 @@ export default function SearchPage(props) {
         endDate: props.trip.endDate,
         submitError: '',
     })
-    
-    const [submitError, setSubmitError] = useState('')
 
-    let navigate = useNavigate()
 
-    function handleChange(e) {
-        if (e.target.name === 'budget' || e.target.name === 'flight' || e.target.name === 'accommodation' || e.target.name === 'restaurant' || e.target.name === 'people') {
-            let num = parseInt(e.target.value)
-            setTrip({...trip, [e.target.name]:num })
-        } else {
-            setTrip({...trip, [e.target.name]:e.target.value })
-        }
-    }
+  const [submitError, setSubmitError] = useState("");
+
+  let navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -48,6 +40,21 @@ export default function SearchPage(props) {
             // navigate('/')
         }
     }
+
+  function handleChange(e) {
+    if (
+      e.target.name === "budget" ||
+      e.target.name === "flight" ||
+      e.target.name === "accommodation" ||
+      e.target.name === "restaurant" ||
+      e.target.name === "people"
+    ) {
+      let num = parseInt(e.target.value);
+      setTrip({ ...trip, [e.target.name]: num });
+    } else {
+      setTrip({ ...trip, [e.target.name]: e.target.value });
+    }
+  }
 
     async function getUserLocation() {
         if (props.trip.origin) {
@@ -99,62 +106,132 @@ export default function SearchPage(props) {
         // getDefaultDate()
     }, [])
 
-    useEffect(() => {
-        if (trip.budget === 0) {
-            setTrip({...trip, flight: 0})
-        } else if ((trip.flight + trip.accommodation + trip.restaurant) > trip.budget) {
-            let set = trip.budget - trip.accommodation - trip.restaurant
-            setTrip({...trip, flight: set})
-        }
-    }, [trip.flight])
+  useEffect(() => {
+    if (trip.budget === 0) {
+      setTrip({ ...trip, flight: 0 });
+    } else if (
+      trip.flight + trip.accommodation + trip.restaurant >
+      trip.budget
+    ) {
+      let set = trip.budget - trip.accommodation - trip.restaurant;
+      setTrip({ ...trip, flight: set });
+    }
+  }, [trip.flight]);
 
-    useEffect(() => {
-        if (trip.budget === 0) {
-            setTrip({...trip, accommodation: 0})
-        } else if ((trip.flight + trip.accommodation + trip.restaurant) > trip.budget) {
-            let set = trip.budget - trip.flight - trip.restaurant
-            setTrip({...trip, accommodation: set})
-        }
-    }, [trip.accommodation])
+  useEffect(() => {
+    if (trip.budget === 0) {
+      setTrip({ ...trip, accommodation: 0 });
+    } else if (
+      trip.flight + trip.accommodation + trip.restaurant >
+      trip.budget
+    ) {
+      let set = trip.budget - trip.flight - trip.restaurant;
+      setTrip({ ...trip, accommodation: set });
+    }
+  }, [trip.accommodation]);
 
-    useEffect(() => {
-        if (trip.budget === 0) {
-            setTrip({...trip, restaurant: 0})
-        } else if ((trip.flight + trip.accommodation + trip.restaurant) > trip.budget) {
-            let set = trip.budget - trip.accommodation - trip.flight
-            setTrip({...trip, restaurant: set})
-        }
-    }, [trip.restaurant])
+  useEffect(() => {
+    if (trip.budget === 0) {
+      setTrip({ ...trip, restaurant: 0 });
+    } else if (
+      trip.flight + trip.accommodation + trip.restaurant >
+      trip.budget
+    ) {
+      let set = trip.budget - trip.accommodation - trip.flight;
+      setTrip({ ...trip, restaurant: set });
+    }
+  }, [trip.restaurant]);
 
-    return (
-        <div className='SearchPage'>
-            <h1>SearchPage</h1>
-            <form onSubmit={handleSubmit} >
-                    <input onChange={handleChange} type="text" name="name" value={trip.name} placeholder='Trips name?' required />
-                <div className='duo-input'>
-                    <input onChange={handleChange} type="number" pattern='[0-9]' name="budget" value={trip.budget} required />
-                    <input onChange={handleChange} type="number" name="people" value={trip.people} />
-                </div>
-                <div className='duo-input'>
-                    <input onChange={handleChange} type="text" name="origin" placeholder='From?' value={trip.origin} required />
-                    <input onChange={handleChange} type="text" name="destination" value={trip.destination} required />
-                </div>
-                <div className='duo-input'>
-                    <input onChange={handleChange} type="date" name="startDate" value={trip.startDate} required />
-                    <input onChange={handleChange} type="date" name="endDate" value={trip.endDate} required />
-                </div>
-                <p>Flight</p>
-                <input onChange={handleChange} type="number" name="flight" value={trip.flight} required />
-                <p>Accommodation</p>
-                <input onChange={handleChange} type="number" name="accommodation" value={trip.accommodation} required />
-                <p>Food</p>
-                <input onChange={handleChange} type="number" name="restaurant" value={trip.restaurant} required />
-                { submitError ? <p>{submitError}</p> : false }
-                <br />
-                <br />
-                <button onSubmit={handleSubmit} >Done</button>
-            </form>
-            <Footer />
+  return (
+    <div className="SearchPage">
+      <h1>SearchPage</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleChange}
+          type="text"
+          name="name"
+          placeholder="Trips name?"
+          required
+        />
+        <div className="duo-input">
+          <input
+            onChange={handleChange}
+            type="number"
+            pattern="[0-9]"
+            name="budget"
+            value={trip.budget}
+            required
+          />
+          <input
+            onChange={handleChange}
+            type="number"
+            name="people"
+            value={trip.people}
+          />
         </div>
-    )
+        <div className="duo-input">
+          <input
+            onChange={handleChange}
+            type="text"
+            name="origin"
+            placeholder="From?"
+            value={trip.origin}
+            required
+          />
+          <input
+            onChange={handleChange}
+            type="text"
+            name="destination"
+            placeholder="To?"
+            required
+          />
+        </div>
+        <div className="duo-input">
+          <input
+            onChange={handleChange}
+            type="date"
+            name="startDate"
+            value={trip.startDate}
+            required
+          />
+          <input
+            onChange={handleChange}
+            type="date"
+            name="endDate"
+            value={trip.endDate}
+            required
+          />
+        </div>
+        <p>Flight</p>
+        <input
+          onChange={handleChange}
+          type="number"
+          name="flight"
+          value={trip.flight}
+          required
+        />
+        <p>Accommodation</p>
+        <input
+          onChange={handleChange}
+          type="number"
+          name="accommodation"
+          value={trip.accommodation}
+          required
+        />
+        <p>Food</p>
+        <input
+          onChange={handleChange}
+          type="number"
+          name="restaurant"
+          value={trip.restaurant}
+          required
+        />
+        {submitError ? <p>{submitError}</p> : false}
+        <br />
+        <br />
+        <button onSubmit={handleSubmit}>Done</button>
+      </form>
+      <Footer />
+    </div>
+  );
 }

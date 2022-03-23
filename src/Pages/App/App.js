@@ -17,7 +17,7 @@ export default function App(props) {
   const [user, setUser] = useState(null)
   const [trips, setTrips] = useState([])
 
-  const [currentCat, setCurrentCat] = useState('flight')
+  const [currentCat, setCurrentCat] = useState("flight");
 
   const [trip, setTrip] = useState({
     name: 'la la la',
@@ -39,37 +39,37 @@ export default function App(props) {
   const [hotelPhotos, setHotelPhotos] = useState({})
 
   async function setUserInState(incomingUserData) {
-    setUser(incomingUserData)
+    setUser(incomingUserData);
   }
 
-  async function userLogout () {
-    let token = localStorage.getItem('token')
-    if (token){
-      token= null
-      localStorage.removeItem('token')
-      setUser(null)
+  async function userLogout() {
+    let token = localStorage.getItem("token");
+    if (token) {
+      token = null;
+      localStorage.removeItem("token");
+      setUser(null);
     }
   }
 
   async function findHotels() {
     setCurrentCat('hotel')
     try {
-      let fetchHotelList = await fetch('/api/hotels', {
-        method: 'POST',
-        headers: {"Content-Type": "application/json"},
+      let fetchHotelList = await fetch("/api/hotels", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           budget: 2000,
           people: 2,
-          destination: 'New York City, NY',
+          destination: "New York City, NY",
           accommodation: 500,
-          startDate: '2022-03-25',
-          endDate: '2022-03-27'
-        })
-    })
-      let hotels = await fetchHotelList.json()
-      setHotelList(hotels)
+          startDate: "2022-03-25",
+          endDate: "2022-03-27",
+        }),
+      });
+      let hotels = await fetchHotelList.json();
+      setHotelList(hotels);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -160,13 +160,13 @@ export default function App(props) {
 
 
   useEffect(async () => {
-    let token = localStorage.getItem('token')
-    if (token){
-      const payload = await JSON.parse(atob(token.split('.')[1]))
-      if (payload.exp < (Date.now() / 1000)) {
-        localStorage.removeItem('token')
-        token = null
-        navigate("/account/login")
+    let token = localStorage.getItem("token");
+    if (token) {
+      const payload = await JSON.parse(atob(token.split(".")[1]));
+      if (payload.exp < Date.now() / 1000) {
+        localStorage.removeItem("token");
+        token = null;
+        navigate("/account/login");
       } else {
         try {
           let fetchUser = await fetch('/api/users/', { headers: { "userId": payload.user._id }})
@@ -178,16 +178,22 @@ export default function App(props) {
         }
       }
     } else {
-      navigate("/account/login")
+      navigate("/account/login");
     }
-  }, [])
+  }, []);
 
-  return(
-    <div className='App'>
+  return (
+    <div className="App">
       <Routes>
         <Route path="/account" element={<AuthPage />}>
-          <Route path="login" element={<Login setUserInState={setUserInState}/>}/>
-          <Route path="signup" element={<Signup setUserInState={setUserInState}/>}/>
+          <Route
+            path="login"
+            element={<Login setUserInState={setUserInState} />}
+          />
+          <Route
+            path="signup"
+            element={<Signup setUserInState={setUserInState} />}
+          />
         </Route>
         <Route
           path="/"
@@ -235,5 +241,5 @@ export default function App(props) {
       </Routes>
           
     </div>
-  )
+  );
 }
