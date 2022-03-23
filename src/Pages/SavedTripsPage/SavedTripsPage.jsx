@@ -1,6 +1,6 @@
 import "./SavedTripsPage.css";
 import React from "react";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../Components/Footer/Footer";
 
 export default function SavedTripsPage(props) {
   return (

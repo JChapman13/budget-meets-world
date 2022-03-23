@@ -1,7 +1,7 @@
 import "./Foods.css";
 import React, { useState, useEffect } from "react";
-import Food from "../Food";
-
+import Food from "../Food/Food";
+import axios from "axios";
 export default function Foods(props) {
   const [restaurants, setRestaurants] = useState([]);
 
@@ -9,11 +9,11 @@ export default function Foods(props) {
 
   useEffect(() => {
     axios
-      .get("/restaurants", {
+      .get("/api/foods", {
         params: {
           latitude: 43.6532,
           longitude: 79.3832,
-          price: $$,
+          price: "$$",
         },
       })
       .then((res) => {
