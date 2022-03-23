@@ -1,14 +1,13 @@
-import './Hotels.css'
-import React from 'react'
-
-
+import "./Hotels.css";
+import React from "react";
+import Hotel from "../Hotel/Hotel";
 
 export default function Hotels(props) {
-
-
-    return (
-        <div className='Hotels'>
-            <p>Hotels</p>
-        </div>
-    )
+  return (
+    <div className="Hotels">
+      {props.hotels.map((hotel) => (
+        <Hotel hotel={hotel} />
+      ))}
+    </div>
+  );
 }
