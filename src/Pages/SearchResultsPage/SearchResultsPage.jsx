@@ -22,7 +22,8 @@ export default function SearchResultsPage(props) {
       {props.currentCat === "flight" ? (
         <Flights 
         flights={props.flights} 
-        carriers={props.carriers} />
+        carriers={props.carriers}
+        places={props.places} />
       ) : (
         false
       )}
