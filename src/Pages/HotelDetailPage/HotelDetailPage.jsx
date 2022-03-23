@@ -3,10 +3,35 @@ import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
 
 export default function HotelDetailPage(props) {
+    const [index, setIndex] = useState(0)
+    
+    let newIndex = 0
+    function goToLeft() {
+        if (index === 0) {
+            newIndex = props.project.images.length - 1
+            setIndex(newIndex)
+        } else {
+            newIndex = index
+            setIndex(newIndex - 1)
+        }
+    }
+    function goToRight() {
+        if (index === props.project.images.length - 1) {
+            setIndex(0)
+        } else {
+            let newIndex = index
+            setIndex(newIndex + 1)
+        }
+    }
 
     return (
         <div>
-            <img style={{ width: '300px' }} src={props.hotelPhotos.hotelImages[0].baseUrl.replace('_{size}', '')} alt="Hotel Image"/>
+            {props.hotelPhotos.hotelImages.map((h, idx) => 
+                {if (idx < 4) {
+                    return <img style={{width: '300px'}} src={h.baseUrl.replace('_{size}', '')} alt="Hotel Image"/>
+                }}
+                )}
+            {/* <img style={{ width: '300px' }} src={props.hotelPhotos.hotelImages[0].baseUrl.replace('_{size}', '')} alt="Hotel Image"/> */}
             <p>Booking URL: {props.oneHotel.roomsAndRates.bookingUrl}</p>
             <p>Amenities:</p>
             <ul>{props.oneHotel.overview.overviewSections[0].content.map(c => <li>{c}</li>)}</ul>
@@ -17,11 +42,10 @@ export default function HotelDetailPage(props) {
             <p>Name: {props.oneHotel.propertyDescription.name}</p>
             <p>Star: {props.oneHotel.propertyDescription.starRating}</p>
             <p>Price: {props.oneHotel.propertyDescription.featuredPrice.currentPrice.plain}</p>
-            <p>Star:</p>
+            <p>Room Types:</p>
             <ul>{props.oneHotel.propertyDescription.roomTypeNames.map(r => <li>{r}</li>)}</ul>
             <p>Rating: 
                 {props.oneHotel.guestReviews.brands.rating} <br />
-                {props.oneHotel.guestReviews.brands.badgeText} <br />
                 Number of ratings: {props.oneHotel.guestReviews.brands.total}
             </p>
 

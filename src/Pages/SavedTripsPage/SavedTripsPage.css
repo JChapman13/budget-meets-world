@@ -4,6 +4,7 @@
 .SavedTripsPage h1 {
     color: #0D47A1;
     margin: 16px;
+    text-align: center;
 }
 
 .SavedTripsPage-add-btn {
