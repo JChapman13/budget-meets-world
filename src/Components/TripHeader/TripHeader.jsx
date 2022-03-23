@@ -8,6 +8,7 @@ export default function SearchResultsPage(props) {
     let flightPercent = Math.round((props.trip.flight / total) * 100)
     let hotelPercent = Math.round((props.trip.accommodation / total) * 100)
     let restPercent = Math.round((props.trip.restaurant / total) * 100)
+    // add a comment to test
     return (
         <div className='TripHeader'>
             <p>CAD ${props.trip.budget} </p>
