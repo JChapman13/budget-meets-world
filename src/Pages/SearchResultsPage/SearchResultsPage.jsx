@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
 import Hotels from '../../Components/Hotels/Hotels'
 import TripHeader from '../../Components/TripHeader/TripHeader'
+import Flights from '../../Components/Flights/Flights'
+import Foods from '../../Components/Foods/Foods'
 
 export default function SearchResultsPage(props) {
 

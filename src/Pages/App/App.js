@@ -8,6 +8,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import SavedTripsPage from '../SavedTripsPage/SavedTripsPage';
 import Login from '../../Components/Login/Login';
 import Signup from '../../Components/Signup/Signup';
+import Flights from '../../Components/Flights/Flights';
 
 export default function App(props) {
 	let navigate = useNavigate();
@@ -121,6 +122,7 @@ export default function App(props) {
 				/>
 				<Route path='/profile' element={<ProfilePage />} />
 				<Route path='/trips' element={<SavedTripsPage />} />
+				<Route path='/flights' element={<Flights />} />
 			</Routes>
 		</div>
 	);

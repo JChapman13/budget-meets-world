@@ -6,7 +6,8 @@ const axios = require('axios').default
 
 export default function Flights(props) {
     const[flights, setFlights] = useState([])
-let carriers = [];
+    const [carriers, setCarriers] = useState([])
+
 
 useEffect(() => {
     axios.get('/api/flights', {
@@ -21,23 +22,28 @@ useEffect(() => {
         }
     })
     .then((result) => {
-        console.log(result.data) //dot notation to get specific data
-        carriers = result.data.Carriers
+        setCarriers (result.data.Carriers)
         setFlights(result.data.Quotes)
+        // console.log(carriers)
+        // console.log(result.data, 'data')
+        // console.log(result.data.Carriers, 'carrier data')
+        // console.log(result.data.Quotes, 'data.quotes')
+
     })
     .catch((err) => console.log(err, "flight result error")) 
 }, [])
 
-
     return (
         <div className='Flights'>
             
-            {flights.map((f, idx) => {
+            {flights.map((f,idx) => {
+                console.log(flights, 'flights')
                 return (
-                    <Flight 
-                    flightInfo={f} 
+                    <Flight key={f + idx}
+                    outboundLeg={f.OutboundLeg}
+                    price={f.MinPrice}
                     carriers={carriers}/>
-                )
+                    )
             })}
         </div>
     )
