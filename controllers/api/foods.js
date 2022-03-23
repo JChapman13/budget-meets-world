@@ -5,6 +5,7 @@ require("dotenv").config();
 module.exports = {
   getFoods,
   restaurantDetail,
+  saveRestaurant,
 };
 
 async function getFoods(req, res) {
@@ -39,3 +40,45 @@ async function restaurantDetail(req, res) {
       res.status(500).json({ message: "can't find restaurant" });
     });
 }
+async function saveRestaurant(req, res) {
+  try {
+    const user = await UserModel.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { restaurantIds: req.body },
+      },
+      { returnDocument: "after" }
+    );
+    const token = jwt.sign({ user: user }, process.env.SECRET, {
+      expiresIn: "24h",
+    });
+    res.status(200).json(token);
+  } catch {
+    console.log("user delete error", err);
+    res.status(400).json(err);
+  }
+}
+
+// async function deleteRestaurant(req, res) {
+//   try {
+//     const user = await User.findByIdAndUpdate(
+//       { _id: req.params.id },
+//       {
+//         $pull: {
+//           watchlist: {
+//             _id: req.body._id,
+//           },
+//         },
+//       },
+//       { returnDocument: "after" }
+//     );
+//     console.log(coin, "this is the coin");
+//     const token = jwt.sign({ user: coin }, process.env.SECRET, {
+//       expiresIn: "24h",
+//     });
+//     res.status(200).json(token);
+//   } catch (err) {
+//     console.log("coin update error", err);
+//     res.status(400).json(err);
+//   }
+// }

@@ -24,6 +24,7 @@ const tripSchema = new Schema(
     startDate: Date,
     endDate: Date,
     people: Number,
+    restaurantIds: Array,
     hotel: [hotelSchema],
   },
   {
@@ -64,4 +65,8 @@ const userSchema = new Schema(
 );
 
 let UserModel = mongoose.model("User", userSchema);
-module.exports = UserModel;
+let TripModel = mongoose.model("Trip", tripSchema);
+module.exports = {
+  UserModel,
+  TripModel,
+};
