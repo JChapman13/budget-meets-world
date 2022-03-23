@@ -18,7 +18,6 @@ export default function Flights(props) {
   }
   return (
     <div className="Flights">
-        {console.log(props.flights)}
       {props.flights.map((f, idx) => {
         return (
           <Flight
