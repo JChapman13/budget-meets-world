@@ -1,0 +1,91 @@
+.TripDetailPage {
+    padding: 10px;
+    position: relative;
+}
+.TripDetailPage h1 {
+    font-size: 22px;
+    color: #0D47A1;
+
+}
+
+.TripDetailPage-edit-btn {
+    background-color: #0D47A1;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 3px 10px;
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+}
+
+.TripDetailPage-img {
+    height: 200px;
+    width: 90%;
+    background-color: lightgrey;
+    border-radius: 20px;
+    margin: 30px auto;
+}
+
+.TripDetailPage-budget-bar {
+    width: 300px;
+    height: 100px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    margin: 15px auto;
+    font-weight: 600;
+}
+.TripDetailPage-budget-bar p {
+    margin: 0;
+}
+.TripDetailPage-budget-bar-flight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+    background-color: #0D47A1;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.TripDetailPage-budget-bar-acc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    height: 100%;
+    background-color:#E3F2FD;
+}
+.TripDetailPage-budget-bar-food {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+    background-color: #062B65;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.TripDetailPage-info {
+    color: #64B5F6;
+    width: 90%;
+    margin: 20px 20px;
+
+}
+
+.TripDetailPage-info div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.TripDetailPage-info div p {
+    margin: 0;
+}

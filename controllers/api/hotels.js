@@ -1,51 +1,99 @@
 const UserModel = require('../../models/User.js');
 const rootURL = 'https://hotels4.p.rapidapi.com/';
 const axios = require('axios').default;
+const XRapidAPIKey = process.env.X_RapidAPI_Key;
 
 module.exports = {
     getHotels,
+    getOne,
+    getPhotos
 }
 
 async function getHotels(req, res) {
     var location = {
         method: 'GET',
         url: 'https://hotels4.p.rapidapi.com/locations/v2/search',
-        params: {query: 'new york', locale: 'en_US', currency: 'USD'},
+        params: {query: req.body.destination, locale: 'en_US', currency: 'CAD'},
         headers: {
           'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-          'X-RapidAPI-Key': '0681b94e85mshd675df0a523e004p1c5f2fjsn2bf580d60c4d'
+          'X-RapidAPI-Key': XRapidAPIKey
         }
       };
-      
+      let locationId
       axios.request(location).then(function (response) {
-          console.log(response.data);
+        locationId = response.data.suggestions[0].entities[0].destinationId
+        var hotels = {
+          method: 'GET',
+          url: 'https://hotels4.p.rapidapi.com/properties/list',
+          params: {
+            destinationId: locationId,
+            pageNumber: '1',
+            pageSize: '10',
+            checkIn: req.body.startDate,
+            checkOut: req.body.endDate,
+            adults1: req.body.people,
+            sortOrder: 'PRICE',
+            locale: 'en_US',
+            currency: 'CAD'
+          },
+          headers: {
+            'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+            'X-RapidAPI-Key': XRapidAPIKey
+          }
+        };
+          
+        axios.request(hotels).then(function (response) {
+            // console.log(response.data.data.body.searchResults.results);
+            res.status(200).json(response.data.data.body.searchResults.results)
+        }).catch(function (error) {
+            console.error(error);
+        });
       }).catch(function (error) {
           console.error(error);
       });
+}
 
-    var hotels = {
-        method: 'GET',
-        url: 'https://hotels4.p.rapidapi.com/properties/list',
-        params: {
-          destinationId: '1506246',
-          pageNumber: '1',
-          pageSize: '25',
-          checkIn: '2020-01-08',
-          checkOut: '2020-01-15',
-          adults1: '1',
-          sortOrder: 'PRICE',
-          locale: 'en_US',
-          currency: 'USD'
-        },
-        headers: {
-          'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-          'X-RapidAPI-Key': '0681b94e85mshd675df0a523e004p1c5f2fjsn2bf580d60c4d'
-        }
-      };
-      
-      axios.request(hotels).then(function (response) {
-          console.log(response.data);
-      }).catch(function (error) {
-          console.error(error);
-      });
+async function getOne(req, res) {
+  var hotel = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/get-details',
+    params: {
+      id: req.body.id,
+      checkIn: req.body.startDate,
+      checkOut: req.body.endDate,
+      adults1: req.body.people,
+      currency: 'CAD',
+      locale: 'en_US'
+    },
+    headers: {
+      'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+      'X-RapidAPI-Key': XRapidAPIKey
+    }
+  };
+  
+  axios.request(hotel).then(function (response) {
+    console.log(response.data.data.body);
+    res.status(200).json(response.data.data.body)
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+async function getPhotos(req, res) {
+  var photos = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/get-hotel-photos',
+    params: {id: req.get('id')},
+    headers: {
+      'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+      'X-RapidAPI-Key': XRapidAPIKey
+    }
+  };
+  
+  axios.request(photos).then(function (response) {
+    console.log(response.data);
+    res.status(200).json(response.data)
+  }).catch(function (error) {
+    console.error(error);
+  });
 }
