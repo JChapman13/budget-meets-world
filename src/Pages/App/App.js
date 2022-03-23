@@ -10,6 +10,7 @@ import HotelDetailPage from '../HotelDetailPage/HotelDetailPage';
 import Login from '../../Components/Login/Login';
 import Signup from '../../Components/Signup/Signup';
 import TripDetailPage from '../TripDetailPage/TripDetailPage';
+import Flights from '../../Components/Flights/Flights';
 
 export default function App(props) {
 	let navigate = useNavigate();
@@ -227,6 +228,7 @@ export default function App(props) {
 					path='/hotel/:id'
 					element={<HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />}
 				/>
+				<Route path='/flights' element={<Flights />} />
 			</Routes>
 		</div>
 	);
