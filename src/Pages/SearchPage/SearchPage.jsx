@@ -20,7 +20,6 @@ export default function SearchPage(props) {
         submitError: '',
     })
 
-
   const [submitError, setSubmitError] = useState("");
 
   let navigate = useNavigate();
@@ -29,15 +28,15 @@ export default function SearchPage(props) {
         e.preventDefault();
         let valid = true
         if (trip.budget === 0) {
-            valid = false
-            setSubmitError('Please set budget for your trip')
+          valid = false
+          setSubmitError('Please set budget for your trip')
         } else if (trip.flight === 0 && trip.accommodation === 0 && trip.restaurant === 0) {
-            valid = false
-            setSubmitError('Please edit budget for your trip')
+          valid = false
+          setSubmitError('Please edit budget for your trip')
         }
         if (valid) {
+            await props.getCityCode(trip.origin, trip.destination)
             await props.createTrip(trip, props.user._id)
-            // navigate('/')
         }
     }
 
