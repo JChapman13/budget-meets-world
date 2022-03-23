@@ -9,9 +9,9 @@ console.log(props, 'props')
             <p>Flight</p>
          <div>
              <p>Carrier: {props.carriers[0].Name}</p>
-             <p>departure city: {props.outboundLeg.DepartureDate}</p>
-             <p>arrival city: {console.log(props)}</p>
-             <p>travel time: {console.log(props)}</p>
+             <p>departure city: {props.outboundLeg.DestinationId}</p>
+             <p>arrival city: {props.inboundLeg.DestinationId}</p>
+             <p>travel time:</p>
              <p>price: ${props.price}</p>
          </div>
         </div>

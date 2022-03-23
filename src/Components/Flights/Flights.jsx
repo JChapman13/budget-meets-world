@@ -17,8 +17,8 @@ useEffect(() => {
             locale: 'en-US',
             originPlace: 'YYZ',
             destinationPlace: 'YVR',
-            outboundPartialDate: '2022-04-01',
-            inboundPartialDate: '2022-04-10'
+            outboundPartialDate: '2022-04',
+            inboundPartialDate: '2022-06'
         }
     })
     .then((result) => {
@@ -41,6 +41,7 @@ useEffect(() => {
                 return (
                     <Flight key={f + idx}
                     outboundLeg={f.OutboundLeg}
+                    inboundLeg={f.InboundLeg}
                     price={f.MinPrice}
                     carriers={carriers}/>
                     )
