@@ -46,6 +46,7 @@ useEffect(() => {
             inboundLeg={f.InboundLeg}
             price={f.MinPrice}
             carriers={props.carriers}
+            places={props.places}
           />
         );
       })}
