@@ -5,6 +5,8 @@ const XRapidAPIKey = process.env.X_RapidAPI_Key;
 
 module.exports = {
     getHotels,
+    getOne,
+    getPhotos
 }
 
 async function getHotels(req, res) {
@@ -41,7 +43,7 @@ async function getHotels(req, res) {
         };
           
         axios.request(hotels).then(function (response) {
-            console.log(response.data.data.body.searchResults.results);
+            // console.log(response.data.data.body.searchResults.results);
             res.status(200).json(response.data.data.body.searchResults.results)
         }).catch(function (error) {
             console.error(error);
@@ -49,5 +51,49 @@ async function getHotels(req, res) {
       }).catch(function (error) {
           console.error(error);
       });
+}
 
+async function getOne(req, res) {
+  var hotel = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/get-details',
+    params: {
+      id: req.body.id,
+      checkIn: req.body.startDate,
+      checkOut: req.body.endDate,
+      adults1: req.body.people,
+      currency: 'CAD',
+      locale: 'en_US'
+    },
+    headers: {
+      'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+      'X-RapidAPI-Key': XRapidAPIKey
+    }
+  };
+  
+  axios.request(hotel).then(function (response) {
+    console.log(response.data.data.body);
+    res.status(200).json(response.data.data.body)
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+
+async function getPhotos(req, res) {
+  var photos = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/get-hotel-photos',
+    params: {id: req.get('id')},
+    headers: {
+      'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+      'X-RapidAPI-Key': XRapidAPIKey
+    }
+  };
+  
+  axios.request(photos).then(function (response) {
+    console.log(response.data);
+    res.status(200).json(response.data)
+  }).catch(function (error) {
+    console.error(error);
+  });
 }
