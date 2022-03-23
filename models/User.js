@@ -1,60 +1,67 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-
-const saveSchema = new Schema({
+const hotelSchema = new Schema(
+  {
     category: String,
     name: String,
     cost: Number,
-}, {
-    timestamps: true
-})
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const tripSchema = new Schema({
+const tripSchema = new Schema(
+  {
     name: String,
     budget: Number,
     origin: String,
     destination: String,
-    flight: Array,
-    accommodation: Array,
-    restaurant: Array,
+    flight: Number,
+    accommodation: Number,
+    restaurant: Number,
     startDate: Date,
     endDate: Date,
     people: Number,
-    save: [saveSchema]
-}, {
-    timestamps: true
-})
+    hotel: [hotelSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        required: true
+      type: String,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      required: true,
     },
     password: {
-        type: String,
-        trim: true,
-        minlength: 5,
-        required: true
+      type: String,
+      trim: true,
+      minlength: 5,
+      required: true,
     },
-    trip: [tripSchema]
-}, {
+    trip: [tripSchema],
+  },
+  {
     timestamps: true,
     toJSON: {
-        transform: function(doc, ret) {
-            delete ret.password;
-            return ret
-        }
-    }
-})
+      transform: function(doc, ret) {
+        delete ret.password;
+        return ret;
+      },
+    },
+  }
+);
 
-let UserModel = mongoose.model('User', userSchema)
-module.exports = UserModel
+let UserModel = mongoose.model("User", userSchema);
+module.exports = UserModel;

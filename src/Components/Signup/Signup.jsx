@@ -38,12 +38,11 @@ export default function Signup(props) {
         })
         if (valid) {
             const fetchResponse = await fetch('/api/users/signup', {
-                method: 'post',
+                method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     name: user.name, 
                     email: user.email, 
-                    username: user.username,
                     password: user.password,
                 })
             })
