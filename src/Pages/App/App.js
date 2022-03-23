@@ -261,9 +261,9 @@ export default function App(props) {
 	}
   
   async function saveHotel(id) {
-    user.trip
+    console.log("adas")
   }
-  
+
 	const restaurantPrice = () => {
 		const date1 = new Date(trip.startDate);
 		const date2 = new Date(trip.endDate);
@@ -278,13 +278,6 @@ export default function App(props) {
 	};
 
 
-  // for restaurants
-  // const restaurantPrice = () => {
-  //   const date1 = new Date(trip.startDate);
-  //   const date2 = new Date(trip.endDate);
-  //   const diffTime = date2.getTime() - date1.getTime();
-  //   const diffDays = diffTime / (1000 * 3600 * 24);
-  //   const dailyPrice = trip.restaurant / diffDays;
 
 	async function getRestaurants(params) {
 		setCurrentCat('rest');
@@ -382,6 +375,7 @@ export default function App(props) {
 				getFlights={getFlights}
 				flights={flights}
 				carriers={carriers}
+        places={places}
         user={user}
         saveHotel={saveHotel}
 				/>
