@@ -10,24 +10,6 @@ export default function Flight(props) {
     const carrierIdx = id.indexOf(props.outboundLeg.CarrierIds[0])
     setCarrier(props.carriers[carrierIdx].Name)
   }, [])
-  // async function saveFlight() {
-	// 	axios
-	// 		.post('/trip/save/flight', {
-	// 			data: {
-	// 				country: 'CA',
-	// 				currency: 'cad',
-	// 				locale: 'en-US',
-	// 				originPlace: 'YYZ',
-	// 				destinationPlace: 'YVR',
-	// 				outboundPartialDate: '2022-04',
-	// 				inboundPartialDate: '2022-06',
-	// 			},
-	// 		})
-	// 		.then((result) => {
-
-	// 		})
-	// 		.catch((err) => console.log(err, 'flight result error'));
-	// }
 
   return (
     <div className="Flight">
@@ -38,8 +20,18 @@ export default function Flight(props) {
         <p>Arrival City: {props.places[1].CityName}</p>
         <p>Departure Airport: {props.places[0].IataCode} </p>
         <p>Destination Airport: {props.places[1].IataCode} </p>
+        <p>Departure Date: {props.outboundLeg.DepartureDate} </p>
+        <p>Arrival Date: {props.inboundLeg.DepartureDate} </p>
+
         <p>Price: ${props.price}</p>
-        {/* <button onClick={() => saveFlight()}>Save</button> */}
+        <button onClick={() => props.saveFlight({
+          departureDate: props.outboundLeg.DepartureDate,
+          arrivalDate: props.inboundLeg.DepartureDate,
+          departureId: props.places[0].PlaceId,
+          destinationId: props.places[1].PlaceId,
+          departureAirport: props.places[0].IataCode,
+          destinationAirport: props.places[1].IataCode,
+        })}>Save</button>
       </div>
     </div>
   );

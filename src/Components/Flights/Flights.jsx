@@ -7,7 +7,6 @@ export default function Flights(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-      console.log(props.flights)
     if (props.flights.length !== 0) {
       setIsLoading(false);
     }
@@ -27,6 +26,7 @@ export default function Flights(props) {
             price={f.MinPrice}
             carriers={props.carriers}
             places={props.places}
+            saveFlight={props.saveFlight}
           />
         );
       })}

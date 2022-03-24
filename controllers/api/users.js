@@ -15,6 +15,7 @@ module.exports = {
 	editTrip,
 	getTrip,
 	saveHotel,
+	saveFlight,
 };
 
 async function login(req, res) {
@@ -149,5 +150,16 @@ async function saveHotel(req, res) {
     }
 }
 
+async function saveFlight(object) {
+	console.log(req.body, 'saveFlight req');
+	try {
+		const user = await UserModel.findById(req.body.userId);
+		const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
+		await trip.flight.push({ object });
+		await trip.save();
+		res.status(200).json({ user: user, trip: trip });
+	} catch (err) {
+		res.status(400).json(err);
+	}
+}
 
-async function saveFlight(req, res) {}
