@@ -11,6 +11,7 @@ export default function SearchResultsPage(props) {
     useEffect(()=> {
         props.getFlights()
     },[])
+    
   return (
     <div className="SearchResultsPage">
       <TripHeader trip={props.trip} />
@@ -23,12 +24,21 @@ export default function SearchResultsPage(props) {
         <Flights 
         flights={props.flights} 
         carriers={props.carriers}
-        places={props.places} />
+        places={props.places} 
+        saveFlight={props.saveFlight}/>
+
       ) : (
         false
       )}
       {props.currentCat === "hotel" ? (
-        <Hotels hotels={props.hotels} openHotelDetail={props.openHotelDetail} saveHotel={props.saveHotel}/>
+        <Hotels 
+          hotels={props.hotels} 
+          openHotelDetail={props.openHotelDetail} 
+          saveHotel={props.saveHotel} 
+          trip={props.trip}
+          hotelPhotos={props.hotelPhotos}
+          getHotelPhotos={props.getHotelPhotos}
+        />
       ) : (
         false
       )}
