@@ -7,7 +7,7 @@ import moment from "moment";
 export default function SearchPage(props) {
   console.log(props.trip._id, 'trip id')
     const [trip, setTrip] = useState({
-        // id: props.trip._id,
+        id: props.trip._id,
         // name: props.trip.name,
         budget: props.trip.budget,
         people: props.trip.people,
@@ -36,7 +36,7 @@ export default function SearchPage(props) {
           setSubmitError('Please edit budget for your trip')
         }
         if (valid) {
-            await props.CityCode(trip.origin, trip.destination)
+            await props.getCityCode(trip.origin, trip.destination)
             await props.createTrip(trip, props.user._id)
         }
     }

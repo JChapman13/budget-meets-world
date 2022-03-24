@@ -11,10 +11,11 @@ export default function Flights(props) {
       setIsLoading(false);
     }
   }, [props.flights]);
-
+  console.log(props.places, 'in flighst')
   if (isLoading) {
     return <h1>Loading</h1>;
   }
+  
   return (
     <div className="Flights">
       {props.flights.map((f, idx) => {

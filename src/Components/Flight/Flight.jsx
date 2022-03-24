@@ -10,9 +10,9 @@ export default function Flight(props) {
     const carrierIdx = id.indexOf(props.outboundLeg.CarrierIds[0])
     setCarrier(props.carriers[carrierIdx].Name)
   }, [])
-
   return (
     <div className="Flight">
+
       <p>Flight</p>
       <div>
         <p>Carrier: {carrier}</p>
