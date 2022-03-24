@@ -9,9 +9,6 @@ const hotelSchema = new Schema(
     timestamps: true,
   }
 );
-const flightSchema = new Schema({
-    category: String,
-});
 
 const tripSchema = new Schema(
   {
@@ -26,7 +23,6 @@ const tripSchema = new Schema(
     endDate: Date,
     people: Number,
     hotel: [hotelSchema],
-    flight: [flightSchema],
   },
   {
     timestamps: true,

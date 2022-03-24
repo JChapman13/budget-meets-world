@@ -19,7 +19,7 @@ export default function Hotel(props) {
             <p>Price: {props.hotel.ratePlan.price.current}</p>
             <p>Total price: {props.hotel.ratePlan.price.fullyBundledPricePerStay}</p>
             {/* </Link> */}
-            {console.log(props.hotel)}
+            {/* {console.log(props.hotel)} */}
         </div>
     )
 }
