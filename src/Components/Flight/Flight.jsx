@@ -6,7 +6,7 @@ const axios = require('axios').default;
 export default function Flight(props) {
   const [carrier, setCarrier] = useState('')
 
-  console.log(props.carriers, 'carriers')
+  // console.log(props.carriers, 'carriers')
   useEffect(() => {
     const id = props.carriers.map((e) => e.CarrierId)
     const carrierIdx = id.indexOf(props.outboundLeg.CarrierIds[0])

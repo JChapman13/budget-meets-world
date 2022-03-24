@@ -2,6 +2,7 @@ const UserModel = require('../../models/User.js');
 const rootURL = 'https://hotels4.p.rapidapi.com/';
 const axios = require('axios').default;
 const XRapidAPIKey = process.env.X_RapidAPI_Key;
+const moment = require('moment');
 
 module.exports = {
     getHotels,
@@ -22,6 +23,9 @@ async function getHotels(req, res) {
       let locationId
       axios.request(location).then(function (response) {
         locationId = response.data.suggestions[0].entities[0].destinationId
+        
+        let startDate = moment(req.body.startDate).format('YYYY-MM-DD');
+        let endDate = moment(req.body.endDate).format('YYYY-MM-DD');
         var hotels = {
           method: 'GET',
           url: 'https://hotels4.p.rapidapi.com/properties/list',
@@ -29,8 +33,8 @@ async function getHotels(req, res) {
             destinationId: locationId,
             pageNumber: '1',
             pageSize: '10',
-            checkIn: req.body.startDate,
-            checkOut: req.body.endDate,
+            checkIn: startDate,
+            checkOut: endDate,
             adults1: req.body.people,
             sortOrder: 'PRICE',
             locale: 'en_US',
@@ -43,7 +47,7 @@ async function getHotels(req, res) {
         };
           
         axios.request(hotels).then(function (response) {
-            // console.log(response.data.data.body.searchResults.results);
+            console.log(response.data.data.body.searchResults.results);
             res.status(200).json(response.data.data.body.searchResults.results)
         }).catch(function (error) {
             console.error(error);
@@ -80,6 +84,7 @@ async function getOne(req, res) {
 }
 
 async function getPhotos(req, res) {
+  console.log("the id", req.get('id'))
   var photos = {
     method: 'GET',
     url: 'https://hotels4.p.rapidapi.com/properties/get-hotel-photos',
@@ -91,8 +96,10 @@ async function getPhotos(req, res) {
   };
   
   axios.request(photos).then(function (response) {
-    console.log(response.data);
-    res.status(200).json(response.data)
+    console.log("fdasfasdggs", response.data)
+    let photo = response.data.hotelImages[0].baseUrl.replace('_{size}', '')
+    console.log("photos", photo)
+    res.status(200).json(photo)
   }).catch(function (error) {
     console.error(error);
   });

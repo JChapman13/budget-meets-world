@@ -28,7 +28,14 @@ export default function SearchResultsPage(props) {
         false
       )}
       {props.currentCat === "hotel" ? (
-        <Hotels hotels={props.hotels} openHotelDetail={props.openHotelDetail} saveHotel={props.saveHotel}/>
+        <Hotels 
+          hotels={props.hotels} 
+          openHotelDetail={props.openHotelDetail} 
+          saveHotel={props.saveHotel} 
+          trip={props.trip}
+          hotelPhotos={props.hotelPhotos}
+          getHotelPhotos={props.getHotelPhotos}
+        />
       ) : (
         false
       )}

@@ -15,6 +15,7 @@ module.exports = {
 	editTrip,
 	getTrip,
 	saveHotel,
+    getOneTrip
 };
 
 async function login(req, res) {
@@ -123,7 +124,7 @@ async function getTrip(req, res) {
 					exit()
 				} else {
 					let hotel = await fetchHotel.json().then(response => {
-						hotelArr.push(response.data)
+						hotelArr.push(response.data.body)
 					})
 				}
 			}
@@ -131,6 +132,20 @@ async function getTrip(req, res) {
 		}
 		let hotel = await lala()
 		res.status(200).json({theTrip: theTrip, hotelArr: hotel})
+    } catch(err) {
+        res.status(400).json(err)
+    }
+}
+
+async function getOneTrip(req, res) {
+    try{
+        let userId = req.get('userId')
+        const user = await UserModel.findById(userId)
+        console.log(user)
+        let tripId = req.get('tripId')
+        const trip = await user.trip.find(trip => trip._id == tripId )
+        console.log(trip)
+        res.status(200).json(trip)
     } catch(err) {
         res.status(400).json(err)
     }

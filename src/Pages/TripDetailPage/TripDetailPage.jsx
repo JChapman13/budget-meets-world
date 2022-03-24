@@ -3,6 +3,7 @@ import moment from 'moment'
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
+import Hotels from '../../Components/Hotels/Hotels'
 
 export default function TripDetailPage(props) {
     let total = props.trip.flight + props.trip.accommodation + props.trip.restaurant
@@ -19,7 +20,7 @@ export default function TripDetailPage(props) {
         <div className='TripDetailPage'>
             <h1>Trip to {props.trip.destination}</h1>
             <button className='TripDetailPage-back-btn' onClick={() => goBack()}><img src={require('../../Images/my-trip-back-btn.svg')} alt="svg icon" /></button>
-            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip()}>Edit</button>
+            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip(props.trip._id)}>Edit</button>
             <div className='TripDetailPage-img'>
 
             </div>
@@ -55,13 +56,23 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
-                {props.savedHotel.map(hotel => 
+                Hotels Saved:
+                <Hotels 
+                    hotels={props.savedHotel} 
+                    openHotelDetail={props.openHotelDetail}
+                    saveHotel={props.saveHotel}
+                    trip={props.trip}
+                    hotelPhotos={props.hotelPhotos}
+                    
+                />
+
+                {/* {props.savedHotel.map(hotel => 
                     <div>
                         {console.log(hotel, "fdasfgasg")}
-                        {/* <p>{hotel.body.smallPrint.display}</p> */}
-                        {/* <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p> */}
+                        <p>{hotel.body.propertyDescription.name}</p>
+                        <p>{hotel.body.propertyDescription.featuredPrice.currentPrice.plain}</p>
                     </div>
-                    )}
+                    )} */}
             </div>
             <Footer />
         </div>
