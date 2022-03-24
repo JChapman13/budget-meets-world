@@ -16,12 +16,14 @@ export default function App(props) {
 	let navigate = useNavigate();
 	const [user, setUser] = useState(null);
 	const [trips, setTrips] = useState([]);
-	const [currentCat, setCurrentCat] = useState('flight');
-	const [hotelList, setHotelList] = useState([]);
-	const [oneHotel, setOneHotel] = useState({});
-	const [hotelPhotos, setHotelPhotos] = useState({});
+	const [currentCat, setCurrentCat] = useState("flight");
+	const [hotelList, setHotelList] = useState([])
+	const [oneHotel, setOneHotel] = useState({})
+	const [hotelPhotos, setHotelPhotos] = useState({})
+  const [savedHotel, setSavedHotel] = useState([])
 	const [trip, setTrip] = useState({
-		name: 'la la la',
+    _id: "623b7331c16e912221a0c1c2",
+		name: "la la la",
 		budget: 5000,
 		people: 1,
 		origin: 'Toronto',
@@ -128,12 +130,13 @@ export default function App(props) {
 	}
 
 	async function openOneTrip(id) {
-		let fetchTrip = await fetch('/api/users/trip/detail', {
-			headers: { userId: user._id, tripId: id },
-		});
-		let trip = await fetchTrip.json();
-		setCurrentTrip(trip);
-		navigate(`/trips/${id}`);
+		let fetchTrip = await fetch('/api/users/trip/detail', { headers: { "userId": user._id , "tripId": id } })
+		let response = await fetchTrip.json()
+    console.log(response, "hotelaarr")
+    setSavedHotel(response.hotelArr)
+    console.log(savedHotel, "dsdaaff")
+		setCurrentTrip(response.theTrip)
+		navigate(`/trips/${id}`)
 	}
 
 	async function editOneTrip(id) {
@@ -259,10 +262,21 @@ export default function App(props) {
 		await getHotelPhotos(id);
 		navigate(`/hotel/${id}`);
 	}
-
-	async function saveHotel(id) {
-		console.log('adas');
-	}
+  
+  async function saveHotel(id) {
+    try {
+      let fetchResponse = await fetch('/api/users/trip/save/hotel', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({hotelId: id, userId: user._id, tripId: trip._id})
+      })
+      let response = await fetchResponse.json()
+      setUser(response.user);
+      setTrip(response.trip);
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
 	const restaurantPrice = () => {
 		const date1 = new Date(trip.startDate);
@@ -371,44 +385,43 @@ export default function App(props) {
 						/>
 					}
 				/>
-				<Route
-					path='/create'
-					element={
-						<SearchPage
-							user={user}
-							createTrip={createTrip}
-							trip={trip}
-							CityCode={CityCode}
-						/>
-					}
-				/>
-				<Route path='/profile' element={<ProfilePage />} />
-				<Route
-					path='/trips'
-					element={
-						<SavedTripsPage
-							user={user}
-							trips={trips}
-							openOneTrip={openOneTrip}
-							createNewTrip={createNewTrip}
-						/>
-					}
-				/>
-				<Route
-					path='/trips/:id'
-					element={
-						<TripDetailPage
-							user={user}
-							trip={currentTrip}
-							editOneTrip={editOneTrip}
-						/>
-					}
-				/>
-				<Route
-					path='/hotel/:id'
-					element={<HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />}
-				/>
-			</Routes>
+	
+			<Route
+			path="/create"
+			element={<SearchPage 
+				user={user} 
+				createTrip={createTrip} 
+				trip={trip}
+				CityCode={CityCode}
+			/>}
+			/>
+			<Route path="/profile" element={<ProfilePage />} />
+			<Route
+			path="/trips"
+			element={<SavedTripsPage
+				user={user}
+				trips={trips}
+				openOneTrip={openOneTrip}
+				createNewTrip={createNewTrip}
+			/>}
+			/>
+			<Route
+			path="/trips/:id"
+			element={<TripDetailPage
+				user={user}
+				trip={currentTrip}
+				editOneTrip={editOneTrip}
+        savedHotel={savedHotel}
+			/>}
+			/>
+			<Route
+			path="/hotel/:id"
+			element={
+				<HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />
+			}
+			/>
+			<Route path="/flights" element={<Flights flights={flights} />} />
+		</Routes>
 		</div>
 	);
 }
