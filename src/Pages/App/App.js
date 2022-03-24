@@ -224,24 +224,24 @@ export default function App(props) {
 
 	async function findOneHotel(id) {
 		try {
-		let fetchOneHotel = await fetch("/api/hotels/one", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-			id: id,
-			people: 2,
-			startDate: "2022-03-25",
-			endDate: "2022-03-27",
-			}),
-		});
-		let hotel = await fetchOneHotel.json();
-		console.log(hotel);
-		setOneHotel(hotel);
+			let fetchOneHotel = await fetch('/api/hotels/one', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					id: id,
+					people: 2,
+					startDate: '2022-03-25',
+					endDate: '2022-03-27',
+				}),
+			});
+			let hotel = await fetchOneHotel.json();
+			console.log(hotel);
+			setOneHotel(hotel);
 		} catch (err) {
-		console.log(err);
+			console.log(err);
 		}
 	}
-	
+
 	async function createNewTrip(id) {
 		setTrip({});
 		navigate(`/create`);
