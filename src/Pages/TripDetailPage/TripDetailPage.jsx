@@ -1,10 +1,12 @@
 import './TripDetailPage.css'
 import moment from 'moment'
-import React from 'react'
+import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
 
 export default function TripDetailPage(props) {
+
+    const [currentView, setCurrentView] = useState('flights')
     let total = props.trip.flight + props.trip.accommodation + props.trip.restaurant
     let flightPercent = Math.round((props.trip.flight / total) * 100)
     let hotelPercent = Math.round((props.trip.accommodation / total) * 100)
@@ -14,6 +16,27 @@ export default function TripDetailPage(props) {
     async function goBack() {
         navigate('/trips')
     }
+
+    const toggleView = () =>{
+        if (currentView === "flights"){
+            return(<>{props.savedFlight.map(flight => {
+                           return( <div>
+                            <p>{flight.departureDate}</p> 
+                            <p>{flight.arrivalDate}</p> 
+                            <p>{flight.departureCity}</p> 
+                            <p>{flight.destinationCity}</p> 
+                            <p>{flight.departureAirport}</p> 
+                            <p>{flight.destinationAirport}</p> 
+                            <p>{flight.price}</p> 
+                            </div>
+                           )})}</>)
+        }else if (currentView === "hotels"){
+            return (<><h1>example1</h1> </>)
+        }else{
+            return (<><h1>example2</h1> </>)
+        }
+    }
+    
 
     return (
         <div className='TripDetailPage'>
@@ -55,25 +78,14 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
-                {props.savedHotel.map(hotel => 
-                    <div>
-                        {console.log(hotel, "fdasfgasg")}
-                        {/* <p>{hotel.body.smallPrint.display}</p> */}
-                        {/* <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p> */}
-                    </div>
-                    )}
-                {props.savedFlight.map(flight =>
-                    <div>
-                       <p>{flight.departureDate}</p> 
-                       <p>{flight.arrivalDate}</p> 
-                       <p>{flight.departureCity}</p> 
-                       <p>{flight.destinationCity}</p> 
-                       <p>{flight.departureAirport}</p> 
-                       <p>{flight.destinationAirport}</p> 
-                       <p>{flight.price}</p> 
-                    </div>
-                    )} 
+            <div className="SearchResultsPage-btn-bar">
+                <button onClick={() => setCurrentView('flights')}>Flight</button>
+                <button onClick={() => setCurrentView('hotels')}>Hotels</button>
+                <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
             </div>
+            {toggleView()}
+
+</div>
             <Footer />
         </div>
     )
