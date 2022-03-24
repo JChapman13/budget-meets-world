@@ -333,7 +333,6 @@ export default function App(props) {
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
-<<<<<<< HEAD
 
   async function saveRestaurant(params) {
     try {
@@ -354,6 +353,7 @@ export default function App(props) {
       console.log(err);
     }
   }
+
   async function getFlights(params) {
     setCurrentCat("flight");
     axios
@@ -375,43 +375,19 @@ export default function App(props) {
       })
       .catch((err) => console.log(err, "flight result error"));
   }
-=======
-  
-	async function getFlights(params) {
-		setCurrentCat('flight');
-		axios
-			.get('/api/flights', {
-				params: {
-					country: 'CA',
-					currency: 'cad',
-					locale: 'en-US',
-					originPlace: 'YYZ',
-					destinationPlace: 'YVR',
-					outboundPartialDate: '2022-04',
-					inboundPartialDate: '2022-06',
-				},
-			})
-			.then((result) => {
-				setCarriers(result.data.Carriers);
-				setFlights(result.data.Quotes);
-				setPlaces(result.data.Places);
-			})
-			.catch((err) => console.log(err, 'flight result error'));
-	}
-  
-	async function saveFlight(object) {
-		axios
-			.post('/api/users/trip/save/flight', {
-				data: object,
-				user: user._id,
-				trip: trip._id,
-			})
-			.then((result) => {
-				console.log(result, 'result');
-			})
-			.catch((err) => console.log(err, 'save flight error'));
-	}
->>>>>>> main
+
+  async function saveFlight(object) {
+    axios
+      .post("/api/users/trip/save/flight", {
+        data: object,
+        user: user._id,
+        trip: trip._id,
+      })
+      .then((result) => {
+        console.log(result, "result");
+      })
+      .catch((err) => console.log(err, "save flight error"));
+  }
 
   useEffect(async () => {
     let token = localStorage.getItem("token");
@@ -475,7 +451,7 @@ export default function App(props) {
               places={places}
               user={user}
               saveHotel={saveHotel}
-							saveFlight={saveFlight}
+              saveFlight={saveFlight}
             />
           }
         />
