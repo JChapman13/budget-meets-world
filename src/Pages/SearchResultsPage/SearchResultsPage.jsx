@@ -11,6 +11,7 @@ export default function SearchResultsPage(props) {
     useEffect(()=> {
         props.getFlights()
     },[])
+    
   return (
     <div className="SearchResultsPage">
       <TripHeader trip={props.trip} />
@@ -23,7 +24,9 @@ export default function SearchResultsPage(props) {
         <Flights 
         flights={props.flights} 
         carriers={props.carriers}
-        places={props.places} />
+        places={props.places} 
+        saveFlight={props.saveFlight}/>
+
       ) : (
         false
       )}
