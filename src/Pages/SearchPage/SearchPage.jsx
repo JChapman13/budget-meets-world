@@ -35,7 +35,7 @@ export default function SearchPage(props) {
           setSubmitError('Please edit budget for your trip')
         }
         if (valid) {
-            await props.getCityCode(trip.origin, trip.destination)
+            await props.CityCode(trip.origin, trip.destination)
             await props.createTrip(trip, props.user._id)
         }
     }
@@ -210,8 +210,7 @@ export default function SearchPage(props) {
               required
             />
           </div>
-          <div className="SearchPage-slide">
-            <p>Flight</p>
+          <div className="SearchPage-slide SearchPage-slide-flight">
             <input
               onChange={handleChange}
               type="number"
@@ -220,8 +219,7 @@ export default function SearchPage(props) {
               required
             />
           </div>
-          <div className="SearchPage-slide">
-            <p>Accommodation</p>
+          <div className="SearchPage-slide SearchPage-slide-accom">
             <input
               onChange={handleChange}
               type="number"
@@ -230,8 +228,7 @@ export default function SearchPage(props) {
               required
             />
           </div>
-          <div className="SearchPage-slide">
-            <p>Food</p>
+          <div className="SearchPage-slide SearchPage-slide-food">
             <input
               onChange={handleChange}
               type="number"

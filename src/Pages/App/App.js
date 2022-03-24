@@ -378,7 +378,7 @@ export default function App(props) {
 							user={user}
 							createTrip={createTrip}
 							trip={trip}
-							getCityCode={getCityCode}
+							CityCode={CityCode}
 						/>
 					}
 				/>
