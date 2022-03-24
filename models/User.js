@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const hotelSchema = new Schema(
 	{
-		category: String,
-		name: String,
-		cost: Number,
+		id: String,
 	},
 	{
 		timestamps: true,
@@ -26,13 +24,14 @@ const tripSchema = new Schema(
 		budget: Number,
 		origin: String,
 		destination: String,
-		flight: [flightSchema],
+		flight: Number,
 		accommodation: Number,
 		restaurant: Number,
 		startDate: Date,
 		endDate: Date,
 		people: Number,
 		hotel: [hotelSchema],
+		flight: [flightSchema],
 	},
 	{
 		timestamps: true,

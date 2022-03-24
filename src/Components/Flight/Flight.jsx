@@ -20,7 +20,7 @@ export default function Flight(props) {
         <p>Arrival City: {props.places[1].CityName}</p>
         <p>Departure Airport: {props.places[0].IataCode} </p>
         <p>Destination Airport: {props.places[1].IataCode} </p>
-        <p>Price: ${props.price}</p>
+        <p>Price: ${props.price}</p> */}
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ export default function Footer(props) {
     return (
         <div className='footer'>
             <div>
-                
                 <img src={require('../../Images/my-trip-btn.svg')} alt="svg icon" />
                 <Link to="/trips">MY TRIPS</Link>
             </div>

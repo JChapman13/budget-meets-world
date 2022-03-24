@@ -15,6 +15,8 @@ router.get("/trip/detail", usersCtrl.getTrip);
 router.post('/create/trip', usersCtrl.createTrip)
 router.post('/edit/trip', usersCtrl.editTrip)
 
+router.post('/trip/save/hotel', usersCtrl.saveHotel)
+
 
 
 module.exports = router;
