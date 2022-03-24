@@ -25,7 +25,7 @@ export default function App(props) {
 	const [savedHotel, setSavedHotel] = useState([]);
 	const [savedFlight, setSavedFlight] = useState([]);
 	const [trip, setTrip] = useState({
-		// _id: "623bd557d4bb1e9d4d4fd4b1",
+		_id: '623bd557d4bb1e9d4d4fd4b1',
 		name: '',
 		budget: 0,
 		people: 0,
