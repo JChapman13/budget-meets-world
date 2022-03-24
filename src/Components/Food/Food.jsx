@@ -1,18 +1,54 @@
-import "./Food.css";
-import React from "react";
+import React, { useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import StarIcon from "@mui/icons-material/Star";
 
-export default function Food(props) {
+import { Chip } from "@mui/material";
+
+function Food(props) {
   return (
-    <div className="Food">
-      <div className="rest-name"> {props.restaurants.name}</div>
-      <div className="rest-rating"> {props.restaurants.rating}</div>
-      <div className="rest-address">
-        {props.restaurants.location.display_address[0]}
-      </div>
-      <div className="rest-city">{props.restaurants.location.city}</div>
-      <div className="rest-cat">
-        {props.restaurants && props.restaurants.categories[0].title}
-      </div>
-    </div>
+    <Card sx={{ maxWidth: 345, borderRadius: 5, marginBottom: 3 }}>
+      <CardMedia
+        component="img"
+        height="200"
+        image={props.restaurant.image_url}
+        alt={props.restaurant.name}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h6" component="div">
+          {props.restaurant.name}
+        </Typography>
+        <Typography>
+          {props.restaurant.rating}
+          <StarIcon />
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {props.restaurant.location.display_address[0]}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {props.restaurant.location.city}
+        </Typography>
+        <Chip
+          label={props.restaurant && props.restaurant.categories[0].title}
+        />
+      </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          onClick={() => props.getRestaurantDetail(props.restaurant.id)}
+        >
+          Details
+        </Button>
+        <Button size="small">Book Now</Button>
+        <Button size="small">Save</Button>
+      </CardActions>
+    </Card>
   );
 }
+
+export default Food;

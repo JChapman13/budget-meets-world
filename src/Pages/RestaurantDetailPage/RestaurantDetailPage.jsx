@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
-import Item from "./Item";
 
 function RestaurantDetailPage(props) {
+  console.log(props);
   const dayConvert = (day) => {
     if (day === 0) return "Mon";
     if (day === 1) return "Tue";
@@ -31,47 +30,47 @@ function RestaurantDetailPage(props) {
     }
   };
 
-  const filterHours = () => {
-    let filtering = [];
-    let obj = {};
-    for (let i = 0; i < 14; i++) {
-      if (i % 2 === 0) {
-        obj.day = props.detail.hours[0].open[i].day;
-        obj.start = props.detail.hours[0].open[i].start;
-        obj.end = props.detail.hours[0].open[i].end;
-      } else {
-        obj.start2 = props.detail.hours[0].open[i].start;
-        obj.end2 = props.detail.hours[0].open[i].end;
-        filtering.push(obj);
-        obj = {};
-      }
-    }
-    return filtering.map((time) => {
-      return (
-        <Typography>
-          {dayConvert(time.day)} {timeConvert(time.start)} -{" "}
-          {timeConvert(time.end)}
-          {timeConvert(time.start2)} - {timeConvert(time.end2)}
-        </Typography>
-      );
-    });
-  };
-
+  // const filterHours = () => {
+  //   let filtering = [];
+  //   let obj = {};
+  //   for (let i = 0; i < 14; i++) {
+  //     if (i % 2 === 0) {
+  //       obj.day = props.restaurantDetail.hours[0].open[i].day;
+  //       obj.start = props.restaurantDetail.hours[0].open[i].start;
+  //       obj.end = props.restaurantDetail.hours[0].open[i].end;
+  //     } else {
+  //       obj.start2 = props.restaurantDetail.hours[0].open[i].start;
+  //       obj.end2 = props.restaurantDetail.hours[0].open[i].end;
+  //       filtering.push(obj);
+  //       obj = {};
+  //     }
+  //   }
+  //   return filtering.map((time) => {
+  //     return (
+  //       <Typography>
+  //         {dayConvert(time.day)} {timeConvert(time.start)} -{" "}
+  //         {timeConvert(time.end)}
+  //         {timeConvert(time.start2)} - {timeConvert(time.end2)}
+  //       </Typography>
+  //     );
+  //   });
+  // };
   return (
     <div>
       <Card>
         <CardMedia
           component="img"
           height="140"
-          image={props.detail.image_url}
-          alt={props.detail.name}
+          image={props.restaurantDetail.image_url}
+          alt={props.restaurantDetail.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.detail.name}
+            {props.restaurantDetail.name}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            {props.detail.price} - {props.detail.rating} Star Rating
+            {props.restaurantDetail.price} - {props.restaurantDetail.rating}{" "}
+            Star Rating
           </Typography>
           <Typography
             variant="body1"
@@ -81,34 +80,27 @@ function RestaurantDetailPage(props) {
             Location & Hours
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.detail.location.display_address}
+            {props.restaurantDetail.location.display_address}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.detail.display_phone}
+            {props.restaurantDetail.display_phone}
           </Typography>
-          {props.detail.hours[0].open.length < 7
-            ? props.detail.hours[0].open.map((hours, idx) => {
-                return (
-                  <>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      key={hours + idx}
-                    >
-                      {dayConvert(hours.day)} {timeConvert(hours.start)} -{" "}
-                      {timeConvert(hours.end)}
-                    </Typography>
-                  </>
-                );
-              })
-            : filterHours()}
+          {props.restaurantDetail.hours[0].open.map((hours, idx) => {
+            return (
+              <>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  key={hours + idx}
+                >
+                  {dayConvert(hours.day)} {hours.start} -{" "}
+                  {timeConvert(hours.end)}
+                </Typography>
+              </>
+            );
+          })}
         </CardContent>
       </Card>
-      <Carousel>
-        {props.detail.photos.map((item, i) => (
-          <Item key={i} item={item} />
-        ))}
-      </Carousel>
     </div>
   );
 }
