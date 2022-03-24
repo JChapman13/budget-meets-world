@@ -12,10 +12,11 @@ const hotelSchema = new Schema(
 const flightSchema = new Schema({
 	departureDate: String,
 	arrivalDate: String,
-	departureId: Number,
-	destinationId: Number,
+	departureCity: String,
+	destinationCity: String,
 	departureAirport: String,
 	destinationAirport: String,
+	price: Number,
 });
 
 const tripSchema = new Schema(

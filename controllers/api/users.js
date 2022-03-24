@@ -108,10 +108,13 @@ async function editTrip(req, res) {
 }
 
 async function getTrip(req, res) {
+	console.log(req.headers, 'gettrip, id');
+	console.log(req.query, 'req.query');
 	try {
 		let userId = req.get('userId');
 		const users = await UserModel.findById(userId);
 		let tripId = req.get('tripId');
+		console.log(tripId, 'tripID');
 		const theTrip = await users.trip.find((trip) => trip._id == tripId);
 		let startDate = moment(theTrip.startDate).format('YYYY-MM-DD');
 		let endDate = moment(theTrip.startDate).format('YYYY-MM-DD');
@@ -182,10 +185,11 @@ async function saveFlight(req, res) {
 		await trip.savedFlight.push({
 			departureDate: req.body.data.departureDate,
 			arrivalDate: req.body.data.arrivalDate,
-			departureId: req.body.data.departureId,
-			destinationId: req.body.data.destinationId,
+			departureCity: req.body.data.departureCity,
+			destinationCity: req.body.data.destinationCity,
 			departureAirport: req.body.data.departureAirport,
 			destinationAirport: req.body.data.destinationAirport,
+			price: req.body.data.price,
 		});
 		console.log(trip, 'after push');
 		await trip.save();

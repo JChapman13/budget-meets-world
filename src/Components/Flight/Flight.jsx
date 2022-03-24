@@ -22,15 +22,16 @@ export default function Flight(props) {
         <p>Destination Airport: {props.places[1].IataCode} </p>
         <p>Departure Date: {props.outboundLeg.DepartureDate} </p>
         <p>Arrival Date: {props.inboundLeg.DepartureDate} </p>
-
         <p>Price: ${props.price}</p>
+
         <button onClick={() => props.saveFlight({
           departureDate: props.outboundLeg.DepartureDate,
           arrivalDate: props.inboundLeg.DepartureDate,
-          departureId: props.places[0].PlaceId,
-          destinationId: props.places[1].PlaceId,
+          departureCity: props.places[0].CityName,
+          destinationCity: props.places[1].CityName,
           departureAirport: props.places[0].IataCode,
           destinationAirport: props.places[1].IataCode,
+          price: props.price
         })}>Save</button>
       </div>
     </div>
