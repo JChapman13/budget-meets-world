@@ -160,6 +160,9 @@ async function saveFlight(req, res) {
 	try {
 		const user = await UserModel.findById(req.body.userId);
 		const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
+        await trip.flight.push({req.body})
+        await trip.save()
+        res.status(200).json({ user: user, trip: trip})
 	} catch (err) {
 		res.status(400).json(err);
 	}
