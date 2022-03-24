@@ -21,20 +21,20 @@ export default function App(props) {
 	const [currentCat, setCurrentCat] = useState('flight');
 	const [hotelList, setHotelList] = useState([]);
 	const [oneHotel, setOneHotel] = useState({});
-	const [hotelPhotos, setHotelPhotos] = useState("");
+	const [hotelPhotos, setHotelPhotos] = useState('');
 	const [savedHotel, setSavedHotel] = useState([]);
 	const [trip, setTrip] = useState({
 		// _id: "623bd557d4bb1e9d4d4fd4b1",
-		name: "",
+		name: '',
 		budget: 0,
 		people: 0,
-		origin: "",
-		destination: "",
+		origin: '',
+		destination: '',
 		flight: 0,
 		accommodation: 0,
 		restaurant: 0,
-		startDate: "",
-		endDate: "",
+		startDate: '',
+		endDate: '',
 		// hotel: [],
 	});
 	const [currentTrip, setCurrentTrip] = useState({});
@@ -96,11 +96,11 @@ export default function App(props) {
 	}
 
 	async function editOneTrip(tripId) {
-    let fetchOneTrip = await fetch('/api/users/trip/one', {
-      headers: { userId: user._id, tripId: tripId }
-    })
-    let trip = await fetchOneTrip.json();
-		setTrip(trip)
+		let fetchOneTrip = await fetch('/api/users/trip/one', {
+			headers: { userId: user._id, tripId: tripId },
+		});
+		let trip = await fetchOneTrip.json();
+		setTrip(trip);
 		navigate(`/`);
 	}
 
@@ -158,28 +158,28 @@ export default function App(props) {
 		// }
 	}
 
-  // for hotels
-  async function findHotels() {
-    setCurrentCat("hotel");
-    try {
-      let fetchHotelList = await fetch("/api/hotels", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          budget: trip.budget,
-          people: trip.people,
-          destination: trip.destination,
-          accommodation: trip.accommodation,
-          startDate: trip.startDate,
-          endDate: trip.endDate,
-        }),
-      });
-      let hotels = await fetchHotelList.json();
-      setHotelList(hotels);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+	// for hotels
+	async function findHotels() {
+		setCurrentCat('hotel');
+		try {
+			let fetchHotelList = await fetch('/api/hotels', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					budget: trip.budget,
+					people: trip.people,
+					destination: trip.destination,
+					accommodation: trip.accommodation,
+					startDate: trip.startDate,
+					endDate: trip.endDate,
+				}),
+			});
+			let hotels = await fetchHotelList.json();
+			setHotelList(hotels);
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	async function findOneHotel(id) {
 		try {
@@ -206,18 +206,18 @@ export default function App(props) {
 		navigate(`/create`);
 	}
 
-  async function getHotelPhotos(id) {
-    try {
-      let fetchHotelPhotos = await fetch("/api/hotels/photos", {
-        headers: { id: id },
-      });
-      let photos = await fetchHotelPhotos.json();
-      console.log(photos)
-      setHotelPhotos(photos);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+	async function getHotelPhotos(id) {
+		try {
+			let fetchHotelPhotos = await fetch('/api/hotels/photos', {
+				headers: { id: id },
+			});
+			let photos = await fetchHotelPhotos.json();
+			console.log(photos);
+			setHotelPhotos(photos);
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	async function openHotelDetail(id) {
 		console.log(id);
@@ -383,8 +383,8 @@ export default function App(props) {
 							user={user}
 							saveHotel={saveHotel}
 							saveFlight={saveFlight}
-              hotelPhotos={hotelPhotos}
-              getHotelPhotos={getHotelPhotos}
+							hotelPhotos={hotelPhotos}
+							getHotelPhotos={getHotelPhotos}
 						/>
 					}
 				/>
@@ -420,10 +420,10 @@ export default function App(props) {
 							trip={trip}
 							editOneTrip={editOneTrip}
 							savedHotel={savedHotel}
-              openHotelDetail={openHotelDetail}
-              saveHotel={saveHotel}
-              hotelPhotos={hotelPhotos}
-              getHotelPhotos={getHotelPhotos}
+							openHotelDetail={openHotelDetail}
+							saveHotel={saveHotel}
+							hotelPhotos={hotelPhotos}
+							getHotelPhotos={getHotelPhotos}
 						/>
 					}
 				/>
