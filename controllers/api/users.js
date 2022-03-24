@@ -16,7 +16,11 @@ module.exports = {
 	editTrip,
 	getTrip,
 	saveHotel,
+<<<<<<< HEAD
+    getOneTrip
+=======
 	saveFlight,
+>>>>>>> 1c56c184088e2bc1eb7827b95a89d2f42972f1cd
 };
 
 async function login(req, res) {
@@ -130,9 +134,9 @@ async function getTrip(req, res) {
 				if (!fetchHotel.ok) {
 					exit();
 				} else {
-					let hotel = await fetchHotel.json().then((response) => {
-						hotelArr.push(response.data);
-					});
+					let hotel = await fetchHotel.json().then(response => {
+						hotelArr.push(response.data.body)
+					})
 				}
 			}
 			return hotelArr;
@@ -142,6 +146,20 @@ async function getTrip(req, res) {
 	} catch (err) {
 		res.status(400).json(err);
 	}
+}
+
+async function getOneTrip(req, res) {
+    try{
+        let userId = req.get('userId')
+        const user = await UserModel.findById(userId)
+        console.log(user)
+        let tripId = req.get('tripId')
+        const trip = await user.trip.find(trip => trip._id == tripId )
+        console.log(trip)
+        res.status(200).json(trip)
+    } catch(err) {
+        res.status(400).json(err)
+    }
 }
 
 async function saveHotel(req, res) {

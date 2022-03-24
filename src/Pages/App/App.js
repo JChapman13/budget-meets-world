@@ -21,33 +21,22 @@ export default function App(props) {
 	const [currentCat, setCurrentCat] = useState('flight');
 	const [hotelList, setHotelList] = useState([]);
 	const [oneHotel, setOneHotel] = useState({});
-	const [hotelPhotos, setHotelPhotos] = useState({});
+	const [hotelPhotos, setHotelPhotos] = useState("");
 	const [savedHotel, setSavedHotel] = useState([]);
 	const [savedFlight, setSavedFlight] = useState([]);
 	const [trip, setTrip] = useState({
-		// _id: '623bd557d4bb1e9d4d4fd4b1',
-		// name: 'la la la',
-		// budget: 5000,
-		// people: 1,
-		// origin: 'Toronto',
-		// destination: 'New York City, NY',
-		// flight: 200,
-		// accommodation: 500,
-		// restaurant: 1000,
-		// startDate: '04/25/2022',
-		// endDate: '04/27/2022',
+		// _id: "623bd557d4bb1e9d4d4fd4b1",
+		name: "",
+		budget: 0,
+		people: 0,
+		origin: "",
+		destination: "",
+		flight: 0,
+		accommodation: 0,
+		restaurant: 0,
+		startDate: "",
+		endDate: "",
 		// hotel: [],
-		_id: '623ca6027cb13c9578aedb64',
-		budget: 5000,
-		people: 1,
-		origin: 'Toronto',
-		destination: 'Vancouver',
-		flight: 200,
-		accommodation: 500,
-		restaurant: 1000,
-		startDate: '03/25/2022',
-		endDate: '03/30/2022',
-		hotel: [],
 	});
 	const [currentTrip, setCurrentTrip] = useState({});
 	const [restaurants, setRestaurants] = useState([]);
@@ -107,9 +96,13 @@ export default function App(props) {
 		navigate(`/trips/${id}`);
 	}
 
-	async function editOneTrip(id) {
-		// setTrip(currentTrip);
-		navigate(`/create`);
+	async function editOneTrip(tripId) {
+    let fetchOneTrip = await fetch('/api/users/trip/one', {
+      headers: { userId: user._id, tripId: tripId }
+    })
+    let trip = await fetchOneTrip.json();
+		setTrip(trip)
+		navigate(`/`);
 	}
 
 	async function createTrip(object, userId) {
@@ -166,28 +159,28 @@ export default function App(props) {
 		// }
 	}
 
-	// for hotels
-	async function findHotels() {
-		setCurrentCat('hotel');
-		try {
-			let fetchHotelList = await fetch('/api/hotels', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					budget: 2000,
-					people: 2,
-					destination: 'New York City, NY',
-					accommodation: 500,
-					startDate: '2022-03-25',
-					endDate: '2022-03-27',
-				}),
-			});
-			let hotels = await fetchHotelList.json();
-			setHotelList(hotels);
-		} catch (err) {
-			console.log(err);
-		}
-	}
+  // for hotels
+  async function findHotels() {
+    setCurrentCat("hotel");
+    try {
+      let fetchHotelList = await fetch("/api/hotels", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          budget: trip.budget,
+          people: trip.people,
+          destination: trip.destination,
+          accommodation: trip.accommodation,
+          startDate: trip.startDate,
+          endDate: trip.endDate,
+        }),
+      });
+      let hotels = await fetchHotelList.json();
+      setHotelList(hotels);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
 	async function findOneHotel(id) {
 		try {
@@ -214,17 +207,18 @@ export default function App(props) {
 		navigate(`/create`);
 	}
 
-	async function getHotelPhotos(id) {
-		try {
-			let fetchHotelPhotos = await fetch('/api/hotels/photos', {
-				headers: { id: id },
-			});
-			let photos = await fetchHotelPhotos.json();
-			setHotelPhotos(photos);
-		} catch (err) {
-			console.log(err);
-		}
-	}
+  async function getHotelPhotos(id) {
+    try {
+      let fetchHotelPhotos = await fetch("/api/hotels/photos", {
+        headers: { id: id },
+      });
+      let photos = await fetchHotelPhotos.json();
+      console.log(photos)
+      setHotelPhotos(photos);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
 	async function openHotelDetail(id) {
 		console.log(id);
@@ -390,6 +384,8 @@ export default function App(props) {
 							user={user}
 							saveHotel={saveHotel}
 							saveFlight={saveFlight}
+              hotelPhotos={hotelPhotos}
+              getHotelPhotos={getHotelPhotos}
 						/>
 					}
 				/>
@@ -425,7 +421,11 @@ export default function App(props) {
 							trip={trip}
 							editOneTrip={editOneTrip}
 							savedHotel={savedHotel}
-							savedFlight={savedFlight}
+              openHotelDetail={openHotelDetail}
+              saveHotel={saveHotel}
+              hotelPhotos={hotelPhotos}
+              getHotelPhotos={getHotelPhotos}
+              savedFlight={savedFlight}
 						/>
 					}
 				/>

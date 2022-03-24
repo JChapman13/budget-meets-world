@@ -8,6 +8,7 @@ router.get('/all', usersCtrl.getAll);
 router.post('/login', usersCtrl.login);
 router.post('/signup', usersCtrl.signup);
 
+router.get('/trip/one', usersCtrl.getOneTrip)
 router.get('/trip/detail', usersCtrl.getTrip);
 
 router.post('/create/trip', usersCtrl.createTrip);

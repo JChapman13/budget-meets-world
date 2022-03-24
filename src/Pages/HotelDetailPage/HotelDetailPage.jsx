@@ -26,12 +26,12 @@ export default function HotelDetailPage(props) {
 
     return (
         <div>
-            {props.hotelPhotos.hotelImages.map((h, idx) => 
+            {/* {props.hotelPhotos.hotelImages.map((h, idx) => 
                 {if (idx < 4) {
                     return <img style={{width: '300px'}} src={h.baseUrl.replace('_{size}', '')} alt="Hotel Image"/>
                 }}
-                )}
-            {/* <img style={{ width: '300px' }} src={props.hotelPhotos.hotelImages[0].baseUrl.replace('_{size}', '')} alt="Hotel Image"/> */}
+                )} */}
+            <img style={{ width: '300px' }} src={props.hotelPhotos} alt="Hotel Image"/>
             <p>Booking URL: {props.oneHotel.roomsAndRates.bookingUrl}</p>
             <p>Amenities:</p>
             <ul>{props.oneHotel.overview.overviewSections[0].content.map(c => <li>{c}</li>)}</ul>

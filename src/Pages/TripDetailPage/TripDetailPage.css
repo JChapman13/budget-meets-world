@@ -124,3 +124,7 @@ margin: 0 3px -5px 0;
 .TripDetailPage-info-value-small {
     font-size: 12px;
 }
+
+.TripDetailPage-savedList {
+    margin: 0 0 100px 0;
+}

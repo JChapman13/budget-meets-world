@@ -8,12 +8,23 @@
     -o-background-size: cover;
     background-size: cover;
     background-position: bottom;
+    padding: 0;
+    overflow-x: hidden;
+    height: 719px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 .SearchPage {
-    padding: 0 10px;
+    padding: 0 8px 0 8px;
     margin: 0 0 0 0;
-    background-color: linear-gradient(#333333, #33333300);
+    height: 719px;
+    overflow-x: hidden;
+    background: linear-gradient(to top, transparent -50%, black 100%);
 }
+.SearchPage-main {
+    height: 676px;
+    overflow-x: hidden;
+}
+
 .SearchPage p {
     color: white;
 }
@@ -140,4 +151,26 @@
     background-size: 130px 20px;
     background-repeat: no-repeat;
     background-position: 12px 15px;
+}
+
+
+.SearchPage-btn-div {
+    display: grid;
+    place-content: center;
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+.SearchPage-btn {
+    width: 150px;
+    height: 50px;
+    background-color: #F8BC23;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin: -20px 0 0 0;
+}
+.SearchPage-btn:focus {
+    border: none;
 }

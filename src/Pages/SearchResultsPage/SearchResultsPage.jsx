@@ -16,9 +16,9 @@ export default function SearchResultsPage(props) {
     <div className="SearchResultsPage">
       <TripHeader trip={props.trip} />
       <div className="SearchResultsPage-btn-bar">
-        <button onClick={() => props.getFlights()}>Flight</button>
-        <button onClick={() => props.findHotels()}>Hotels</button>
-        <button onClick={() => props.getRestaurants()}>Restaurant</button>
+        <button onClick={() => props.getFlights()}><img src={require('../../Images/plane-black.svg')} alt="svg icon" />  Flight</button>
+        <button onClick={() => props.findHotels()}><img src={require('../../Images/house-black.svg')} alt="svg icon" />  Hotels</button>
+        <button onClick={() => props.getRestaurants()}><img src={require('../../Images/spoon-black.svg')} alt="svg icon" />  Restaurant</button>
       </div>
       {props.currentCat === "flight" ? (
         <Flights 
@@ -31,7 +31,14 @@ export default function SearchResultsPage(props) {
         false
       )}
       {props.currentCat === "hotel" ? (
-        <Hotels hotels={props.hotels} openHotelDetail={props.openHotelDetail} saveHotel={props.saveHotel}/>
+        <Hotels 
+          hotels={props.hotels} 
+          openHotelDetail={props.openHotelDetail} 
+          saveHotel={props.saveHotel} 
+          trip={props.trip}
+          hotelPhotos={props.hotelPhotos}
+          getHotelPhotos={props.getHotelPhotos}
+        />
       ) : (
         false
       )}

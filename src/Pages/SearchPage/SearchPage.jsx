@@ -145,104 +145,108 @@ export default function SearchPage(props) {
   return (
     <div className="SearchPage-container">
       <div className="SearchPage">
-        <div className="SearchPage-logo">
-          <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
-        </div>
-        <form onSubmit={handleSubmit}>
-          {/* <input
-            onChange={handleChange}
-            type="text"
-            name="name"
-            placeholder="Trips name?"
-            required
-          /> */}
-          <div className="duo-input">
-            <div className="SearchPage-budget">
-              <p>Budget:</p>
+        <div className="SearchPage-main">
+          <div className="SearchPage-logo">
+            <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
+          </div>
+          <form onSubmit={handleSubmit}>
+            {/* <input
+              onChange={handleChange}
+              type="text"
+              name="name"
+              placeholder="Trips name?"
+              required
+            /> */}
+            <div className="duo-input">
+              <div className="SearchPage-budget">
+                <p>Budget:</p>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  pattern="[0-9]"
+                  name="budget"
+                  value={trip.budget}
+                  required
+                />
+              </div>
+              <div className="SearchPage-people">
+                <p>Traveler:</p>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  name="people"
+                  value={trip.people}
+                />
+              </div>
+            </div>
+            <div className="duo-input SearchPage-location">
               <input
                 onChange={handleChange}
-                type="number"
-                pattern="[0-9]"
-                name="budget"
-                value={trip.budget}
+                type="text"
+                name="origin"
+                placeholder="From?"
+                value={trip.origin}
+                required
+              />
+              <input
+                onChange={handleChange}
+                type="text"
+                name="destination"
+                placeholder="To?"
                 required
               />
             </div>
-            <div className="SearchPage-people">
-              <p>Traveler:</p>
+            <div className="duo-input SearchPage-date">
+              <input
+                onChange={handleChange}
+                type="date"
+                name="startDate"
+                value={trip.startDate}
+                required
+              />
+              <input
+                onChange={handleChange}
+                type="date"
+                name="endDate"
+                value={trip.endDate}
+                required
+              />
+            </div>
+            <div className="SearchPage-slide SearchPage-slide-flight">
               <input
                 onChange={handleChange}
                 type="number"
-                name="people"
-                value={trip.people}
+                name="flight"
+                value={trip.flight}
+                required
               />
             </div>
-          </div>
-          <div className="duo-input SearchPage-location">
-            <input
-              onChange={handleChange}
-              type="text"
-              name="origin"
-              placeholder="From?"
-              value={trip.origin}
-              required
-            />
-            <input
-              onChange={handleChange}
-              type="text"
-              name="destination"
-              placeholder="To?"
-              required
-            />
-          </div>
-          <div className="duo-input SearchPage-date">
-            <input
-              onChange={handleChange}
-              type="date"
-              name="startDate"
-              value={trip.startDate}
-              required
-            />
-            <input
-              onChange={handleChange}
-              type="date"
-              name="endDate"
-              value={trip.endDate}
-              required
-            />
-          </div>
-          <div className="SearchPage-slide SearchPage-slide-flight">
-            <input
-              onChange={handleChange}
-              type="number"
-              name="flight"
-              value={trip.flight}
-              required
-            />
-          </div>
-          <div className="SearchPage-slide SearchPage-slide-accom">
-            <input
-              onChange={handleChange}
-              type="number"
-              name="accommodation"
-              value={trip.accommodation}
-              required
-            />
-          </div>
-          <div className="SearchPage-slide SearchPage-slide-food">
-            <input
-              onChange={handleChange}
-              type="number"
-              name="restaurant"
-              value={trip.restaurant}
-              required
-            />
-          </div>
-          {submitError ? <p>{submitError}</p> : false}
-          <br />
-          <br />
-          <button onSubmit={handleSubmit}>Done</button>
-        </form>
+            <div className="SearchPage-slide SearchPage-slide-accom">
+              <input
+                onChange={handleChange}
+                type="number"
+                name="accommodation"
+                value={trip.accommodation}
+                required
+              />
+            </div>
+            <div className="SearchPage-slide SearchPage-slide-food">
+              <input
+                onChange={handleChange}
+                type="number"
+                name="restaurant"
+                value={trip.restaurant}
+                required
+              />
+            </div>
+            {submitError ? <p>{submitError}</p> : false}
+            <br />
+            <br />
+            <div className="SearchPage-btn-div">
+              <button className="SearchPage-btn" onSubmit={handleSubmit}>Done</button>
+            </div>
+          </form>
+        </div>
         <Footer />
       </div>
     </div>

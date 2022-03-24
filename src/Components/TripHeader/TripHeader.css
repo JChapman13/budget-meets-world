@@ -2,18 +2,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 170px;
-    background-color: #0D47A1;
+    background: #191919;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 70px 70px;
     color: white;
     font-weight: 600;
+    letter-spacing: 1px;
     position: relative;
 }
 
+.TripHeader-budget img {
+    margin: 0 4px -3px 0;
+}
+
 .TripHeader-detail-bar {
-    width: 100%;
+    width: 360px;
     color: white;
     font-size: 12px;
     font-weight: 600;
@@ -24,17 +32,33 @@
 .TripHeader-detail-bar p {
     margin: 0 5px;
 }
+.TripHeader-detail-bar p img {
+    margin: 0 2px -1px 0;
+}
 
 .TripHeader-budget-bar {
-    width: 300px;
-    height: 50px;
-    border-radius: 10px;
+    width: 260px;
+    height: 60px;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     margin: 15px 0;
 }
-.TripHeader-budget-bar p {
+.TripHeader-budget-bar div p {
     margin: 0;
+}
+.TripHeader-budget-bar div p:first-child {
+    display: flex;
+    align-items: center;
+}
+.TripHeader-budget-bar div p:last-child {
+    font-weight: 400;
+    letter-spacing: 0;
+}
+.TripHeader-budget-bar div p img {
+    width: 15px;
+    height: 15px;
+    margin: 0 2px 0 0;
 }
 .TripHeader-budget-bar-flight {
     display: flex;
@@ -43,9 +67,9 @@
     align-items: center;
     color: black;
     height: 100%;
-    background-color: white;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    background-color: #F8BC23;
+    border-radius: 30px 0px 0px 30px;
+    border: none;
 }
 .TripHeader-budget-bar-acc {
     display: flex;
@@ -54,7 +78,9 @@
     align-items: center;
     color: black;
     height: 100%;
-    background-color: #c4c4c4;
+    background-color: #FAD986;
+    border-left: 1px solid #191919;
+    border-right: 1px solid #191919;
 }
 .TripHeader-budget-bar-food {
     display: flex;
@@ -63,17 +89,17 @@
     align-items: center;
     color: black;
     height: 100%;
-    background-color: #5f5f5f;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    background-color: #F6E6BC;
+    border-radius: 0px 30px 30px 0px;
+    border: none;
 }
 
 .edit-btn {
-    background-color: white;
+    background-color: #F8BC23;
     color: black;
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 0;
+    left: 45%;
     border-radius: 50px;
     margin: 10px;
     padding: 2px 5px;

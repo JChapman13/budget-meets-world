@@ -11,27 +11,27 @@ export default function SearchResultsPage(props) {
     // add a comment to test
     return (
         <div className='TripHeader'>
-            <p>CAD ${props.trip.budget} </p>
-            <Link className='edit-btn' to='/create'>edit</Link>
+            <p className='TripHeader-budget'><img src={require('../../Images/wallet-white.svg')} alt="svg icon" /> CAD ${props.trip.budget} </p>
             <div className='TripHeader-detail-bar'>
-                <p>{props.trip.destination}</p>
-                <p>{moment(props.trip.startDate).format('MMM D')} - {moment(props.trip.endDate).format('MMM D')}</p>
-                <p>{props.trip.people} adults</p>
+                <p><img src={require('../../Images/pin-white.svg')} alt="svg icon" /> {props.trip.destination}</p>
+                <p><img src={require('../../Images/cal-white.svg')} alt="svg icon" /> {moment(props.trip.startDate).format('MMM D')} - {moment(props.trip.endDate).format('MMM D')}</p>
+                <p><img src={require('../../Images/people-white.svg')} alt="svg icon" /> {props.trip.people} adults</p>
             </div>
             <div className='TripHeader-budget-bar'>
                 <div style={{width: `${flightPercent}%`}} className='TripHeader-budget-bar-flight'>
-                    <p>{flightPercent}%</p>
-                    <p>{props.trip.flight}</p>
+                    <p><img src={require('../../Images/plane-black.svg')} alt="svg icon" /> {flightPercent}%</p>
+                    <p>${props.trip.flight}</p>
                 </div>
                 <div style={{width: `${hotelPercent}%`}} className='TripHeader-budget-bar-acc'>
-                    <p>{hotelPercent}%</p>
-                    <p>{props.trip.accommodation}</p>
+                    <p><img src={require('../../Images/house-black.svg')} alt="svg icon" /> {hotelPercent}%</p>
+                    <p>${props.trip.accommodation}</p>
                 </div>
                 <div style={{width: `${restPercent}%`}} className='TripHeader-budget-bar-food'>
-                    <p>{restPercent}%</p>
-                    <p>{props.trip.restaurant}</p>
+                    <p><img src={require('../../Images/spoon-black.svg')} alt="svg icon" /> {restPercent}%</p>
+                    <p>${props.trip.restaurant}</p>
                 </div>
             </div>
+            <Link className='edit-btn' to='/create'>edit</Link>
         </div>
     )
 }

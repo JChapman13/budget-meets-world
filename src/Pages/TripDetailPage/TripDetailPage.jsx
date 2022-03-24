@@ -3,6 +3,7 @@ import moment from 'moment'
 import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
+import Hotels from '../../Components/Hotels/Hotels'
 
 export default function TripDetailPage(props) {
 
@@ -31,7 +32,14 @@ export default function TripDetailPage(props) {
                             </div>
                            )})}</>)
         }else if (currentView === "hotels"){
-            return (<><h1>example1</h1> </>)
+            return (<>
+                    <Hotels 
+                    hotels={props.savedHotel} 
+                    openHotelDetail={props.openHotelDetail}
+                    saveHotel={props.saveHotel}
+                    trip={props.trip}
+                    hotelPhotos={props.hotelPhotos}/> 
+                      </>)
         }else{
             return (<><h1>example2</h1> </>)
         }
@@ -42,7 +50,7 @@ export default function TripDetailPage(props) {
         <div className='TripDetailPage'>
             <h1>Trip to {props.trip.destination}</h1>
             <button className='TripDetailPage-back-btn' onClick={() => goBack()}><img src={require('../../Images/my-trip-back-btn.svg')} alt="svg icon" /></button>
-            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip()}>Edit</button>
+            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip(props.trip._id)}>Edit</button>
             <div className='TripDetailPage-img'>
 
             </div>
@@ -82,6 +90,14 @@ export default function TripDetailPage(props) {
                 <button onClick={() => setCurrentView('flights')}>Flight</button>
                 <button onClick={() => setCurrentView('hotels')}>Hotels</button>
                 <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
+                
+                {/* {props.savedHotel.map(hotel => 
+                    <div>
+                        {console.log(hotel, "fdasfgasg")}
+                        <p>{hotel.body.propertyDescription.name}</p>
+                        <p>{hotel.body.propertyDescription.featuredPrice.currentPrice.plain}</p>
+                    </div>
+                    )} */}
             </div>
             {toggleView()}
 
