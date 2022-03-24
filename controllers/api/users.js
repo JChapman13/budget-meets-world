@@ -114,7 +114,7 @@ async function getTrip(req, res) {
                 },
                 headers: {
                   'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-                  'X-RapidAPI-Key': XRapidAPIKey
+                  'X-RapidAPI-Key': process.env.X_RapidAPI_Key
                 }
               };
               axios.request(hotel).then(function (response) {
@@ -140,6 +140,7 @@ async function saveHotel(req, res) {
         //     { "$push": {"trip.$.hotel": req.body } }
         // )
         await trip.save()
+        await user.save()
         console.log("gsdfahgsghh", trip)
         res.status(200).json({ user: user, trip: trip })
     } catch(err) {

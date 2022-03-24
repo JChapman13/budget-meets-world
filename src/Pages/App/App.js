@@ -10,6 +10,7 @@ import HotelDetailPage from '../HotelDetailPage/HotelDetailPage';
 import Login from '../../Components/Login/Login';
 import Signup from '../../Components/Signup/Signup';
 import TripDetailPage from '../TripDetailPage/TripDetailPage';
+import Flights from '../../Components/Flights/Flights';
 const axios = require('axios').default;
 
 export default function App(props) {
