@@ -23,6 +23,7 @@ export default function App(props) {
 	const [oneHotel, setOneHotel] = useState({});
 	const [hotelPhotos, setHotelPhotos] = useState({});
 	const [savedHotel, setSavedHotel] = useState([]);
+	const [savedFlight, setSavedFlight] = useState([]);
 	const [trip, setTrip] = useState({
 		// _id: '623bd557d4bb1e9d4d4fd4b1',
 		// name: 'la la la',
@@ -94,13 +95,14 @@ export default function App(props) {
 	}
 
 	async function openOneTrip(id) {
+		console.log(id, 'trip id');
 		let fetchTrip = await fetch('/api/users/trip/detail', {
 			headers: { userId: user._id, tripId: id },
 		});
 		let response = await fetchTrip.json();
+		setSavedFlight(response.theTrip.savedFlight);
 		setSavedHotel(response.hotelArr);
 		setCurrentTrip(response.theTrip);
-		console.log(response.hotelArr);
 		setTrip(response.theTrip);
 		navigate(`/trips/${id}`);
 	}
@@ -423,6 +425,7 @@ export default function App(props) {
 							trip={trip}
 							editOneTrip={editOneTrip}
 							savedHotel={savedHotel}
+							savedFlight={savedFlight}
 						/>
 					}
 				/>

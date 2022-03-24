@@ -62,6 +62,17 @@ export default function TripDetailPage(props) {
                         {/* <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p> */}
                     </div>
                     )}
+                {props.savedFlight.map(flight =>
+                    <div>
+                       <p>{flight.departureDate}</p> 
+                       <p>{flight.arrivalDate}</p> 
+                       <p>{flight.departureCity}</p> 
+                       <p>{flight.destinationCity}</p> 
+                       <p>{flight.departureAirport}</p> 
+                       <p>{flight.destinationAirport}</p> 
+                       <p>{flight.price}</p> 
+                    </div>
+                    )} 
             </div>
             <Footer />
         </div>
