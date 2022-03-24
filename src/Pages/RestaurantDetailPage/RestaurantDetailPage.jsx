@@ -1,8 +1,17 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 
 function RestaurantDetailPage(props) {
-  console.log(props);
+  const itemData = props.restaurantDetail.photos;
+
   const dayConvert = (day) => {
     if (day === 0) return "Mon";
     if (day === 1) return "Tue";
@@ -30,31 +39,6 @@ function RestaurantDetailPage(props) {
     }
   };
 
-  // const filterHours = () => {
-  //   let filtering = [];
-  //   let obj = {};
-  //   for (let i = 0; i < 14; i++) {
-  //     if (i % 2 === 0) {
-  //       obj.day = props.restaurantDetail.hours[0].open[i].day;
-  //       obj.start = props.restaurantDetail.hours[0].open[i].start;
-  //       obj.end = props.restaurantDetail.hours[0].open[i].end;
-  //     } else {
-  //       obj.start2 = props.restaurantDetail.hours[0].open[i].start;
-  //       obj.end2 = props.restaurantDetail.hours[0].open[i].end;
-  //       filtering.push(obj);
-  //       obj = {};
-  //     }
-  //   }
-  //   return filtering.map((time) => {
-  //     return (
-  //       <Typography>
-  //         {dayConvert(time.day)} {timeConvert(time.start)} -{" "}
-  //         {timeConvert(time.end)}
-  //         {timeConvert(time.start2)} - {timeConvert(time.end2)}
-  //       </Typography>
-  //     );
-  //   });
-  // };
   return (
     <div>
       <Card>
@@ -70,7 +54,7 @@ function RestaurantDetailPage(props) {
           </Typography>
           <Typography variant="body1" color="text.secondary">
             {props.restaurantDetail.price} - {props.restaurantDetail.rating}{" "}
-            Star Rating
+            <StarIcon />- {props.restaurantDetail.review_count} reviews
           </Typography>
           <Typography
             variant="body1"
@@ -100,6 +84,19 @@ function RestaurantDetailPage(props) {
             );
           })}
         </CardContent>
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+          {itemData.map((item, idx) => (
+            <ImageListItem key={item.img}>
+              <img
+                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={props.restaurantDetail.name + idx}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+        );
       </Card>
     </div>
   );

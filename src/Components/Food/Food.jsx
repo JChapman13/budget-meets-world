@@ -44,8 +44,12 @@ function Food(props) {
         >
           Details
         </Button>
-        <Button size="small">Book Now</Button>
-        <Button size="small">Save</Button>
+        <Button
+          size="small"
+          onClick={() => props.saveRestaurant(props.restaurant.id)}
+        >
+          Save
+        </Button>
       </CardActions>
     </Card>
   );

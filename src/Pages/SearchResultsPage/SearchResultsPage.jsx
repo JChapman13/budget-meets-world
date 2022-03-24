@@ -8,9 +8,9 @@ import Flights from "../../Components/Flights/Flights";
 import Foods from "../../Components/Foods/Foods";
 
 export default function SearchResultsPage(props) {
-    useEffect(()=> {
-        props.getFlights()
-    },[])
+  useEffect(() => {
+    props.getFlights();
+  }, []);
   return (
     <div className="SearchResultsPage">
       <TripHeader trip={props.trip} />
@@ -20,15 +20,20 @@ export default function SearchResultsPage(props) {
         <button onClick={() => props.getRestaurants()}>Restaurant</button>
       </div>
       {props.currentCat === "flight" ? (
-        <Flights 
-        flights={props.flights} 
-        carriers={props.carriers}
-        places={props.places} />
+        <Flights
+          flights={props.flights}
+          carriers={props.carriers}
+          places={props.places}
+        />
       ) : (
         false
       )}
       {props.currentCat === "hotel" ? (
-        <Hotels hotels={props.hotels} openHotelDetail={props.openHotelDetail} saveHotel={props.saveHotel}/>
+        <Hotels
+          hotels={props.hotels}
+          openHotelDetail={props.openHotelDetail}
+          saveHotel={props.saveHotel}
+        />
       ) : (
         false
       )}
@@ -37,6 +42,7 @@ export default function SearchResultsPage(props) {
           getRestaurants={props.restaurants}
           restaurants={props.restaurants}
           getRestaurantDetail={props.getRestaurantDetail}
+          saveRestaurant={props.saveRestaurant}
         />
       ) : (
         false

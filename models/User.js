@@ -30,6 +30,7 @@ const tripSchema = new Schema(
     startDate: Date,
     endDate: Date,
     people: Number,
+    restaurantIds: Array,
     hotel: [hotelSchema],
     savedflight: [flightSchema],
   },
