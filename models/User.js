@@ -31,7 +31,7 @@ const tripSchema = new Schema(
     endDate: Date,
     people: Number,
     hotel: [hotelSchema],
-    savedflight: [flightSchema],
+    savedFlight: [flightSchema],
   },
   {
     timestamps: true,

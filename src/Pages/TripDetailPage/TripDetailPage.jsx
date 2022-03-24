@@ -55,6 +55,30 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
+                <div className='Hotel'>
+                    <div className='Hotel-image'>
+
+                    </div>
+                    <div className='Hotel-name'>
+                        <p>SDHAHJ AGHA;L HGAEL;HG AOI;H OD;IH ADHO;AGER</p>
+                        <p><img src={require('../../Images/pin-black.svg')} alt="svg icon" /> somewhere something</p>
+                    </div>
+                    <div className='Hotel-stat'>
+                        <div className='Hotel-stat-star'>
+                            <p><span>3 </span> Star hotel</p>
+                            <p>8.0/10 guess rating</p>
+                            <p>236116 reviews</p>
+                        </div>
+                        <div className='Hotel-stat-price'>
+                            <p>CAD $1234</p>
+                            <p>CAD $1246136 total</p>
+                        </div>
+                    </div>
+                    <div className='Hotel-btn'>
+                        <button onClick={() => props.openHotelDetail(props.hotel.id)} >see more</button>
+                        <button onClick={() => props.saveHotel(props.hotel.id)}>Save</button>
+                    </div>
+                </div>
                 {props.savedHotel.map(hotel => 
                     <div>
                         {console.log(hotel, "fdasfgasg")}

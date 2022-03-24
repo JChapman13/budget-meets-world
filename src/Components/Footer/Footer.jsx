@@ -8,16 +8,22 @@ export default function Footer(props) {
     return (
         <div className='footer'>
             <div>
-                <img src={require('../../Images/my-trip-btn.svg')} alt="svg icon" />
-                <Link to="/trips">MY TRIPS</Link>
+                <Link to="/trips">
+                    <img src={require('../../Images/my-trip-btn.svg')} alt="svg icon" />
+                    <p>MY TRIPS</p>
+                </Link>
             </div>
             <div>
-                <img src={require('../../Images/search-btn.svg')} alt="svg icon" />
-                <Link to="/create">SEARCH</Link>
+                <Link to="/create">
+                    <img src={require('../../Images/search-btn.svg')} alt="svg icon" />
+                    <p>SEARCH</p>
+                </Link>
             </div>
             <div>
-                <img src={require('../../Images/profile-btn.svg')} alt="svg icon" />
-                <Link to="/profile">PROFILE</Link>
+                <Link to="/profile">
+                    <img src={require('../../Images/profile-btn.svg')} alt="svg icon" />
+                    <p>PROFILE</p>
+                </Link>
             </div>
         </div>
     )

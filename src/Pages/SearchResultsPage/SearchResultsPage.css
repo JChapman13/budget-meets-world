@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+.SearchResultsPage {
+    width: 100%;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
 .SearchResultsPage-btn-bar {
     display: flex;
     justify-content: space-between;
@@ -8,11 +16,19 @@
 }
 
 .SearchResultsPage-btn-bar button {
-    background-color: #E3F2FD;
-    border: none;
+    background-color: #FAD986;
+    border: 1px solid #F8BC23;
     border-radius: 5px;
     height: 30px;
     padding: 5px;
     margin: 0 5px;
     font-weight: 600;
+    font-size: 16px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+}
+
+.SearchResultsPage-btn-bar button img {
+    margin: 0 2px -1px 0;
 }

@@ -257,6 +257,7 @@ export default function App(props) {
         headers: { id: id },
       });
       let photos = await fetchHotelPhotos.json();
+      console.log(photos)
       setHotelPhotos(photos);
     } catch (err) {
       console.log(err);

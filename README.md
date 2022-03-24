@@ -1,7 +1,7 @@
 <h1 align="center">Budget Meets World</h1>
 
 <p align="center">
-    <img alt="la" width="120px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
+    <img alt="la" width="120px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
 </p>
 
 <h3 align="center">Say something</h3>
@@ -34,12 +34,12 @@ La La La.
 ### Review:
 
 
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
 
 <br />
 
