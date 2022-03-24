@@ -7,7 +7,7 @@ import moment from "moment";
 export default function SearchPage(props) {
   console.log(props.trip._id, 'trip id')
     const [trip, setTrip] = useState({
-        id: props.trip._id,
+        // id: props.trip._id,
         // name: props.trip.name,
         budget: props.trip.budget,
         people: props.trip.people,
