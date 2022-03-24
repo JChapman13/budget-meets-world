@@ -1,49 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
 .TripDetailPage {
     padding: 10px;
     position: relative;
+    font-family: 'Roboto';
 }
 .TripDetailPage h1 {
-    font-size: 22px;
-    color: #0D47A1;
-    margin: 50px 0 20px 20px;
+    font-size: 24px;
+    color: black;
+    font-family: 'Roboto';
+    margin: 0 0 20px 30px;
 }
 
 .TripDetailPage-back-btn {
-    background-color: #0D47A1;
-    color: white;
+    background-color: transparent;
     border: none;
-    border-radius: 7px;
-    padding: 3px 10px;
     margin: 10px;
     position: absolute;
-    top: 0;
+    top: 6px;
     left: 0;
-    font-size: 16px;
 }
 .TripDetailPage-edit-btn {
-    background-color: #0D47A1;
-    color: white;
+    background-color: #F8BC23;
+    color: black;
     border: none;
     border-radius: 7px;
-    padding: 3px 10px;
+    padding: 5px 15px;
     margin: 10px;
     position: absolute;
     top: 0;
     right: 0;
     font-size: 16px;
+    font-weight: 600;
 }
 
 .TripDetailPage-img {
-    height: 200px;
-    width: 90%;
+    height: 250px;
+    width: 95%;
     background-color: lightgrey;
     border-radius: 20px;
     margin: 30px auto;
 }
 
 .TripDetailPage-budget-bar {
-    width: 300px;
-    height: 100px;
+    height: 97px;
+    width: 95%;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -52,15 +54,25 @@
 }
 .TripDetailPage-budget-bar p {
     margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+.TripDetailPage-budget-bar small {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+.TripDetailPage-budget-bar img {
+margin: 0 3px -5px 0;
 }
 .TripDetailPage-budget-bar-flight {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     height: 100%;
-    background-color: #0D47A1;
+    background-color: #F8BC23;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
@@ -71,33 +83,44 @@
     align-items: center;
     color: black;
     height: 100%;
-    background-color:#E3F2FD;
+    background-color:#FAD986;
 }
 .TripDetailPage-budget-bar-food {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     height: 100%;
-    background-color: #062B65;
+    background-color: #F6E6BC;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
 .TripDetailPage-info {
-    color: #64B5F6;
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
     width: 90%;
     margin: 20px 20px;
-
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+.TripDetailPage-info p {
+    margin: 15px 0;
+}
+.TripDetailPage-info-key {
+    
+}
+.TripDetailPage-info-key p img {
+    margin: 0 7px -5px 0;
 }
 
-.TripDetailPage-info div {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
 
-.TripDetailPage-info div p {
-    margin: 0;
+.TripDetailPage-info-value p {
+    text-align: center;
+    margin: 20px 0;
+}
+.TripDetailPage-info-value-small {
+    font-size: 12px;
 }

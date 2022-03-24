@@ -9,7 +9,7 @@ export default function SavedTripsPage(props) {
     return (
         <div className='SavedTripsPage'>
             <h1>My Trips</h1>
-            <button className='SavedTripsPage-add-btn' onClick={() => props.createNewTrip()}>+</button>
+            <button className='SavedTripsPage-add-btn' onClick={() => props.createNewTrip()}>Create</button>
             <div className='SavedTripsPage-div'>
                 {props.trips.map(trip => <TripItem user={props.user} trip={trip} openOneTrip={props.openOneTrip}/>)}
             </div>

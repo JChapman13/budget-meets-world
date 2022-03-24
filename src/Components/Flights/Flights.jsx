@@ -1,7 +1,7 @@
 import "./Flights.css";
 import React, { useEffect, useState } from "react";
 import Flight from "../Flight/Flight";
-
+const axios = require('axios').default;
 
 export default function Flights(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ useEffect(() => {
     })
     .then((result) => {
         console.log(result.data) //dot notation to get specific data
-        carriers = result.data.Carriers
+        // carriers = result.data.Carriers
         // setFlights(result.data.Quotes)
     })
     .catch((err) => console.log(err, "flight result error")) 
