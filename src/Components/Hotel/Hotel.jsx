@@ -29,9 +29,7 @@ export default function Hotel(props) {
 
     return (
         <div className='Hotel'>
-            <div className='Hotel-image'>
-                <img src={photo} alt="Hotel Image"/>
-            </div>
+            <div style={{backgroundImage: `url(${photo})`}} className='Hotel-image'></div>
             <div className='Hotel-name'>
                 <p>{props.hotel.name ? props.hotel.name : props.hotel.propertyDescription.name}</p>
                 <p><img src={require('../../Images/pin-black.svg')} alt="svg icon" /> 
@@ -48,25 +46,22 @@ export default function Hotel(props) {
                 <div className='Hotel-stat-star'>
                     <p><span>{props.hotel.name ? props.hotel.starRating : props.hotel.propertyDescription.starRating} </span> Star hotel</p>
                     <p>{props.hotel.name ? 
-                        props.hotel.guestReviews.rating ?
-                        `${props.hotel.guestReviews.rating}/10 guess rating` :
-                        `${props.hotel.guestReviews.brands.rating}/10 guess rating`
-                        : "No ratings yet"}
+                        props.hotel.guestReviews.rating ? `${props.hotel.guestReviews.rating}/10 guess rating` : "No ratings yet"
+                        :
+                        props.hotel.guestReviews.brands.rating ? `${props.hotel.guestReviews.brands.rating}/10 guess rating`: "No ratings yet" }
                     </p>
-                    <p>{props.hotel.guestReviews ? `${props.hotel.guestReviews.total} reviews` : "0 reviews"}</p>
                     <p>{props.hotel.name ? 
-                        props.hotel.guestReviews.total ?
-                        `${props.hotel.guestReviews.total} reviews` :
-                        `${props.hotel.guestReviews.brands.total} reviews` :
-                        "0 reviews"}
+                        props.hotel.guestReviews.total ? `${props.hotel.guestReviews.total} reviews` : "0 reviews"
+                        :
+                        props.hotel.guestReviews.brands.total ? `${props.hotel.guestReviews.brands.total} reviews` : "0 reviews" }
                     </p>
                 </div>
                 <div className='Hotel-stat-price'>
-                    <p>CAD ${props.hotel.name ? props.hotel.ratePlan.price.current : props.hotel.propertyDescription.featuredPrice.currentPrice.formatted}</p>
-                    <p>CAD ${props.hotel.ratePlan.price.fullyBundledPricePerStay} total</p>
+                    <p>{props.hotel.name ? props.hotel.ratePlan.price.current : props.hotel.propertyDescription.featuredPrice.currentPrice.formatted}</p>
                     { props.hotel.name ? 
-                    <p>CAD ${props.hotel.ratePlan.price.fullyBundledPricePerStay.replace('&nbsp;', ' ')} </p> : 
-                    <p>CAD ${props.hotel.propertyDescription.featuredPrice.currentPrice.plain * diffDays}</p> }
+                        <p>CAD ${Math.floor(props.hotel.ratePlan.price.exactCurrent * diffDays)} total</p> : 
+                        <p>CAD ${Math.floor(props.hotel.propertyDescription.featuredPrice.currentPrice.plain * diffDays)} total</p>
+                    }
                 </div>
             </div>
             <div className='Hotel-btn'>

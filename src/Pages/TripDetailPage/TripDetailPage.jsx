@@ -56,7 +56,6 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
-                Hotels Saved:
                 <Hotels 
                     hotels={props.savedHotel} 
                     openHotelDetail={props.openHotelDetail}

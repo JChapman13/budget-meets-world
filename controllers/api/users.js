@@ -16,11 +16,8 @@ module.exports = {
 	editTrip,
 	getTrip,
 	saveHotel,
-<<<<<<< HEAD
-    getOneTrip
-=======
+    getOneTrip,
 	saveFlight,
->>>>>>> 1c56c184088e2bc1eb7827b95a89d2f42972f1cd
 };
 
 async function login(req, res) {
@@ -76,10 +73,9 @@ async function createTrip(req, res) {
 	let userId = req.get('userId');
 	const users = await UserModel.findById(userId);
 	try {
-		console.log(req.body);
-		await users.trip.push(req.body);
+		await users.trip.push(req.body)
 		await users.save();
-		const theTrip = await users.trip.find((trip) => trip.name == req.body.name);
+		const theTrip = await users.trip[users.trip.length - 1]
 		res.status(200).json({ users: users, trip: theTrip });
 	} catch (err) {
 		res.status(400).json(err);
@@ -149,10 +145,8 @@ async function getOneTrip(req, res) {
     try{
         let userId = req.get('userId')
         const user = await UserModel.findById(userId)
-        console.log(user)
         let tripId = req.get('tripId')
         const trip = await user.trip.find(trip => trip._id == tripId )
-        console.log(trip)
         res.status(200).json(trip)
     } catch(err) {
         res.status(400).json(err)
@@ -173,8 +167,6 @@ async function saveHotel(req, res) {
 }
 
 async function saveFlight(req, res) {
-	console.log(req.body.data, 'saveFlight req');
-	console.log(req.body, 'req.body save flight');
 	try {
 		const user = await UserModel.findById(req.body.userId);
 		const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
@@ -187,7 +179,6 @@ async function saveFlight(req, res) {
 			departureAirport: req.body.data.departureAirport,
 			destinationAirport: req.body.data.destinationAirport,
 		});
-		console.log(trip, 'after push');
 		await trip.save();
 		await user.save();
 		res.status(200).json({ user: user, trip: trip });

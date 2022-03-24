@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, Route, Routes } from 'react-router-dom';
+import { Link, useNavigate, Route, Routes, Navigate } from 'react-router-dom';
 import AuthPage from '../AuthPage/AuthPage';
 import SearchPage from '../SearchPage/SearchPage';
 import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
@@ -106,9 +106,8 @@ export default function App(props) {
 
 	async function createTrip(object, userId) {
 		// if (!object.id) {
-		console.log(object);
-		let fetchTrip = await fetch('/api/users/create/trip', {
-			method: 'POST',
+      let fetchTrip = await fetch('/api/users/create/trip', {
+        method: 'POST',
 			headers: { 'Content-Type': 'application/json', userId: userId },
 			body: JSON.stringify({
 				// name: object.name,
@@ -125,6 +124,7 @@ export default function App(props) {
 			}),
 		});
 		let user = await fetchTrip.json();
+    console.log(user.trip);
 		setUser(user.users);
 		setTrip(user.trip);
 		console.log(user.trip._id, 'user trip id');
@@ -432,6 +432,9 @@ export default function App(props) {
 					element={<HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />}
 				/>
 				<Route path='/flights' element={<Flights flights={flights} />} />
+
+				<Route path="*" element={<Navigate to="/trips" />} />
+
 			</Routes>
 		</div>
 	);

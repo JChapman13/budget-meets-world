@@ -40,18 +40,32 @@ export default function Login(props) {
 
   return (
     <div className="Login">
-      <h1>Login</h1>
+      <div className="SearchPage-logo">
+        <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
+      </div>
+      <div className="Login-title">
+        <h1>Welcome Back!</h1>
+        <h3>Your dream vacation is one</h3>
+        <h3>step away...</h3>
+      </div>
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <p>name</p>
-        <input onChange={handleChange} type="text" name="name" required />
+        <input 
+          className="Login-username" 
+          onChange={handleChange} 
+          type="text" 
+          name="name" 
+          placeholder="Username" 
+          required />
         <br></br>
-        <p>password</p>
         <input
+          className="Login-password"
           onChange={handleChange}
           type="password"
           name="password"
+          placeholder="Password"
           required
         />
+        <p className="Login-forgot">Forgot Password?</p>
         {error ? (
           <p className="error-red">Incorrect Username or password. Try again</p>
         ) : (
