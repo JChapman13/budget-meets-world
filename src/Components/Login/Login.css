@@ -1,12 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .Login {
     height: 100vh;
     padding: 0 20px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
 
+.Login-title {
+    text-align: center;
+}
+.Login-title h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin: 15px;
+}
+.Login-title h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
 }
 
 .Login form input {
-    height: 30px;
-    width:  90%;
+    height: 50px;
+    width:  275px;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 0 0 0 45px;
+    font-size: 18px;
+    color: #979797;
+}
+.Login-username {
+    background-image: url('../../Images/wallet-black.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+
+}
+.Login-password {
+    background-image: url('../../Images/wallet-black.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+}
+.Login-forgot {
+    text-align: right;
+    width: 275px;
+    margin: 0 auto;
+}
+.error-red {
+    color: red;
 }

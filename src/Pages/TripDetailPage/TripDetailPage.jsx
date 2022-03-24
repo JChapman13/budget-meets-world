@@ -21,25 +21,25 @@ export default function TripDetailPage(props) {
     const toggleView = () =>{
         if (currentView === "flights"){
             return(<>{props.savedFlight.map(flight => {
-                           return( <div>
-                            <p>{flight.departureDate}</p> 
-                            <p>{flight.arrivalDate}</p> 
-                            <p>{flight.departureCity}</p> 
-                            <p>{flight.destinationCity}</p> 
-                            <p>{flight.departureAirport}</p> 
-                            <p>{flight.destinationAirport}</p> 
-                            <p>{flight.price}</p> 
-                            </div>
-                           )})}</>)
+                return( <div>
+                <p>{flight.departureDate}</p> 
+                <p>{flight.arrivalDate}</p> 
+                <p>{flight.departureCity}</p> 
+                <p>{flight.destinationCity}</p> 
+                <p>{flight.departureAirport}</p> 
+                <p>{flight.destinationAirport}</p> 
+                <p>{flight.price}</p> 
+                </div>
+            )})}</>)
         }else if (currentView === "hotels"){
             return (<>
-                    <Hotels 
-                    hotels={props.savedHotel} 
-                    openHotelDetail={props.openHotelDetail}
-                    saveHotel={props.saveHotel}
-                    trip={props.trip}
-                    hotelPhotos={props.hotelPhotos}/> 
-                      </>)
+                <Hotels 
+                hotels={props.savedHotel} 
+                openHotelDetail={props.openHotelDetail}
+                saveHotel={props.saveHotel}
+                trip={props.trip}
+                hotelPhotos={props.hotelPhotos}/> 
+            </>)
         }else{
             return (<><h1>example2</h1> </>)
         }
@@ -86,22 +86,13 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
-            <div className="SearchResultsPage-btn-bar">
-                <button onClick={() => setCurrentView('flights')}>Flight</button>
-                <button onClick={() => setCurrentView('hotels')}>Hotels</button>
-                <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
-                
-                {/* {props.savedHotel.map(hotel => 
-                    <div>
-                        {console.log(hotel, "fdasfgasg")}
-                        <p>{hotel.body.propertyDescription.name}</p>
-                        <p>{hotel.body.propertyDescription.featuredPrice.currentPrice.plain}</p>
-                    </div>
-                    )} */}
+                <div className="SearchResultsPage-btn-bar">
+                    <button onClick={() => setCurrentView('flights')}>Flight</button>
+                    <button onClick={() => setCurrentView('hotels')}>Hotels</button>
+                    <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
+                </div>
+                {toggleView()}
             </div>
-            {toggleView()}
-
-</div>
             <Footer />
         </div>
     )

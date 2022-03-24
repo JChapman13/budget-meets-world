@@ -74,10 +74,9 @@ async function createTrip(req, res) {
 	let userId = req.get('userId');
 	const users = await UserModel.findById(userId);
 	try {
-		console.log(req.body);
 		await users.trip.push(req.body);
 		await users.save();
-		const theTrip = await users.trip.find((trip) => trip.name == req.body.name);
+		const theTrip = await users.trip[users.trip.length - 1];
 		res.status(200).json({ users: users, trip: theTrip });
 	} catch (err) {
 		res.status(400).json(err);
@@ -148,10 +147,8 @@ async function getOneTrip(req, res) {
 	try {
 		let userId = req.get('userId');
 		const user = await UserModel.findById(userId);
-		console.log(user);
 		let tripId = req.get('tripId');
 		const trip = await user.trip.find((trip) => trip._id == tripId);
-		console.log(trip);
 		res.status(200).json(trip);
 	} catch (err) {
 		res.status(400).json(err);
