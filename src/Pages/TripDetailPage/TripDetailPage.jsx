@@ -14,7 +14,7 @@ export default function TripDetailPage(props) {
     async function goBack() {
         navigate('/trips')
     }
-    
+
     return (
         <div className='TripDetailPage'>
             <h1>Trip to {props.trip.destination}</h1>
@@ -59,6 +59,13 @@ export default function TripDetailPage(props) {
                 </div>
             </div>
             <div className='TripDetailPage-savedList'>
+                {props.savedHotel.map(hotel => 
+                    <div>
+                        {console.log(hotel, "fdasfgasg")}
+                        <p>{hotel.propertyDescription.name}</p>
+                        <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p>
+                    </div>
+                    )}
             </div>
             <Footer />
         </div>

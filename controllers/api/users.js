@@ -10,6 +10,7 @@ module.exports = {
     createTrip,
     editTrip,
     getTrip,
+    saveHotel
 }
 
 async function login(req, res) {
@@ -97,7 +98,50 @@ async function getTrip(req, res) {
         const users = await UserModel.findById(userId)
         let tripId = req.get('tripId')
         const theTrip = await users.trip.find(trip => trip._id == tripId )
-        res.status(200).json(theTrip)
+        let hotelArr = []
+        console.log(theTrip.hotel)
+        theTrip.hotel.forEach(h => 
+            {var hotel = {
+                method: 'GET',
+                url: 'https://hotels4.p.rapidapi.com/properties/get-details',
+                params: {
+                  id: h.id,
+                  checkIn: theTrip.startDate,
+                  checkOut: theTrip.endDate,
+                  adults1: theTrip.people,
+                  currency: 'CAD',
+                  locale: 'en_US'
+                },
+                headers: {
+                  'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+                  'X-RapidAPI-Key': XRapidAPIKey
+                }
+              };
+              axios.request(hotel).then(function (response) {
+                  
+                hotelArr.push(response.data.data.body)
+              }).catch(function (error) {
+                console.error(error);
+              });
+            })
+        res.status(200).json({theTrip: theTrip, hotelArr: hotelArr})
+    } catch(err) {
+        res.status(400).json(err)
+    }
+}
+
+async function saveHotel(req, res) {
+    try {
+        const user = await UserModel.findById(req.body.userId)
+        const trip = await user.trip.find(trip => trip._id == req.body.tripId)
+        await trip.hotel.push({id: req.body.hotelId})
+        // user.updateOne(
+        //     {"_id": 1 },
+        //     { "$push": {"trip.$.hotel": req.body } }
+        // )
+        await trip.save()
+        console.log("gsdfahgsghh", trip)
+        res.status(200).json({ user: user, trip: trip })
     } catch(err) {
         res.status(400).json(err)
     }

@@ -21,7 +21,9 @@ export default function App(props) {
 	const [hotelList, setHotelList] = useState([])
 	const [oneHotel, setOneHotel] = useState({})
 	const [hotelPhotos, setHotelPhotos] = useState({})
+  const [savedHotel, setSavedHotel] = useState([])
 	const [trip, setTrip] = useState({
+    _id: "623b7331c16e912221a0c1c2",
 		name: "la la la",
 		budget: 5000,
 		people: 1,
@@ -131,8 +133,11 @@ export default function App(props) {
 
 	async function openOneTrip(id) {
 		let fetchTrip = await fetch('/api/users/trip/detail', { headers: { "userId": user._id , "tripId": id } })
-		let trip = await fetchTrip.json()
-		setCurrentTrip(trip)
+		let response = await fetchTrip.json()
+    console.log(response, "hotelaarr")
+    setSavedHotel(response.hotelArr)
+    console.log(savedHotel, "dsdaaff")
+		setCurrentTrip(response.theTrip)
 		navigate(`/trips/${id}`)
 	}
 
@@ -261,7 +266,18 @@ export default function App(props) {
 	}
   
   async function saveHotel(id) {
-    console.log("adas")
+    try {
+      let fetchResponse = await fetch('/api/users/trip/save/hotel', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({hotelId: id, userId: user._id, tripId: trip._id})
+      })
+      let response = await fetchResponse.json()
+      setUser(response.user);
+      setTrip(response.trip);
+    } catch(err) {
+      console.log(err)
+    }
   }
 
 	const restaurantPrice = () => {
@@ -406,6 +422,7 @@ export default function App(props) {
 				user={user}
 				trip={currentTrip}
 				editOneTrip={editOneTrip}
+        savedHotel={savedHotel}
 			/>}
 			/>
 			<Route

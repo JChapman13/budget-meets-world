@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const hotelSchema = new Schema(
   {
-    category: String,
-    name: String,
-    cost: Number,
+    id: String
   },
   {
     timestamps: true,
