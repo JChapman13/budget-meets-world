@@ -330,7 +330,18 @@ export default function App(props) {
 			})
 			.catch((err) => console.log(err, 'flight result error'));
 	}
-
+	async function saveFlight(object) {
+		axios
+			.post('/api/users/trip/save/flight', {
+				data: object,
+				user: user._id,
+				trip: trip._id,
+			})
+			.then((result) => {
+				console.log(result, 'result');
+			})
+			.catch((err) => console.log(err, 'save flight error'));
+	}
 	useEffect(async () => {
 		let token = localStorage.getItem('token');
 		if (token) {
@@ -384,6 +395,7 @@ export default function App(props) {
 							places={places}
 							user={user}
 							saveHotel={saveHotel}
+							saveFlight={saveFlight}
 						/>
 					}
 				/>

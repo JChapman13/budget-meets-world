@@ -15,6 +15,6 @@ router.post('/edit/trip', usersCtrl.editTrip);
 
 router.post('/trip/save/hotel', usersCtrl.saveHotel);
 
-// router.post('/trip/save/flight', usersCtrl.saveFlight);
+router.post('/trip/save/flight', usersCtrl.saveFlight);
 
 module.exports = router;

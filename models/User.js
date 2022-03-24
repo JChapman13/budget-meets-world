@@ -10,12 +10,12 @@ const hotelSchema = new Schema(
 	}
 );
 const flightSchema = new Schema({
-	carrier: String,
-	departureCity: String,
-	arrivalCity: String,
+	departureDate: Date,
+	arrivalDate: Date,
+	departureId: String,
+	destinationId: String,
 	departureAirport: String,
 	destinationAirport: String,
-	price: Number,
 });
 
 const tripSchema = new Schema(
@@ -31,7 +31,7 @@ const tripSchema = new Schema(
 		endDate: Date,
 		people: Number,
 		hotel: [hotelSchema],
-		flight: [flightSchema],
+		savedflight: [flightSchema],
 	},
 	{
 		timestamps: true,

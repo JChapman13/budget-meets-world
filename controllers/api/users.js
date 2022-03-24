@@ -1,6 +1,7 @@
 const UserModel = require('../../models/User.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { default: axios } = require('axios');
 
 module.exports = {
 	login,
@@ -11,6 +12,7 @@ module.exports = {
 	editTrip,
 	getTrip,
 	saveHotel,
+	saveFlight,
 };
 
 async function login(req, res) {
@@ -153,4 +155,12 @@ async function saveHotel(req, res) {
 	}
 }
 
-async function saveFlight(req, res) {}
+async function saveFlight(req, res) {
+	console.log(req, 'saveFlight req');
+	try {
+		const user = await UserModel.findById(req.body.userId);
+		const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
+	} catch (err) {
+		res.status(400).json(err);
+	}
+}
