@@ -1,19 +1,32 @@
 .footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background-color: rgb(0, 123, 255);
-    color: white;
+    background-color: #333333;
     position: fixed;
     bottom: 0;
     left: 0;
-    text-align: center;
     width: 100vw;
-    height: 50px;
+    height: 53px;
 }
 .footer div {
-    display: grid;
-    place-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: white;
     font-size: 18px;
     font-weight: 600;
+}
+
+.footer div a {
+    font-weight: 700;
+    font-family: 'Roboto';
+    text-decoration: none;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 4px 0 0 0;
 }

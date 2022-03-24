@@ -6,8 +6,8 @@ import moment from "moment";
 
 export default function SearchPage(props) {
     const [trip, setTrip] = useState({
-        id: props.trip._id,
-        name: props.trip.name,
+        // id: props.trip._id,
+        // name: props.trip.name,
         budget: props.trip.budget,
         people: props.trip.people,
         origin: props.trip.origin,
@@ -20,7 +20,6 @@ export default function SearchPage(props) {
         submitError: '',
     })
 
-
   const [submitError, setSubmitError] = useState("");
 
   let navigate = useNavigate();
@@ -29,15 +28,15 @@ export default function SearchPage(props) {
         e.preventDefault();
         let valid = true
         if (trip.budget === 0) {
-            valid = false
-            setSubmitError('Please set budget for your trip')
+          valid = false
+          setSubmitError('Please set budget for your trip')
         } else if (trip.flight === 0 && trip.accommodation === 0 && trip.restaurant === 0) {
-            valid = false
-            setSubmitError('Please edit budget for your trip')
+          valid = false
+          setSubmitError('Please edit budget for your trip')
         }
         if (valid) {
+            await props.CityCode(trip.origin, trip.destination)
             await props.createTrip(trip, props.user._id)
-            // navigate('/')
         }
     }
 
@@ -143,95 +142,108 @@ export default function SearchPage(props) {
   }, [trip.restaurant]);
 
   return (
-    <div className="SearchPage">
-      <h1>SearchPage</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          type="text"
-          name="name"
-          placeholder="Trips name?"
-          required
-        />
-        <div className="duo-input">
-          <input
-            onChange={handleChange}
-            type="number"
-            pattern="[0-9]"
-            name="budget"
-            value={trip.budget}
-            required
-          />
-          <input
-            onChange={handleChange}
-            type="number"
-            name="people"
-            value={trip.people}
-          />
+    <div className="SearchPage-container">
+      <div className="SearchPage">
+        <div className="SearchPage-logo">
+          <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
         </div>
-        <div className="duo-input">
-          <input
+        <form onSubmit={handleSubmit}>
+          {/* <input
             onChange={handleChange}
             type="text"
-            name="origin"
-            placeholder="From?"
-            value={trip.origin}
+            name="name"
+            placeholder="Trips name?"
             required
-          />
-          <input
-            onChange={handleChange}
-            type="text"
-            name="destination"
-            placeholder="To?"
-            required
-          />
-        </div>
-        <div className="duo-input">
-          <input
-            onChange={handleChange}
-            type="date"
-            name="startDate"
-            value={trip.startDate}
-            required
-          />
-          <input
-            onChange={handleChange}
-            type="date"
-            name="endDate"
-            value={trip.endDate}
-            required
-          />
-        </div>
-        <p>Flight</p>
-        <input
-          onChange={handleChange}
-          type="number"
-          name="flight"
-          value={trip.flight}
-          required
-        />
-        <p>Accommodation</p>
-        <input
-          onChange={handleChange}
-          type="number"
-          name="accommodation"
-          value={trip.accommodation}
-          required
-        />
-        <p>Food</p>
-        <input
-          onChange={handleChange}
-          type="number"
-          name="restaurant"
-          value={trip.restaurant}
-          required
-        />
-        {submitError ? <p>{submitError}</p> : false}
-        <br />
-        <br />
-        <button onSubmit={handleSubmit}>Done</button>
-      </form>
-      <Footer />
+          /> */}
+          <div className="duo-input">
+            <div className="SearchPage-budget">
+              <p>Budget:</p>
+              <input
+                onChange={handleChange}
+                type="number"
+                pattern="[0-9]"
+                name="budget"
+                value={trip.budget}
+                required
+              />
+            </div>
+            <div className="SearchPage-people">
+              <p>Traveler:</p>
+              <input
+                onChange={handleChange}
+                type="number"
+                name="people"
+                value={trip.people}
+              />
+            </div>
+          </div>
+          <div className="duo-input SearchPage-location">
+            <input
+              onChange={handleChange}
+              type="text"
+              name="origin"
+              placeholder="From?"
+              value={trip.origin}
+              required
+            />
+            <input
+              onChange={handleChange}
+              type="text"
+              name="destination"
+              placeholder="To?"
+              required
+            />
+          </div>
+          <div className="duo-input SearchPage-date">
+            <input
+              onChange={handleChange}
+              type="date"
+              name="startDate"
+              value={trip.startDate}
+              required
+            />
+            <input
+              onChange={handleChange}
+              type="date"
+              name="endDate"
+              value={trip.endDate}
+              required
+            />
+          </div>
+          <div className="SearchPage-slide SearchPage-slide-flight">
+            <input
+              onChange={handleChange}
+              type="number"
+              name="flight"
+              value={trip.flight}
+              required
+            />
+          </div>
+          <div className="SearchPage-slide SearchPage-slide-accom">
+            <input
+              onChange={handleChange}
+              type="number"
+              name="accommodation"
+              value={trip.accommodation}
+              required
+            />
+          </div>
+          <div className="SearchPage-slide SearchPage-slide-food">
+            <input
+              onChange={handleChange}
+              type="number"
+              name="restaurant"
+              value={trip.restaurant}
+              required
+            />
+          </div>
+          {submitError ? <p>{submitError}</p> : false}
+          <br />
+          <br />
+          <button onSubmit={handleSubmit}>Done</button>
+        </form>
+        <Footer />
+      </div>
     </div>
   );
 }

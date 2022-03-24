@@ -59,26 +59,20 @@ async function saveRestaurant(req, res) {
   }
 }
 
-// async function deleteRestaurant(req, res) {
-//   try {
-//     const user = await User.findByIdAndUpdate(
-//       { _id: req.params.id },
-//       {
-//         $pull: {
-//           watchlist: {
-//             _id: req.body._id,
-//           },
-//         },
-//       },
-//       { returnDocument: "after" }
-//     );
-//     console.log(coin, "this is the coin");
-//     const token = jwt.sign({ user: coin }, process.env.SECRET, {
-//       expiresIn: "24h",
-//     });
-//     res.status(200).json(token);
-//   } catch (err) {
-//     console.log("coin update error", err);
-//     res.status(400).json(err);
-//   }
-// }
+async function saveRestaurant(req, res) {
+  console.log(req.body);
+  // try {
+  // user.updateOne(
+  //     {"_id": 1 },
+  //     { "$push": {"trip.$.hotel": req.body } }
+  // )
+  //   const user = await UserModel.findById(req.body.userId);
+  //   const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
+  //   await trip.hotel.push({ id: req.body. });
+  //   await trip.save();
+  //   await user.save();
+  //   res.status(200).json({ user: user, trip: trip });
+  // } catch (err) {
+  //   res.status(400).json(err);
+  // }
+}

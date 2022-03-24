@@ -18,10 +18,13 @@ export default function App(props) {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
-
   const [currentCat, setCurrentCat] = useState("flight");
-
+  const [hotelList, setHotelList] = useState([]);
+  const [oneHotel, setOneHotel] = useState({});
+  const [hotelPhotos, setHotelPhotos] = useState({});
+  const [savedHotel, setSavedHotel] = useState([]);
   const [trip, setTrip] = useState({
+    _id: "623bd557d4bb1e9d4d4fd4b1",
     name: "la la la",
     budget: 5000,
     people: 1,
@@ -32,21 +35,14 @@ export default function App(props) {
     restaurant: 1000,
     startDate: "04/25/2022",
     endDate: "04/27/2022",
+    hotel: [],
   });
-
-  const [hotelList, setHotelList] = useState([]);
-
-  const [oneHotel, setOneHotel] = useState({});
-
-  const [hotelPhotos, setHotelPhotos] = useState({});
-
+  const [currentTrip, setCurrentTrip] = useState({});
   const [restaurants, setRestaurants] = useState([]);
-
-  const [restaurantDetail, setRestaurantDetail] = useState();
-
   const [flights, setFlights] = useState([]);
-
   const [carriers, setCarriers] = useState([]);
+  const [places, setPlaces] = useState([]);
+  const [restaurantDetail, setRestaurantDetail] = useState();
 
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData);
@@ -58,28 +54,6 @@ export default function App(props) {
       token = null;
       localStorage.removeItem("token");
       setUser(null);
-    }
-  }
-
-  async function findHotels() {
-    setCurrentCat("hotel");
-    try {
-      let fetchHotelList = await fetch("/api/hotels", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          budget: 2000,
-          people: 2,
-          destination: "New York City, NY",
-          accommodation: 500,
-          startDate: "2022-03-25",
-          endDate: "2022-03-27",
-        }),
-      });
-      let hotels = await fetchHotelList.json();
-      setHotelList(hotels);
-    } catch (err) {
-      console.log(err);
     }
   }
 
@@ -135,6 +109,123 @@ export default function App(props) {
     }
   }
 
+  async function CityCode(ori, des) {
+    let origin = ori.replace(" ", "%20");
+    let fetchOrigin = await fetch("/api/flights/city", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        city: origin,
+      }),
+    });
+    let city1 = await fetchOrigin.json();
+
+    let destination = des.replace(" ", "%20");
+    let fetchDestination = await fetch("/api/flights/city", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        city: destination,
+      }),
+    });
+    let city2 = await fetchDestination.json();
+
+    setPlaces({ origin: city1, destination: city2 });
+  }
+
+  async function openOneTrip(id) {
+    let fetchTrip = await fetch("/api/users/trip/detail", {
+      headers: { userId: user._id, tripId: id },
+    });
+    let response = await fetchTrip.json();
+    setSavedHotel(response.hotelArr);
+    setCurrentTrip(response.theTrip);
+    console.log(response.hotelArr);
+    setTrip(response.theTrip);
+    navigate(`/trips/${id}`);
+  }
+
+  async function editOneTrip(id) {
+    // setTrip(currentTrip);
+    navigate(`/create`);
+  }
+
+  async function createTrip(object, userId) {
+    // if (!object.id) {
+    console.log(object);
+    let fetchTrip = await fetch("/api/users/create/trip", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", userId: userId },
+      body: JSON.stringify({
+        // name: object.name,
+        budget: object.budget,
+        people: object.people,
+        origin: object.origin,
+        destination: object.destination,
+        flight: object.flight,
+        accommodation: object.accommodation,
+        restaurant: object.restaurant,
+        startDate: object.startDate,
+        endDate: object.endDate,
+        hotel: [],
+      }),
+    });
+    let user = await fetchTrip.json();
+    setUser(user.users);
+    setTrip(user.trip);
+    navigate("/");
+    // } else {
+    // let fetchTrip = await fetch("/api/users/edit/trip", {
+    // 	method: "POST",
+    // 	headers: {
+    // 	"Content-Type": "application/json",
+    // 	userId: userId,
+    // 	tripId: object.id,
+    // 	},
+    // 	body: JSON.stringify({
+    // 	name: object.name,
+    // 	budget: object.budget,
+    // 	people: object.people,
+    // 	origin: object.origin,
+    // 	destination: object.destination,
+    // 	flight: object.flight,
+    // 	accommodation: object.accommodation,
+    // 	restaurant: object.restaurant,
+    // 	startDate: object.startDate,
+    // 	endDate: object.endDate,
+    // 	hotel: [],
+    // 	}),
+    // });
+    // let user = await fetchTrip.json();
+    // setUser(user.users);
+    // setTrip(user.trip);
+    // navigate("/");
+    // }
+  }
+
+  // for hotels
+  async function findHotels() {
+    setCurrentCat("hotel");
+    try {
+      let fetchHotelList = await fetch("/api/hotels", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          budget: 2000,
+          people: 2,
+          destination: "New York City, NY",
+          accommodation: 500,
+          startDate: "2022-03-25",
+          endDate: "2022-03-27",
+        }),
+      });
+      let hotels = await fetchHotelList.json();
+      setHotelList(hotels);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async function findOneHotel(id) {
     try {
       let fetchOneHotel = await fetch("/api/hotels/one", {
@@ -153,6 +244,11 @@ export default function App(props) {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async function createNewTrip(id) {
+    setTrip({});
+    navigate(`/create`);
   }
 
   async function getHotelPhotos(id) {
@@ -174,6 +270,26 @@ export default function App(props) {
     navigate(`/hotel/${id}`);
   }
 
+  async function saveHotel(id) {
+    try {
+      let fetchResponse = await fetch("/api/users/trip/save/hotel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          hotelId: id,
+          userId: user._id,
+          tripId: trip._id,
+        }),
+      });
+      let response = await fetchResponse.json();
+      setUser(response.user);
+      setTrip(response.trip);
+      console.log(response.trip);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const restaurantPrice = () => {
     const date1 = new Date(trip.startDate);
     const date2 = new Date(trip.endDate);
@@ -193,12 +309,11 @@ export default function App(props) {
       .get("/api/foods", {
         params: {
           latitude: 43.6532,
-          longitude: -79.3832,
+          longitude: 79.3832,
           price: restaurantPrice(),
         },
       })
       .then((res) => {
-        console.log(res.data.businesses);
         setRestaurants(res.data.businesses);
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
@@ -236,6 +351,7 @@ export default function App(props) {
       .then((result) => {
         setCarriers(result.data.Carriers);
         setFlights(result.data.Quotes);
+        setPlaces(result.data.Places);
       })
       .catch((err) => console.log(err, "flight result error"));
   }
@@ -255,7 +371,11 @@ export default function App(props) {
           });
           let user = await fetchUser.json();
           setUser(user);
-          setTrips(user.trip);
+          if (user.trip.length) {
+            setTrips(user.trip);
+          } else {
+            setTrips([]);
+          }
         } catch (err) {
           console.log("home page error: ", err);
         }
@@ -290,37 +410,55 @@ export default function App(props) {
               getRestaurants={getRestaurants}
               restaurantPrice={restaurantPrice}
               restaurants={restaurants}
-              getRestaurantDetail={getRestaurantDetail}
               getFlights={getFlights}
               flights={flights}
               carriers={carriers}
+              places={places}
+              user={user}
+              saveHotel={saveHotel}
             />
           }
         />
+
         <Route
           path="/create"
           element={
-            <SearchPage user={user} createTrip={createTrip} trip={trip} />
+            <SearchPage
+              user={user}
+              createTrip={createTrip}
+              trip={trip}
+              CityCode={CityCode}
+            />
           }
         />
         <Route path="/profile" element={<ProfilePage />} />
         <Route
           path="/trips"
-          element={<SavedTripsPage user={user} trips={trips} />}
+          element={
+            <SavedTripsPage
+              user={user}
+              trips={trips}
+              openOneTrip={openOneTrip}
+              createNewTrip={createNewTrip}
+            />
+          }
         />
         <Route
           path="/trips/:id"
-          element={<TripDetailPage user={user} trip={trip} />}
+          element={
+            <TripDetailPage
+              user={user}
+              trip={trip}
+              editOneTrip={editOneTrip}
+              savedHotel={savedHotel}
+            />
+          }
         />
         <Route
           path="/hotel/:id"
           element={
             <HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />
           }
-        />
-        <Route
-          path="/restaurant/:id"
-          element={<RestaurantDetailPage restaurantDetail={restaurantDetail} />}
         />
         <Route path="/flights" element={<Flights flights={flights} />} />
       </Routes>

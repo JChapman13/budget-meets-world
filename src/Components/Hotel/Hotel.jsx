@@ -9,6 +9,7 @@ export default function Hotel(props) {
         <div className='Hotel'>
             {/* <Link to={`/hotel/${props.hotel.id}`}> */}
             <button onClick={() => props.openHotelDetail(props.hotel.id)} >see more</button>
+            <button onClick={() => props.saveHotel(props.hotel.id)}>Save</button>
             <p>Hotel</p>
             <p>Hotel Name: {props.hotel.name}</p>
             <p>Star Rating: {props.hotel.starRating}</p>
@@ -18,7 +19,7 @@ export default function Hotel(props) {
             <p>Price: {props.hotel.ratePlan.price.current}</p>
             <p>Total price: {props.hotel.ratePlan.price.fullyBundledPricePerStay}</p>
             {/* </Link> */}
-            {console.log(props.hotel)}
+            {/* {console.log(props.hotel)} */}
         </div>
     )
 }

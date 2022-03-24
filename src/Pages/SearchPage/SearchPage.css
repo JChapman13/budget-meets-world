@@ -1,17 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+.SearchPage-container {
+    background-image: url('../../Images/create-bg.png'), linear-gradient(#333333, #33333300);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: bottom;
+}
 .SearchPage {
     padding: 0 10px;
-    margin: 0 0 50px 0;
+    margin: 0 0 0 0;
+    background-color: linear-gradient(#333333, #33333300);
 }
-
-
-
-.SearchPage form input {
+.SearchPage p {
+    color: white;
+}
+.SearchPage input {
+    color: black;
+    border: none;
+    border-radius: 10px;
+    background-color: #F6E6BC;
+    height: 50px;
+    padding: 10px;
+    outline: none;
     margin: 10px 0;
-    height: 30px;
+}
+.SearchPage input:focus {
+    border: none;
+    outline: none;
+}
+.SearchPage-logo {
+    display: grid;
+    place-content: center;
+}
+.SearchPage-logo-img {
+    width: 200px;
+    margin: 20px auto;
 }
 
 
 .duo-input {
     display: flex;
+    gap: 10px;
+}
 
+/* .SearchPage-budget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+.SearchPage-budget p {
+    font-size: 30px;
+    margin: 0;
+}
+.SearchPage-budget input {
+    width: 165px;
+    background-image: url('../../Images/wallet-black.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+    padding: 0 0 0 45px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.SearchPage-people p {
+    font-size: 30px;
+    margin: 0;
+}
+.SearchPage-people input {
+    width: 165px;
+    background-image: url('../../Images/people-black.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+    padding: 0 0 0 45px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.SearchPage-location input {
+    width: 165px;
+    background-image: url('../../Images/pin-black.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+    padding: 0 0 0 45px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.SearchPage-date input[type="date"] {
+    width: 165px;
+    font-size: 18px;
+    font-weight: 600;
+    flex-direction: row-reverse;
+}
+.SearchPage-date input[type="date"]::-webkit-calendar-picker-indicator {
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.SearchPage-slide p {
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+    margin: 5px 0 0 20px;
+}
+.SearchPage-slide input {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px 0 0 10px;
+    width: 95%;
+    border-radius: 50px;
+    padding: 10px 0 0 170px;
+    margin: 15px 0;
+}
+.SearchPage-slide-flight input {
+    background-image: url('../../Images/plane-black-with-text.svg');
+    background-size: 70px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+}
+.SearchPage-slide-accom input {
+    background-image: url('../../Images/house-black-with-text.svg');
+    background-size: 140px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
+}
+.SearchPage-slide-food input {
+    background-image: url('../../Images/spoon-black-with-text.svg');
+    background-size: 130px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
 }

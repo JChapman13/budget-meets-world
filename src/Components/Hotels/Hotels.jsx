@@ -6,7 +6,7 @@ export default function Hotels(props) {
   return (
     <div className="Hotels">
       {props.hotels.map((hotel) => (
-        <Hotel hotel={hotel} openHotelDetail={props.openHotelDetail} />
+        <Hotel hotel={hotel} openHotelDetail={props.openHotelDetail} saveHotel={props.saveHotel}/>
       ))}
     </div>
   );

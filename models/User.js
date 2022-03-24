@@ -3,14 +3,20 @@ const Schema = mongoose.Schema;
 
 const hotelSchema = new Schema(
   {
-    category: String,
-    name: String,
-    cost: Number,
+    id: String,
   },
   {
     timestamps: true,
   }
 );
+const flightSchema = new Schema({
+  carrier: String,
+  departureCity: String,
+  arrivalCity: String,
+  departureAirport: String,
+  destinationAirport: String,
+  price: Number,
+});
 
 const tripSchema = new Schema(
   {
@@ -24,8 +30,8 @@ const tripSchema = new Schema(
     startDate: Date,
     endDate: Date,
     people: Number,
-    restaurantIds: Array,
     hotel: [hotelSchema],
+    savedflight: [flightSchema],
   },
   {
     timestamps: true,
@@ -65,8 +71,4 @@ const userSchema = new Schema(
 );
 
 let UserModel = mongoose.model("User", userSchema);
-let TripModel = mongoose.model("Trip", tripSchema);
-module.exports = {
-  UserModel,
-  TripModel,
-};
+module.exports = UserModel;
