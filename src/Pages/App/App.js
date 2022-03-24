@@ -136,8 +136,8 @@ export default function App(props) {
 		let response = await fetchTrip.json()
 		setSavedHotel(response.hotelArr)
 		setCurrentTrip(response.theTrip)
-		console.log(response.hotelArr)
 		setTrip(response.theTrip)
+		console.log(response)
 		navigate(`/trips/${id}`)
 	}
 

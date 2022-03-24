@@ -58,8 +58,8 @@ export default function TripDetailPage(props) {
                 {props.savedHotel.map(hotel => 
                     <div>
                         {console.log(hotel, "fdasfgasg")}
-                        <p>{hotel.propertyDescription.name}</p>
-                        <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p>
+                        {/* <p>{hotel.body.smallPrint.display}</p> */}
+                        {/* <p>{hotel.propertyDescription.featuredPrice.currentPrice.plain}</p> */}
                     </div>
                     )}
             </div>
