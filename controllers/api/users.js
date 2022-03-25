@@ -18,7 +18,7 @@ module.exports = {
   saveHotel,
   getOneTrip,
   saveFlight,
-  // saveRestaurant,
+  saveRestaurant,
 };
 
 async function login(req, res) {
@@ -137,7 +137,7 @@ async function getTrip(req, res) {
       return hotelArr;
     }
     let hotel = await lala();
-
+    
     async function getRestaurantById() {
       let restaurantArr = [];
       for (const resId of theTrip.restaurantIds) {
@@ -147,20 +147,22 @@ async function getTrip(req, res) {
             headers: { Authorization: `Bearer ${process.env.YELP_KEY}` },
           })
           .then((response) => {
+            console.log('check check')
             console.log(response.data);
+            console.log('check check')
             restaurantArr.push(response.data);
           })
           .catch((err) => {
             console.log(err, "restaurant find error");
           });
-        return restaurantArr;
       }
+      return restaurantArr;
+      valid = true
     }
-    console.log(restaurantArr, "this is the final step");
-    let restaurant = await getRestaurantById();
-    res
-      .status(200)
-      .json({ theTrip: theTrip, hotelArr: hotel, restaurantArr: restaurant });
+    getRestaurantById().then(result => {
+      console.log(result, "this is the final step");
+      res.status(200).json({ theTrip: theTrip, hotelArr: hotel, restaurantArr: result });
+    })
   } catch (err) {
     res.status(400).json(err);
   }
@@ -192,12 +194,9 @@ async function saveHotel(req, res) {
 }
 
 async function saveFlight(req, res) {
-  console.log(req.body.data, "saveFlight req");
-  console.log(req.body, "req.body save flight");
   try {
     const user = await UserModel.findById(req.body.userId);
     const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
-    console.log(trip, "trip");
     await trip.savedFlight.push({
       departureDate: moment(req.body.data.departureDate).format('YYYY-MM-DD'),
       arrivalDate: moment(req.body.data.arrivalDate).format('YYYY-MM-DD'),
@@ -207,7 +206,6 @@ async function saveFlight(req, res) {
       destinationAirport: req.body.data.destinationAirport,
       price: req.body.data.price,
     });
-    console.log(trip, "after push");
     await trip.save();
     await user.save();
     res.status(200).json({ user: user, trip: trip });
@@ -217,13 +215,10 @@ async function saveFlight(req, res) {
 }
 
 async function saveRestaurant(req, res) {
-  console.log(req.body);
   try {
     const user = await UserModel.findById(req.body.userId);
     const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
-    console.log(trip, "trip");
     await trip.restaurantIds.push({ restaurantIds: req.body.restaurantId });
-    console.log(trip, "after push");
     await trip.save();
     await user.save();
     res.status(200).json({ user: user, trip: trip });

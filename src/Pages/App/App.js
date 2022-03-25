@@ -98,13 +98,15 @@ export default function App(props) {
       headers: { userId: user._id, tripId: id },
     });
     let response = await fetchTrip.json();
-    if (response.theTrip.savedFlight === undefined) {
-      setSavedFlight(response.theTrip.savedFlight);
-    }
-    setSavedRestaurants(response.theTrip.restaurantIds);
+    // if (response.theTrip.savedFlight === undefined) {
+      // setSavedFlight(response.theTrip.savedFlight);
+      // }
+      setSavedRestaurants(response.theTrip.restaurantIds);
     setSavedHotel(response.hotelArr);
     setCurrentTrip(response.theTrip);
     setTrip(response.theTrip);
+    setSavedFlight(response.theTrip.savedFlight);
+    console.log(response)
     navigate(`/trips/${id}`);
   }
 
@@ -472,6 +474,9 @@ export default function App(props) {
 							hotelPhotos={hotelPhotos}
 							getHotelPhotos={getHotelPhotos}
 							savedFlight={savedFlight}
+              restaurants={restaurants}
+              getRestaurantDetail={getRestaurantDetail}
+              saveRestaurant={saveRestaurant}
 						/>
 					}
 				/>
