@@ -18,7 +18,7 @@ module.exports = {
   saveHotel,
   getOneTrip,
   saveFlight,
-  // saveRestaurant,
+  saveRestaurant,
 };
 
 async function login(req, res) {
@@ -138,29 +138,7 @@ async function getTrip(req, res) {
     }
     let hotel = await lala();
 
-    async function getRestaurantById() {
-      let restaurantArr = [];
-      for (const resId of theTrip.restaurantIds) {
-        console.log(resId, "This is the resId");
-        axios
-          .get(`https://api.yelp.com/v3/businesses/${resId.restaurantIds}`, {
-            headers: { Authorization: `Bearer ${process.env.YELP_KEY}` },
-          })
-          .then((response) => {
-            console.log(response.data);
-            restaurantArr.push(response.data);
-          })
-          .catch((err) => {
-            console.log(err, "restaurant find error");
-          });
-        return restaurantArr;
-      }
-    }
-    console.log(restaurantArr, "this is the final step");
-    let restaurant = await getRestaurantById();
-    res
-      .status(200)
-      .json({ theTrip: theTrip, hotelArr: hotel, restaurantArr: restaurant });
+    res.status(200).json({ theTrip: theTrip, hotelArr: hotel });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -199,8 +177,8 @@ async function saveFlight(req, res) {
     const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
     console.log(trip, "trip");
     await trip.savedFlight.push({
-      departureDate: moment(req.body.data.departureDate).format('YYYY-MM-DD'),
-      arrivalDate: moment(req.body.data.arrivalDate).format('YYYY-MM-DD'),
+      departureDate: moment(req.body.data.departureDate).format("YYYY-MM-DD"),
+      arrivalDate: moment(req.body.data.arrivalDate).format("YYYY-MM-DD"),
       departureCity: req.body.data.departureCity,
       destinationCity: req.body.data.destinationCity,
       departureAirport: req.body.data.departureAirport,
