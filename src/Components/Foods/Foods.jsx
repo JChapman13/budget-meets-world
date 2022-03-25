@@ -13,6 +13,7 @@ export default function Foods(props) {
             restaurant={item}
             getRestaurants={props.getRestaurants}
             getRestaurantDetail={props.getRestaurantDetail}
+            saveRestaurant={props.saveRestaurant}
           />
         );
       })}

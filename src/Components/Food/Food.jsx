@@ -1,53 +1,44 @@
 import React, { useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import StarIcon from "@mui/icons-material/Star";
-
-import { Chip } from "@mui/material";
+import "./Food.css";
 
 function Food(props) {
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 5, marginBottom: 3 }}>
-      <CardMedia
-        component="img"
-        height="200"
-        image={props.restaurant.image_url}
-        alt={props.restaurant.name}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-          {props.restaurant.name}
-        </Typography>
-        <Typography>
-          {props.restaurant.rating}
-          <StarIcon />
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+    <div className="restaurant">
+      <div
+        style={{ backgroundImage: `url(${props.restaurant.image_url})` }}
+        className="restaurant-image"
+      ></div>
+      <div className="restaurant-name">
+        <p>{props.restaurant.name}</p>
+        <p>
+          <img src={require("../../Images/pin-black.svg")} alt="svg icon" />
           {props.restaurant.location.display_address[0]}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.restaurant.location.city}
-        </Typography>
-        <Chip
-          label={props.restaurant && props.restaurant.categories[0].title}
-        />
-      </CardContent>
-      <CardActions>
-        <Button
-          size="small"
-          onClick={() => props.getRestaurantDetail(props.restaurant.id)}
-        >
-          Details
-        </Button>
-        <Button size="small">Book Now</Button>
-        <Button size="small">Save</Button>
-      </CardActions>
-    </Card>
+        </p>
+      </div>
+      <div className="restaurant-stat">
+        <div className="restaurant-stat-star">
+          <p>{props.restaurant && props.restaurant.categories[0].title}</p>
+          <p>
+            <span>{props.restaurant.rating} rating</span>
+          </p>
+          <p className="restaurant-stat-review">
+            {props.restaurant.review_count} reviews
+          </p>
+        </div>
+        <div className="restaurant-stat-price">
+          <p>{props.restaurant.price}</p>
+        </div>
+      </div>
+      <div className="restaurant-btn">
+        <button onClick={() => props.getRestaurantDetail(props.restaurant.id)}>
+          View Details
+        </button>
+        <button onClick={() => props.saveRestaurant(props.restaurant.id)}>
+          Add to Trip
+        </button>
+      </div>
+    </div>
   );
 }
 

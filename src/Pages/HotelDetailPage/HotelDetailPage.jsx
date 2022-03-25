@@ -14,8 +14,7 @@ export default function HotelDetailPage(props) {
             <img class="hotel-details-photo" src={props.hotelPhotos} alt="Hotel Image"/>
             <h1>{props.oneHotel.propertyDescription.name}</h1>
             <p class="address"><img src={require('../../Images/pin-black.svg')} alt="svg icon" /> {props.oneHotel.propertyDescription.address.fullAddress}</p>
-            <a href='{props.oneHotel.roomsAndRates.bookingUrl}'>All inclusive, All meals included, 
-Contactless check-in</a>
+            <a href='{props.oneHotel.roomsAndRates.bookingUrl}'>All inclusive, All meals included, Contactless check-in</a>
             <p class="rating"> <b>{props.oneHotel.propertyDescription.starRating}</b> Star hotel</p>
             <p class="rating">
                 {props.oneHotel.guestReviews.brands.rating}/10 guest rating <br /> {props.oneHotel.guestReviews.brands.total} reviews

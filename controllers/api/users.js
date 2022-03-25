@@ -71,16 +71,16 @@ async function getAll(req, res) {
 }
 
 async function createTrip(req, res) {
-	let userId = req.get('userId');
-	const users = await UserModel.findById(userId);
-	try {
-		await users.trip.push(req.body)
-		await users.save();
-		const theTrip = await users.trip[users.trip.length - 1]
-		res.status(200).json({ users: users, trip: theTrip });
-	} catch (err) {
-		res.status(400).json(err);
-	}
+  let userId = req.get("userId");
+  const users = await UserModel.findById(userId);
+  try {
+    await users.trip.push(req.body);
+    await users.save();
+    const theTrip = await users.trip[users.trip.length - 1];
+    res.status(200).json({ users: users, trip: theTrip });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }
 
 async function editTrip(req, res) {
@@ -137,22 +137,45 @@ async function getTrip(req, res) {
       return hotelArr;
     }
     let hotel = await lala();
-    res.status(200).json({ theTrip: theTrip, hotelArr: hotel });
+
+    async function getRestaurantById() {
+      let restaurantArr = [];
+      for (const resId of theTrip.restaurantIds) {
+        console.log(resId, "This is the resId");
+        axios
+          .get(`https://api.yelp.com/v3/businesses/${resId.restaurantIds}`, {
+            headers: { Authorization: `Bearer ${process.env.YELP_KEY}` },
+          })
+          .then((response) => {
+            console.log(response.data);
+            restaurantArr.push(response.data);
+          })
+          .catch((err) => {
+            console.log(err, "restaurant find error");
+          });
+        return restaurantArr;
+      }
+    }
+    console.log(restaurantArr, "this is the final step");
+    let restaurant = await getRestaurantById();
+    res
+      .status(200)
+      .json({ theTrip: theTrip, hotelArr: hotel, restaurantArr: restaurant });
   } catch (err) {
     res.status(400).json(err);
   }
 }
 
 async function getOneTrip(req, res) {
-    try{
-        let userId = req.get('userId')
-        const user = await UserModel.findById(userId)
-        let tripId = req.get('tripId')
-        const trip = await user.trip.find(trip => trip._id == tripId )
-        res.status(200).json(trip)
-    } catch(err) {
-        res.status(400).json(err)
-    }
+  try {
+    let userId = req.get("userId");
+    const user = await UserModel.findById(userId);
+    let tripId = req.get("tripId");
+    const trip = await user.trip.find((trip) => trip._id == tripId);
+    res.status(200).json(trip);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }
 
 async function saveHotel(req, res) {
@@ -184,6 +207,22 @@ async function saveFlight(req, res) {
       destinationAirport: req.body.data.destinationAirport,
       price: req.body.data.price,
     });
+    console.log(trip, "after push");
+    await trip.save();
+    await user.save();
+    res.status(200).json({ user: user, trip: trip });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+async function saveRestaurant(req, res) {
+  console.log(req.body);
+  try {
+    const user = await UserModel.findById(req.body.userId);
+    const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
+    console.log(trip, "trip");
+    await trip.restaurantIds.push({ restaurantIds: req.body.restaurantId });
     console.log(trip, "after push");
     await trip.save();
     await user.save();
