@@ -33,7 +33,8 @@ Most of the booking sites do not provide a way to track and plan our budget prop
 
 <img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review1.png" />
 <img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review2.png" />
-<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review3.png" />
+<img alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review3.png" />
+
 <img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review4.png" />
 <img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review5.png" />
 <img alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review6.png" />
