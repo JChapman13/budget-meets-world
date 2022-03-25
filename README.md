@@ -228,4 +228,4 @@ Developer:\
 
 Designer:\
 [Saijal Suri](https://google.com/)\
-[Bhavani Sree M.](https://google.com/)
+[Bhavani Sree M.](https://www.linkedin.com/in/bhavanisree/)
