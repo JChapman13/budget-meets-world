@@ -10,19 +10,22 @@
     background-position: bottom;
     padding: 0;
     overflow-x: hidden;
-    height: 719px;
+    height: 759px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 .SearchPage {
     padding: 0 8px 0 8px;
     margin: 0 0 0 0;
-    height: 719px;
+    height: 759px;
     overflow-x: hidden;
     background: linear-gradient(to top, transparent -50%, black 100%);
+    overflow: hidden;
+    margin: 0 0 50px 0;
 }
 .SearchPage-main {
-    height: 676px;
-    overflow-x: hidden;
+    height: 759px;
+    overflow: hidden;
 }
 
 .SearchPage p {
@@ -157,8 +160,9 @@
 .SearchPage-btn-div {
     display: grid;
     place-content: center;
-    margin: 0;
+    margin: 0 0 50px 0;
     padding: 0 10px 0 0;
+    height: 20px;
 }
 .SearchPage-btn {
     width: 150px;
@@ -173,4 +177,10 @@
 }
 .SearchPage-btn:focus {
     border: none;
+}
+
+.SearchPage-hidden-div {
+    height: 100px;
+    width: 100%;
+    background-color: transparent;
 }

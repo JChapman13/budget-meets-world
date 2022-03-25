@@ -234,6 +234,7 @@ export default function SearchPage(props) {
               <button className="SearchPage-btn" onSubmit={handleSubmit}>Done</button>
             </div>
           </form>
+          <div className="SearchPage-hidden-div"></div>
         </div>
         <Footer />
       </div>
