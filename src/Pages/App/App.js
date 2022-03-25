@@ -39,6 +39,10 @@ export default function App(props) {
     endDate: "",
     // hotel: [],
   });
+  const [resCoordinates, setResCoordinates] = useState({
+    latitude: "",
+    longitude: "",
+  });
   const [currentTrip, setCurrentTrip] = useState({});
   const [restaurants, setRestaurants] = useState([]);
   const [flights, setFlights] = useState([]);
@@ -50,8 +54,8 @@ export default function App(props) {
 
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData);
-    setTrips(incomingUserData.trip)
-    setTrip(incomingUserData.trip[0])
+    setTrips(incomingUserData.trip);
+    setTrip(incomingUserData.trip[0]);
   }
 
   async function userLogout() {
@@ -60,10 +64,10 @@ export default function App(props) {
       token = null;
       localStorage.removeItem("token");
       setUser(null);
-      navigate('/account/login');
+      navigate("/account/login");
     } else {
       setUser(null);
-      navigate('/account/login');
+      navigate("/account/login");
     }
   }
 
@@ -116,7 +120,7 @@ export default function App(props) {
     });
     let trip = await fetchOneTrip.json();
     setTrip(trip);
-    setCurrentCat("hotel")
+    setCurrentCat("hotel");
     navigate("/");
   }
 
@@ -140,7 +144,7 @@ export default function App(props) {
       }),
     });
     let user = await fetchTrip.json();
-    console.log(user.trip);
+    sendLocation(user.trip.destination);
     setUser(user.users);
     setTrip(user.trip);
     console.log(user.trip._id, "user trip id");
@@ -275,13 +279,29 @@ export default function App(props) {
     if (dailyPrice <= 10) return "1";
   };
 
+  async function sendLocation(params) {
+    axios
+      .get("/api/foods/location", {
+        params: {
+          location: params,
+        },
+      })
+      .then((res) => {
+        setResCoordinates({
+          latitude: res.data.results[0].location.lat,
+          longitude: res.data.results[0].location.lng,
+        });
+      })
+      .catch((err) => console.log(err, "this is a restaurant finder error"));
+  }
+
   async function getRestaurants(params) {
     setCurrentCat("rest");
     axios
       .get("/api/foods", {
         params: {
-          latitude: 43.6532,
-          longitude: -79.3832,
+          latitude: resCoordinates.latitude,
+          longitude: resCoordinates.longitude,
           price: restaurantPrice(),
         },
       })
@@ -313,7 +333,7 @@ export default function App(props) {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data, "this is the response");
         setSavedRestaurants([...savedRestaurants, res.data]);
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
@@ -333,38 +353,38 @@ export default function App(props) {
   }
 
   async function getFlights(params) {
-	setCurrentCat('flight');
-	axios
-		.get('/api/flights', {
-			params: {
-				country: 'CA',
-				currency: 'cad',
-				locale: 'en-US',
-				originPlace: cityCode.origin,
-				destinationPlace: cityCode.destination,
-				outboundPartialDate: moment(trip.startDate).format('YYYY-MM-DD'),
-				inboundPartialDate: moment(trip.endDate).format('YYYY-MM-DD')
-			},
-		})
-		.then((result) => {
-			setCarriers(result.data.Carriers);
-			let flightMap = result.data.Quotes.map((e)=> e.MinPrice)
-			let index = []
-			flightMap.forEach((price, idx)=> {
-				if (price < trip.flight) {
-					index.push(idx)
-				}
-				return index
-			})
-			let finalFlights = []
-			index.forEach((p) => {
-				finalFlights.push(result.data.Quotes[p])
-			})
-			setFlights(finalFlights);
-			setPlaces(result.data.Places);
-		})
-		.catch((err) => console.log(err, 'flight result error'));
-}
+    setCurrentCat("flight");
+    axios
+      .get("/api/flights", {
+        params: {
+          country: "CA",
+          currency: "cad",
+          locale: "en-US",
+          originPlace: cityCode.origin,
+          destinationPlace: cityCode.destination,
+          outboundPartialDate: moment(trip.startDate).format("YYYY-MM-DD"),
+          inboundPartialDate: moment(trip.endDate).format("YYYY-MM-DD"),
+        },
+      })
+      .then((result) => {
+        setCarriers(result.data.Carriers);
+        let flightMap = result.data.Quotes.map((e) => e.MinPrice);
+        let index = [];
+        flightMap.forEach((price, idx) => {
+          if (price < trip.flight) {
+            index.push(idx);
+          }
+          return index;
+        });
+        let finalFlights = [];
+        index.forEach((p) => {
+          finalFlights.push(result.data.Quotes[p]);
+        });
+        setFlights(finalFlights);
+        setPlaces(result.data.Places);
+      })
+      .catch((err) => console.log(err, "flight result error"));
+  }
   async function saveFlight(object) {
     axios
       .post("/api/users/trip/save/flight", {
@@ -456,42 +476,48 @@ export default function App(props) {
               trip={trip}
               getCityCode={getCityCode}
             />
-          } />
-        <Route path="/profile" element={<ProfilePage user={user} userLogout={userLogout} />} />
-				<Route
-					path='/trips'
-					element={
-						<SavedTripsPage
-							user={user}
-							trips={trips}
-							openOneTrip={openOneTrip}
-							createNewTrip={createNewTrip}
-						/>
-					}
-				/>
-				<Route
-					path='/trips/:id'
-					element={
-						<TripDetailPage
-							user={user}
-							trip={trip}
-							editOneTrip={editOneTrip}
-							savedHotel={savedHotel}
-							openHotelDetail={openHotelDetail}
-							saveHotel={saveHotel}
-							hotelPhotos={hotelPhotos}
-							getHotelPhotos={getHotelPhotos}
-							savedFlight={savedFlight}
-							restaurants={restaurants}
-							getRestaurantDetail={getRestaurantDetail}
-							saveRestaurant={saveRestaurant}
-						/>
-					}
-				/>
-				<Route
-					path='/hotel/:id'
-					element={<HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />}
-				/>
+          }
+        />
+        <Route
+          path="/profile"
+          element={<ProfilePage user={user} userLogout={userLogout} />}
+        />
+        <Route
+          path="/trips"
+          element={
+            <SavedTripsPage
+              user={user}
+              trips={trips}
+              openOneTrip={openOneTrip}
+              createNewTrip={createNewTrip}
+            />
+          }
+        />
+        <Route
+          path="/trips/:id"
+          element={
+            <TripDetailPage
+              user={user}
+              trip={trip}
+              editOneTrip={editOneTrip}
+              savedHotel={savedHotel}
+              openHotelDetail={openHotelDetail}
+              saveHotel={saveHotel}
+              hotelPhotos={hotelPhotos}
+              getHotelPhotos={getHotelPhotos}
+              savedFlight={savedFlight}
+              restaurants={restaurants}
+              getRestaurantDetail={getRestaurantDetail}
+              saveRestaurant={saveRestaurant}
+            />
+          }
+        />
+        <Route
+          path="/hotel/:id"
+          element={
+            <HotelDetailPage oneHotel={oneHotel} hotelPhotos={hotelPhotos} />
+          }
+        />
         <Route
           path="/restaurant/:id"
           element={<RestaurantDetailPage restaurantDetail={restaurantDetail} />}

@@ -5,6 +5,7 @@ require("dotenv").config();
 module.exports = {
   getFoods,
   restaurantDetail,
+  getCoordinates,
 };
 
 async function getFoods(req, res) {
@@ -33,6 +34,21 @@ async function restaurantDetail(req, res) {
     })
     .then((data) => {
       res.status(200).json(data.data);
+    })
+    .catch((err) => {
+      console.log(err, "restaurant find error");
+      res.status(500).json({ message: "can't find restaurant" });
+    });
+}
+
+async function getCoordinates(req, res) {
+  axios
+    .get(
+      `https://api.geocod.io/v1.7/geocode?q=${req.query.location}&country=CA&api_key=${process.env.REACT_APP_GEO_KEY}`
+    )
+    .then((data) => {
+      res.status(200).json(data.data);
+      console.log(data.data, "this is the data");
     })
     .catch((err) => {
       console.log(err, "restaurant find error");
