@@ -1,99 +1,169 @@
-import './TripDetailPage.css'
-import moment from 'moment'
-import React, { useState } from 'react'
-import {Link, useNavigate} from 'react-router-dom'
-import Footer from '../../Components/Footer/Footer'
-import Hotels from '../../Components/Hotels/Hotels'
+import "./TripDetailPage.css";
+import moment from "moment";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
+import Hotels from "../../Components/Hotels/Hotels";
+import Foods from "../../Components/Foods/Foods";
 
 export default function TripDetailPage(props) {
+  const [currentView, setCurrentView] = useState("flights");
+  let total =
+    props.trip.flight + props.trip.accommodation + props.trip.restaurant;
+  let flightPercent = Math.round((props.trip.flight / total) * 100);
+  let hotelPercent = Math.round((props.trip.accommodation / total) * 100);
+  let restPercent = Math.round((props.trip.restaurant / total) * 100);
 
-    const [currentView, setCurrentView] = useState('flights')
-    let total = props.trip.flight + props.trip.accommodation + props.trip.restaurant
-    let flightPercent = Math.round((props.trip.flight / total) * 100)
-    let hotelPercent = Math.round((props.trip.accommodation / total) * 100)
-    let restPercent = Math.round((props.trip.restaurant / total) * 100)
+  let navigate = useNavigate();
+  async function goBack() {
+    navigate("/trips");
+  }
 
-    let navigate = useNavigate()
-    async function goBack() {
-        navigate('/trips')
+  const toggleView = () => {
+    if (currentView === "flights") {
+      return (
+        <>
+          {props.savedFlight.map((flight) => {
+            return (
+              <div>
+                <p>{flight.departureDate}</p>
+                <p>{flight.arrivalDate}</p>
+                <p>{flight.departureCity}</p>
+                <p>{flight.destinationCity}</p>
+                <p>{flight.departureAirport}</p>
+                <p>{flight.destinationAirport}</p>
+                <p>{flight.price}</p>
+              </div>
+            );
+          })}
+        </>
+      );
+    } else if (currentView === "hotels") {
+      return (
+        <>
+          <Hotels
+            hotels={props.savedHotel}
+            openHotelDetail={props.openHotelDetail}
+            saveHotel={props.saveHotel}
+            trip={props.trip}
+            hotelPhotos={props.hotelPhotos}
+          />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Foods
+            restaurants={props.restaurants}
+            getRestaurantDetail={props.getRestaurantDetail}
+            saveRestaurant={props.saveRestaurant}
+          />{" "}
+        </>
+      );
     }
+  };
 
-    const toggleView = () =>{
-        if (currentView === "flights"){
-            return(<>{props.savedFlight.map(flight => {
-                return( <div>
-                <p>{flight.departureDate}</p> 
-                <p>{flight.arrivalDate}</p> 
-                <p>{flight.departureCity}</p> 
-                <p>{flight.destinationCity}</p> 
-                <p>{flight.departureAirport}</p> 
-                <p>{flight.destinationAirport}</p> 
-                <p>{flight.price}</p> 
-                </div>
-            )})}</>)
-        }else if (currentView === "hotels"){
-            return (<>
-                <Hotels 
-                hotels={props.savedHotel} 
-                openHotelDetail={props.openHotelDetail}
-                saveHotel={props.saveHotel}
-                trip={props.trip}
-                hotelPhotos={props.hotelPhotos}/> 
-            </>)
-        }else{
-            return (<><h1>example2</h1> </>)
-        }
-    }
-    
-
-    return (
-        <div className='TripDetailPage'>
-            <h1>Trip to {props.trip.destination}</h1>
-            <button className='TripDetailPage-back-btn' onClick={() => goBack()}><img src={require('../../Images/my-trip-back-btn.svg')} alt="svg icon" /></button>
-            <button className='TripDetailPage-edit-btn' onClick={() => props.editOneTrip(props.trip._id)}>Edit</button>
-            <div className='TripDetailPage-img'>
-
-            </div>
-            <div className='TripDetailPage-budget-bar'>
-                <div style={{width: `${flightPercent}%`}} className='TripDetailPage-budget-bar-flight'>
-                    <small><img src={require('../../Images/plane-black.svg')} alt="svg icon" />Flight</small>
-                    <p>{flightPercent}%</p>
-                    <small>{props.trip.flight}</small>
-                </div>
-                <div style={{width: `${hotelPercent}%`}} className='TripDetailPage-budget-bar-acc'>
-                    <small><img src={require('../../Images/house-black.svg')} alt="svg icon" />Accommodation</small>
-                    <p>{hotelPercent}%</p>
-                    <small>{props.trip.accommodation}</small>
-                </div>
-                <div style={{width: `${restPercent}%`}} className='TripDetailPage-budget-bar-food'>
-                    <small><img src={require('../../Images/spoon-black.svg')} alt="svg icon" />Foods</small>
-                    <p>{restPercent}%</p>
-                    <small>{props.trip.restaurant}</small>
-                </div>
-            </div>
-            <div className='TripDetailPage-info'>
-                <div className='TripDetailPage-info-key'>
-                    <p><img src={require('../../Images/wallet-black.svg')} alt="svg icon" />Budget</p>
-                    <p><img src={require('../../Images/pin-black.svg')} alt="svg icon" />Destination Airport</p>
-                    <p><img src={require('../../Images/cal-black.svg')} alt="svg icon" />Dates</p>
-                    <p><img src={require('../../Images/people-black.svg')} alt="svg icon" />Number of travelers</p>
-                </div>
-                <div className='TripDetailPage-info-value'>
-                    <p>CAD ${props.trip.budget}</p>
-                    <p className='TripDetailPage-info-value-small'>{props.trip.destination}</p>
-                    <p className='TripDetailPage-info-value-small'>{moment(props.trip.startDate).format('MMM D')} - {moment(props.trip.endDate).format('MMM D')}</p>
-                    <p className='TripDetailPage-info-value-small'>{props.trip.people} adults</p>
-                </div>
-            </div>
-            <div className='TripDetailPage-savedList'>
-                <div className="SearchResultsPage-btn-bar">
-                    <button onClick={() => setCurrentView('flights')}>Flight</button>
-                    <button onClick={() => setCurrentView('hotels')}>Hotels</button>
-                    <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
-                </div>
-                {toggleView()}
-            </div>
-            <Footer />
+  return (
+    <div className="TripDetailPage">
+      <h1>Trip to {props.trip.destination}</h1>
+      <button className="TripDetailPage-back-btn" onClick={() => goBack()}>
+        <img
+          src={require("../../Images/my-trip-back-btn.svg")}
+          alt="svg icon"
+        />
+      </button>
+      <button
+        className="TripDetailPage-edit-btn"
+        onClick={() => props.editOneTrip(props.trip._id)}
+      >
+        Edit
+      </button>
+      <div className="TripDetailPage-img"></div>
+      <div className="TripDetailPage-budget-bar">
+        <div
+          style={{ width: `${flightPercent}%` }}
+          className="TripDetailPage-budget-bar-flight"
+        >
+          <small>
+            <img src={require("../../Images/plane-black.svg")} alt="svg icon" />
+            Flight
+          </small>
+          <p>{flightPercent}%</p>
+          <small>{props.trip.flight}</small>
         </div>
-    )
+        <div
+          style={{ width: `${hotelPercent}%` }}
+          className="TripDetailPage-budget-bar-acc"
+        >
+          <small>
+            <img src={require("../../Images/house-black.svg")} alt="svg icon" />
+            Accommodation
+          </small>
+          <p>{hotelPercent}%</p>
+          <small>{props.trip.accommodation}</small>
+        </div>
+        <div
+          style={{ width: `${restPercent}%` }}
+          className="TripDetailPage-budget-bar-food"
+        >
+          <small>
+            <img src={require("../../Images/spoon-black.svg")} alt="svg icon" />
+            Foods
+          </small>
+          <p>{restPercent}%</p>
+          <small>{props.trip.restaurant}</small>
+        </div>
+      </div>
+      <div className="TripDetailPage-info">
+        <div className="TripDetailPage-info-key">
+          <p>
+            <img
+              src={require("../../Images/wallet-black.svg")}
+              alt="svg icon"
+            />
+            Budget
+          </p>
+          <p>
+            <img src={require("../../Images/pin-black.svg")} alt="svg icon" />
+            Destination Airport
+          </p>
+          <p>
+            <img src={require("../../Images/cal-black.svg")} alt="svg icon" />
+            Dates
+          </p>
+          <p>
+            <img
+              src={require("../../Images/people-black.svg")}
+              alt="svg icon"
+            />
+            Number of travelers
+          </p>
+        </div>
+        <div className="TripDetailPage-info-value">
+          <p>CAD ${props.trip.budget}</p>
+          <p className="TripDetailPage-info-value-small">
+            {props.trip.destination}
+          </p>
+          <p className="TripDetailPage-info-value-small">
+            {moment(props.trip.startDate).format("MMM D")} -{" "}
+            {moment(props.trip.endDate).format("MMM D")}
+          </p>
+          <p className="TripDetailPage-info-value-small">
+            {props.trip.people} adults
+          </p>
+        </div>
+      </div>
+      <div className="TripDetailPage-savedList">
+        <div className="SearchResultsPage-btn-bar">
+          <button onClick={() => setCurrentView("flights")}>Flight</button>
+          <button onClick={() => setCurrentView("hotels")}>Hotels</button>
+          <button onClick={() => setCurrentView("restaurants")}>
+            Restaurants
+          </button>
+        </div>
+        {toggleView()}
+      </div>
+      <Footer />
+    </div>
+  );
 }
