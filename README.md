@@ -12,7 +12,7 @@
 
 ### Web link:
 
-<a href="https://budget-meet-world.herokuapp.com/" target="_blank">Budget Meets World</a>
+<a href="https://budget-meet-world.herokuapp.com/account/login" target="_blank">Budget Meets World</a>
 
 <br />
 
