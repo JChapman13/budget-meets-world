@@ -5,7 +5,7 @@ const axios = require("axios").default;
 
 export default function Foods(props) {
   return (
-      props.restaurants.length ? 
+      props.restaurants ? 
         <div className="Foods">
           {props.restaurants.map((item, idx) => {
             return (

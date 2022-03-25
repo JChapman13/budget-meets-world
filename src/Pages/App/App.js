@@ -12,13 +12,14 @@ import Signup from "../../Components/Signup/Signup";
 import TripDetailPage from "../TripDetailPage/TripDetailPage";
 import Flights from "../../Components/Flights/Flights";
 import RestaurantDetailPage from "../RestaurantDetailPage/RestaurantDetailPage";
+import moment from "moment";
 const axios = require("axios").default;
 
 export default function App(props) {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
-  const [currentCat, setCurrentCat] = useState("flight");
+  const [currentCat, setCurrentCat] = useState("hotel");
   const [hotelList, setHotelList] = useState([]);
   const [oneHotel, setOneHotel] = useState({});
   const [hotelPhotos, setHotelPhotos] = useState("");
@@ -27,13 +28,13 @@ export default function App(props) {
   const [trip, setTrip] = useState({
     _id: "623cfd8d2838e1fde836683c",
     name: "",
-    budget: 5000,
+    budget: 0,
     people: 0,
-    origin: "Toronto",
-    destination: "New York",
-    flight: 1000,
-    accommodation: 1000,
-    restaurant: 1000,
+    origin: "",
+    destination: "",
+    flight: 0,
+    accommodation: 0,
+    restaurant: 0,
     startDate: "",
     endDate: "",
     // hotel: [],
@@ -49,6 +50,8 @@ export default function App(props) {
 
   async function setUserInState(incomingUserData) {
     setUser(incomingUserData);
+    setTrips(incomingUserData.trip)
+    setTrip(incomingUserData.trip[0])
   }
 
   async function userLogout() {
@@ -57,6 +60,10 @@ export default function App(props) {
       token = null;
       localStorage.removeItem("token");
       setUser(null);
+      navigate('/account/login');
+    } else {
+      setUser(null);
+      navigate('/account/login');
     }
   }
 
@@ -90,8 +97,9 @@ export default function App(props) {
       headers: { userId: user._id, tripId: id },
     });
     let response = await fetchTrip.json();
+    let restArr = [];
     response.theTrip.restaurantIds.forEach((e) => {
-      getRestaurantTripDetail(e.restaurantIds);
+      restArr.push(getRestaurantTripDetail(e.restaurantIds));
     });
     setRestaurantDetail(restArr);
     setSavedFlight(response.theTrip.savedFlight);
@@ -108,7 +116,8 @@ export default function App(props) {
     });
     let trip = await fetchOneTrip.json();
     setTrip(trip);
-    navigate(`/`);
+    setCurrentCat("hotel")
+    navigate("/");
   }
 
   async function createTrip(object, userId) {
@@ -295,6 +304,7 @@ export default function App(props) {
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
+
   async function getRestaurantTripDetail(params) {
     axios
       .get(`/api/foods/detail/${params}`, {
@@ -308,6 +318,7 @@ export default function App(props) {
       })
       .catch((err) => console.log(err, "this is a restaurant finder error"));
   }
+
   async function saveRestaurant(id) {
     axios
       .post("/api/users/trip/save/restaurant", {
@@ -322,27 +333,38 @@ export default function App(props) {
   }
 
   async function getFlights(params) {
-    setCurrentCat("flight");
-    axios
-      .get("/api/flights", {
-        params: {
-          country: "CA",
-          currency: "cad",
-          locale: "en-US",
-          originPlace: "YYZ",
-          destinationPlace: "YVR",
-          outboundPartialDate: "2022-04",
-          inboundPartialDate: "2022-06",
-        },
-      })
-      .then((result) => {
-        setCarriers(result.data.Carriers);
-        setFlights(result.data.Quotes);
-        setPlaces(result.data.Places);
-      })
-      .catch((err) => console.log(err, "flight result error"));
-  }
-
+	setCurrentCat('flight');
+	axios
+		.get('/api/flights', {
+			params: {
+				country: 'CA',
+				currency: 'cad',
+				locale: 'en-US',
+				originPlace: cityCode.origin,
+				destinationPlace: cityCode.destination,
+				outboundPartialDate: moment(trip.startDate).format('YYYY-MM-DD'),
+				inboundPartialDate: moment(trip.endDate).format('YYYY-MM-DD')
+			},
+		})
+		.then((result) => {
+			setCarriers(result.data.Carriers);
+			let flightMap = result.data.Quotes.map((e)=> e.MinPrice)
+			let index = []
+			flightMap.forEach((price, idx)=> {
+				if (price < trip.flight) {
+					index.push(idx)
+				}
+				return index
+			})
+			let finalFlights = []
+			index.forEach((p) => {
+				finalFlights.push(result.data.Quotes[p])
+			})
+			setFlights(finalFlights);
+			setPlaces(result.data.Places);
+		})
+		.catch((err) => console.log(err, 'flight result error'));
+}
   async function saveFlight(object) {
     axios
       .post("/api/users/trip/save/flight", {

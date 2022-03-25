@@ -5,13 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Hotels from "../../Components/Hotels/Hotels";
 import Foods from "../../Components/Foods/Foods";
-<<<<<<< HEAD
 import Flights from "../../Components/Flights/Flights";
-=======
->>>>>>> 272247882de0b3168c48de904fa038b76dc20c9e
 
 export default function TripDetailPage(props) {
-  const [currentView, setCurrentView] = useState("flights");
+  const [currentView, setCurrentView] = useState("hotels");
   let total =
     props.trip.flight + props.trip.accommodation + props.trip.restaurant;
   let flightPercent = Math.round((props.trip.flight / total) * 100);
@@ -187,4 +184,4 @@ export default function TripDetailPage(props) {
         <Footer />
         </div>
     );
-    }
+}
