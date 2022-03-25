@@ -5,18 +5,21 @@ const axios = require("axios").default;
 
 export default function Foods(props) {
   return (
-    <div className="Foods">
-      {props.restaurants.map((item, idx) => {
-        return (
-          <Food
-            key={item.name + idx}
-            restaurant={item}
-            getRestaurants={props.getRestaurants}
-            getRestaurantDetail={props.getRestaurantDetail}
-            saveRestaurant={props.saveRestaurant}
-          />
-        );
-      })}
-    </div>
+      props.restaurants.length ? 
+        <div className="Foods">
+          {props.restaurants.map((item, idx) => {
+            return (
+              <Food
+                key={item.name + idx}
+                restaurant={item}
+                getRestaurants={props.getRestaurants}
+                getRestaurantDetail={props.getRestaurantDetail}
+                saveRestaurant={props.saveRestaurant}
+              />
+            );
+          })}
+        </div>
+      : 
+        <p>No Restaurant</p>
   );
 }

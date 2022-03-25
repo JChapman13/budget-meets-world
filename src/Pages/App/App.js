@@ -90,17 +90,15 @@ export default function App(props) {
       headers: { userId: user._id, tripId: id },
     });
     let response = await fetchTrip.json();
-    let restArr = [];
     response.theTrip.restaurantIds.forEach((e) => {
-      restArr.push(getRestaurantTripDetail(e.restaurantIds));
+      getRestaurantTripDetail(e.restaurantIds);
     });
     setRestaurantDetail(restArr);
-    setSavedRestaurants(response.theTrip);
-    console.log(response.theTrip);
     setSavedFlight(response.theTrip.savedFlight);
     setSavedHotel(response.hotelArr);
     setCurrentTrip(response.theTrip);
     setTrip(response.theTrip);
+    setSavedFlight(response.theTrip.savedFlight);
     navigate(`/trips/${id}`);
   }
 
@@ -450,6 +448,18 @@ export default function App(props) {
             />
           }
         />
+
+        <Route
+          path="/trips"
+          element={
+            <SavedTripsPage
+              user={user}
+              trips={trips}
+              openOneTrip={openOneTrip}
+              createNewTrip={createNewTrip}
+            />
+          }
+        />
         <Route
           path="/trips/:id"
           element={
@@ -463,6 +473,9 @@ export default function App(props) {
               hotelPhotos={hotelPhotos}
               getHotelPhotos={getHotelPhotos}
               savedFlight={savedFlight}
+              restaurants={restaurants}
+              getRestaurantDetail={getRestaurantDetail}
+              saveRestaurant={saveRestaurant}
               savedRestaurants={savedRestaurants}
             />
           }
