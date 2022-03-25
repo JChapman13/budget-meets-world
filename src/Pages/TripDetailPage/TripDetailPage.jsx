@@ -5,6 +5,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
 import Hotels from '../../Components/Hotels/Hotels'
 
+
 export default function TripDetailPage(props) {
 
     const [currentView, setCurrentView] = useState('flights')
@@ -87,9 +88,9 @@ export default function TripDetailPage(props) {
             </div>
             <div className='TripDetailPage-savedList'>
                 <div className="SearchResultsPage-btn-bar">
-                    <button onClick={() => setCurrentView('flights')}>Flight</button>
-                    <button onClick={() => setCurrentView('hotels')}>Hotels</button>
-                    <button onClick={() => setCurrentView('restaurants')}>Restaurants</button>
+                    <button onClick={() => setCurrentView('flights')}><img src={require('../../Images/plane-black.svg')} alt="svg icon" />Flight</button>
+                    <button onClick={() => setCurrentView('hotels')}><img src={require('../../Images/house-black.svg')} alt="svg icon" />Hotels</button>
+                    <button onClick={() => setCurrentView('restaurants')}><img src={require('../../Images/spoon-black.svg')} alt="svg icon" />Restaurants</button>
                 </div>
                 {toggleView()}
             </div>

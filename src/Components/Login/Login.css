@@ -4,6 +4,7 @@
     height: 100vh;
     padding: 0 20px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 .Login-title {
@@ -12,40 +13,105 @@
 .Login-title h1 {
     font-size: 36px;
     font-weight: 600;
-    margin: 15px;
+    margin: 0 0 15px 0;
 }
 .Login-title h3 {
     font-size: 16px;
     font-weight: 600;
     margin: 5px;
+    color: #F8BC23;
 }
 
 .Login form input {
     height: 50px;
-    width:  275px;
+    width: 250px;
     border-radius: 5px;
     padding: 0 0 0 45px;
+    margin: 10px;
     font-size: 18px;
     color: #979797;
+    background-color: #F6E6BC;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+}
+.Login form input:focus {
+    border: none;
+    outline: none;
 }
 .Login-username {
-    background-image: url('../../Images/wallet-black.svg');
+    width: 300px;
+    background-image: url('../../Images/username.svg');
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: 12px 15px;
-
+}
+.Login-email {
+    width: 300px;
+    background-image: url('../../Images/google.svg');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 12px 15px;
 }
 .Login-password {
-    background-image: url('../../Images/wallet-black.svg');
+    width: 300px;
+    background-image: url('../../Images/password.svg');
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: 12px 15px;
 }
 .Login-forgot {
     text-align: right;
-    width: 275px;
-    margin: 0 auto;
+    width: 295px;
+    margin: 0 0 0 0;
+    font-size: 16px;
+    font-weight: 600;
 }
 .error-red {
     color: red;
+}
+.Login-btn-div {
+    display: grid;
+    place-content: center;
+}
+.Login-btn {
+    height: 50px;
+    width: 295px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
+    background-color: #F8BC23;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+.Login-or {
+    background-color: white;
+    width: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin: -12px auto 30px auto;
+}
+hr {
+    border: 1px solid #F8BC23;
+    margin: 30px 0 0 0;
+}
+.Login-other-login {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+}
+
+.Login-dont {
+    text-align: center;
+}
+.Login-dont a {
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
 }

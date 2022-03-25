@@ -23,7 +23,6 @@ async function getHotels(req, res) {
       let locationId
       axios.request(location).then(function (response) {
         locationId = response.data.suggestions[0].entities[0].destinationId
-        
         let startDate = moment(req.body.startDate).format('YYYY-MM-DD');
         let endDate = moment(req.body.endDate).format('YYYY-MM-DD');
         var hotels = {
@@ -47,7 +46,6 @@ async function getHotels(req, res) {
         };
           
         axios.request(hotels).then(function (response) {
-            console.log(response.data.data.body.searchResults.results);
             res.status(200).json(response.data.data.body.searchResults.results)
         }).catch(function (error) {
             console.error(error);
@@ -76,7 +74,6 @@ async function getOne(req, res) {
   };
   
   axios.request(hotel).then(function (response) {
-    console.log(response.data.data.body);
     res.status(200).json(response.data.data.body)
   }).catch(function (error) {
     console.error(error);
@@ -96,9 +93,7 @@ async function getPhotos(req, res) {
   };
   
   axios.request(photos).then(function (response) {
-    console.log("fdasfasdggs", response.data)
     let photo = response.data.hotelImages[0].baseUrl.replace('_{size}', '')
-    console.log("photos", photo)
     res.status(200).json(photo)
   }).catch(function (error) {
     console.error(error);

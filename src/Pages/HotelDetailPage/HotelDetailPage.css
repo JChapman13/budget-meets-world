@@ -1,0 +1,96 @@
+.hotel-details {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+    color: #333;
+    font-size: 16px;
+    position: relative;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.hotel-details .back-button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    text-indent: -9999px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../Images/my-trip-back-btn.svg');
+    background-size: contain;
+    position: absolute;
+    left: 20px;
+    top: 60px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.hotel-details .back-title {
+    padding-left: 20px;
+}
+
+.hotel-details h1 {
+    margin-bottom: 4px;
+}
+
+.hotel-details b {
+    font-weight: bold;
+    font-size: 12px;
+    color: #dfa81f;
+}
+
+.hotel-details p.rating {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.hotel-details .address {
+    margin: 4px 0;
+}
+
+.hotel-details .address img {
+    width: auto;
+    height: 16px;
+}
+
+a {
+    margin: 4px 0;
+    color: #0D47A1;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.hotel-details-photo {
+    margin: 10px -30px 20px -30px;
+    width: calc(100% + 60px);
+    height: 300px;
+    object-fit: cover;
+}
+
+
+.hotel-details h3 {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 30px;
+    margin-bottom: 4px;
+}
+
+.hotel-details h4 {
+    display: inline;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 0;
+}
+
+.hotel-details ul {
+    padding-left: 18px;    
+}

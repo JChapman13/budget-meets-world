@@ -1,4 +1,5 @@
 import "./Signup.css";
+import "../Login/Login.css"
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -49,7 +50,7 @@ export default function Signup(props) {
       localStorage.setItem("token", token);
       const userDoc = await JSON.parse(window.atob(token.split(".")[1])).user;
       props.setUserInState(userDoc);
-      navigate("/");
+      navigate("/trips");
     }
   }
 
@@ -64,40 +65,64 @@ export default function Signup(props) {
   }, []);
 
   return (
-    <div className="Signup">
-      <h1>Signup</h1>
+    <div className="Login">
+      <div className="SearchPage-logo">
+        <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
+      </div>
+      <div className="Login-title">
+        <h1>Hi There!</h1>
+        <h3>Welcome to the</h3>
+        <h3>Wnader Wallet Community!</h3>
+      </div>
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <p>name</p>
-        <input onChange={handleChange} type="text" name="name" required />
-        <br></br>
-        <p>email</p>
-        <input onChange={handleChange} type="email" name="email" required />
-        <br></br>
-        <p>password</p>
         <input
+          className="Login-username"
+          onChange={handleChange} 
+          type="text" 
+          placeholder="Name"  
+          name="name" 
+          required />
+        <br></br>
+        <input 
+          className="Login-email"
+          onChange={handleChange} 
+          type="email" 
+          placeholder="Email"  
+          name="email" 
+          required />
+        <br></br>
+        <input
+          className="Login-password"
           onChange={handleChange}
           type="password"
           name="password"
+          placeholder="Password" 
           required
         />
         <br></br>
-        <p>confirm password</p>
         <input
+          className="Login-password"
           onChange={handleChange}
           type="password"
           name="confirm"
+          placeholder="Confirm password" 
           required
         />
         {errorFlag ? <p className="error-red">{errorMessage}</p> : false}
         <br></br>
         <br></br>
-        <button type="submit" onSubmit={handleSubmit}>
-          Signup
-        </button>
+        <div className="Login-btn-div" >
+          <button className="Login-btn" type="submit" onSubmit={handleSubmit}>Signup</button>
+        </div>
       </form>
-      <p>
-        Already a Member? &nbsp;<Link to="/account/login">Login here</Link>
-      </p>
+      <hr />
+      <p className="Login-or">or</p>
+      <div className="Login-other-login">
+        <img className="SearchPage-or-img" src={require('../../Images/google.svg')} alt="svg icon" />
+        <img className="SearchPage-or-img" src={require('../../Images/facebook.svg')} alt="svg icon" />
+        <img className="SearchPage-or-img" src={require('../../Images/apple.svg')} alt="svg icon" />
+      </div>
+      <p className="Login-dont">Already have an account? &nbsp;<Link to="/account/login">Login here</Link></p>
     </div>
   );
 }

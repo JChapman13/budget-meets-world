@@ -12,7 +12,7 @@ export default function Flights(props) {
     }
   }, [props.flights]);
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <h1>No Results</h1>;
   }
   
   return (

@@ -1,4 +1,3 @@
-const UserModel = require('../../models/User.js');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -8,7 +7,7 @@ module.exports = {
 };
 
 async function getFlights(req, res) {
-	console.log(req.query);
+	console.log(req.query.inboundPartialDate, 'getFlights req.querys');
 	axios
 		.get(
 			`https://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${req.query.country}/${req.query.currency}/${req.query.locale}/${req.query.originPlace}/${req.query.destinationPlace}/${req.query.outboundPartialDate}/${req.query.inboundPartialDate}?apiKey=${process.env.FLIGHT_API}`

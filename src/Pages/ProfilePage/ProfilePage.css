@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+
+.ProfilePage-container {
+    background-image: url('../../Images/create-bg.png'), linear-gradient(#333333, #33333300);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: bottom;
+    height: 100vh;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+.ProfilePage {
+    background: linear-gradient(to top, transparent -50%, black 100%);
+    width: 100%;
+    height: 100%;
+}
+
+.ProfilePage-title {
+    text-align: center;
+    color: #F8BC23;
+    font-size: 30px;
+}
+
+.ProfilePage-btn-div {
+    display: grid;
+    place-content: center;
+    position: absolute;
+    bottom: 100px;
+    width: 100%;
+}
+.ProfilePage-btn {
+    height: 50px;
+    width: 295px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
+    background-color: #F8BC23;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    margin: 0 auto;
+}

@@ -1,10 +1,10 @@
 <h1 align="center">Budget Meets World</h1>
 
 <p align="center">
-    <img alt="la" width="120px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+    <img alt="la" width="250px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
 </p>
 
-<h3 align="center">Say something</h3>
+<h3 align="center">Your dream vacation is one step away ...</h3>
 
 <br />
 
@@ -12,7 +12,7 @@
 
 ### Web link:
 
-<a href="" target="_blank">Budget Meets World</a>
+<a href="https://budget-meet-world.herokuapp.com/" target="_blank">Budget Meets World</a>
 
 <br />
 
@@ -20,12 +20,9 @@
 
 ### About:
 
-La La La.\
+Budget Meet World was created to help everyone plan for their trip in a way that not hurting their budget and also ensure them to have great experiences when planning for their trip.\
 &nbsp;\
-La La La.
-
-
-
+Most of the booking sites do not provide a way to track and plan our budget properly for our trip which making us difficult to make good decision.
 
 <br />
 
@@ -34,48 +31,46 @@ La La La.
 ### Review:
 
 
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
-<img  alt="la" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/logo.png" />
+<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review1.png" />
+<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review2.png" />
+<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review3.png" />
+<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review4.png" />
+<img align="left" alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review5.png" />
+<img alt="budget-meet-world" width="180px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/review6.png" />
 
 <br />
 
 ---
 
-### Usage:
+### Roadmap:
 
-1. Eat
-2. Sleep
-3. Play
-4. Excercise
-5. Repeat
+<p align="center">
+    <img alt="la" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/roadmap.png" />
+</p>
 
 <br />
 
 ---
 
-### Meet the Developer:
+<br />
+
+<p align="center">
+    <img alt="la" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/meet-team.png" />
+</p>
+
+<br />
+
+---
+
+### Role:
 | Name | Roles |
 | ---- | ----- |
-| Justin Chapman | Do something |
-| Lu Ye             | Do something |
-| Joanne Kam | Do something |
-| Josh Nguyen       | Do something |
-
-
-<br />
-
----
-
-### Meet the Designer:
-
-| Name | Roles |
-| ---- | ----- |
-| Saijal Suri | Wireframe, User Flow, Style guild, Prototype, Competitive analysis |
-| Bhavani Sree M. | Wireframe, User Flow, Style guild, Prototype, Competitive analysis |
+| Justin Chapman | GitHub Manager, Task Manager, Restaurant, Routing, Component, Functionality, Authorization, Styling |
+| Lu Ye             | Hotel, Routing, Component, Functionality, Authorization, Styling |
+| Joanne Kam | Flight, Routing, Component, Functionality, Authorization, Styling |
+| Josh Nguyen       | Database, Token Based Authentication, Authorization, Styling, Documenter, Images and Logo |
+| Saijal Suri | Wireframe, User Flow, Style guild, Prototype, Competitive analysis, Persona, Problem Space, Solution, Presentation |
+| Bhavani Sree M. | Wireframe, User Flow, Style guild, Prototype, Competitive analysis, Persona, Problem Space, Solution, Presentation |
 
 
 <br />
@@ -142,7 +137,7 @@ La La La.
 
 <p>
     <img alt="Trello" width="24px" height="24px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/trello.png" />
-    Tasks Manager - <a href="" target="_blank">Trello Board</a> 
+    Tasks Manager - <a href="https://trello.com/b/lAf0igzb/financial-wellness" target="_blank">Trello Board</a> 
 </p>
 <p>
     <img alt="Lucid" width="24px" height="24px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/lucid.png" />
@@ -158,17 +153,36 @@ La La La.
 
 ---
 
-### User flow:
-
-<img align="center" alt="user flow diagram" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
-
 <br />
+<p align="center">
+    <img alt="design information" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/problem-space.png" />
+</p>
+<br />
+<p align="center">
+    <img alt="design information" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/user-interview.png" />
+</p>
+<br />
+<p align="center">
+    <img alt="design information" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/persona.png" />
+</p>
+<br />
+<p align="center">
+    <img alt="design information" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/problem-statement.png" />
+</p>
+<br />
+<p align="center">
+    <img alt="design information" width="100%" min-width="750px" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/solution-statement.png" />
+</p>
+<br />
+
 
 ---
 
 ### Entity Relationship Diagram:
 
-<img align="center" alt="Database ERD diagram" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/heroku.png" />
+<p align="center">
+<img align="center" width="100%" min-width="750px" alt="Database ERD diagram" src="https://github.com/JChapman13/budget-meets-world/blob/main/public/images/erd.png" />
+</p>
 
 <br />
 
@@ -176,26 +190,37 @@ La La La.
 
 ### Icebox:
 
-- Link multiple user in one trip
+- AAU I want to be able to see a map of my flight from origin to destination
+- AAU I wan to be able to see the reviews from the restaurant
+- AAU I want to be able to add multiple cities in my search
+- AAU I want to be able to switch between the cities I've searched
+- AAU I want to see the full breakdown of my flight details
+- AAU I want to be able to see the price information for my flight
+- AAU I want to be able to see the airline chosen from this flight
+- AAU I want to see the total travel time for the flight, including layovers
+- AAU I want to be able to save the flight to my trip
 
 ---
 
 ### Key Learning:
 
-- La La La
+- Team work and Communication in every step is crucial for success.
+- State management is important.
+- Make effective APIs call 
 
 ---
 
 ### Challenges:
 
-- La La La
+- Time Constrain - Build a fully MERN stack app within 4 days 
+- Not enough time to do unit testing for all component
 
 ---
 
 ### Contact:
 
 Developer:\
-[Justin Chapman](https://google.com/)\
+[Justin Chapman](https://github.com/JChapman13/)\
 [Lu Ye](https://www.linkedin.com/in/lu-ye-b17192109/)\
 [Joanne Kam](https://google.com/)\
 [Josh Nguyen](https://joshnguyentoronto.com/)

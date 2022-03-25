@@ -7,13 +7,15 @@ export default function Hotel(props) {
     let endDay = new Date(props.trip.endDate)
     let diffTime = Math.abs(endDay - startDay)
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    console.log("dsfgsfraghfrsdgfrsgh", props.hotel)
+    // console.log("dsfgsfraghfrsdgfrsgh", props.hotel)
     let hotelId
     if (props.hotel.id) {
         hotelId = props.hotel.id
     } else {
         hotelId = props.hotel.pdpHeader.hotelId
     }
+
+    console.log(props.hotel)
 
     useEffect(async () => {
         try {
@@ -46,21 +48,24 @@ export default function Hotel(props) {
                 <div className='Hotel-stat-star'>
                     <p><span>{props.hotel.name ? props.hotel.starRating : props.hotel.propertyDescription.starRating} </span> Star hotel</p>
                     <p>{props.hotel.name ? 
-                        props.hotel.guestReviews.rating ? `${props.hotel.guestReviews.rating}/10 guess rating` : "No ratings yet"
+                        (props.hotel.guestReviews ? `${props.hotel.guestReviews.rating}/10 guess rating` : "No ratings yet")
                         :
-                        props.hotel.guestReviews.brands.rating ? `${props.hotel.guestReviews.brands.rating}/10 guess rating`: "No ratings yet" }
+                        (props.hotel.guestReviews.brands.rating ? `${props.hotel.guestReviews.brands.rating}/10 guess rating`: "No ratings yet") }
                     </p>
                     <p>{props.hotel.name ? 
-                        props.hotel.guestReviews.total ? `${props.hotel.guestReviews.total} reviews` : "0 reviews"
+                        props.hotel.guestReviews ? `${props.hotel.guestReviews.total} reviews` : "0 reviews"
                         :
                         props.hotel.guestReviews.brands.total ? `${props.hotel.guestReviews.brands.total} reviews` : "0 reviews" }
                     </p>
                 </div>
                 <div className='Hotel-stat-price'>
-                    <p>{props.hotel.name ? props.hotel.ratePlan.price.current : props.hotel.propertyDescription.featuredPrice.currentPrice.formatted}</p>
+                    <p>{props.hotel.name ? 
+                        props.hotel.ratePlan.price.current : 
+                        props.hotel.propertyDescription.featuredPrice ? props.hotel.propertyDescription.featuredPrice.currentPrice.formatted : '0'
+                    }</p>
                     { props.hotel.name ? 
                         <p>CAD ${Math.floor(props.hotel.ratePlan.price.exactCurrent * diffDays)} total</p> : 
-                        <p>CAD ${Math.floor(props.hotel.propertyDescription.featuredPrice.currentPrice.plain * diffDays)} total</p>
+                        <p>CAD ${props.hotel.propertyDescription.featuredPrice ? Math.floor(props.hotel.propertyDescription.featuredPrice.currentPrice.plain * diffDays) : '0'} total</p>
                     }
                 </div>
             </div>

@@ -5,7 +5,6 @@ import TripItem from "../../Components/TripItem/TripItem";
 
 export default function SavedTripsPage(props) {
 
-
     return (
         <div className='SavedTripsPage'>
             <h1>My Trips</h1>

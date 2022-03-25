@@ -1,14 +1,11 @@
 import "./SearchPage.css";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import moment from "moment";
 
 export default function SearchPage(props) {
-  console.log(props.trip._id, 'trip id')
     const [trip, setTrip] = useState({
         id: props.trip._id,
-        // name: props.trip.name,
         budget: props.trip.budget,
         people: props.trip.people,
         origin: props.trip.origin,
@@ -22,8 +19,6 @@ export default function SearchPage(props) {
     })
 
   const [submitError, setSubmitError] = useState("");
-
-  let navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -150,13 +145,6 @@ export default function SearchPage(props) {
             <img className="SearchPage-logo-img" src={require('../../Images/logo.png')} alt="svg icon" />
           </div>
           <form onSubmit={handleSubmit}>
-            {/* <input
-              onChange={handleChange}
-              type="text"
-              name="name"
-              placeholder="Trips name?"
-              required
-            /> */}
             <div className="duo-input">
               <div className="SearchPage-budget">
                 <p>Budget:</p>

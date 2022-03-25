@@ -12,6 +12,7 @@ import Signup from '../../Components/Signup/Signup';
 import TripDetailPage from '../TripDetailPage/TripDetailPage';
 import Flights from '../../Components/Flights/Flights';
 import RestaurantDetailPage from '../RestaurantDetailPage/RestaurantDetailPage';
+const moment = require('moment');
 const axios = require('axios').default;
 
 export default function App(props) {
@@ -48,6 +49,10 @@ export default function App(props) {
 
 	async function setUserInState(incomingUserData) {
 		setUser(incomingUserData);
+    setTrips(incomingUserData.trip)
+    if (incomingUserData.trip.length) {
+      setTrip(incomingUserData.trip)
+    }
 	}
 
 	async function userLogout() {
@@ -56,8 +61,18 @@ export default function App(props) {
 			token = null;
 			localStorage.removeItem('token');
 			setUser(null);
-		}
+      navigate('/account/login');
+		} else {
+      setUser(null);
+      navigate('/account/login');
+    }
 	}
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/account/login')
+  //   }
+  // }, [user])
 
 	async function getCityCode(ori, des) {
 		let origin = ori.replace(' ', '%20');
@@ -89,6 +104,7 @@ export default function App(props) {
 			headers: { userId: user._id, tripId: id },
 		});
 		let response = await fetchTrip.json();
+		console.log(response.theTrip.savedFlight)
 		setSavedFlight(response.theTrip.savedFlight);
 		setSavedHotel(response.hotelArr);
 		setCurrentTrip(response.theTrip);
@@ -125,10 +141,9 @@ export default function App(props) {
 			}),
 		});
 		let user = await fetchTrip.json();
-    console.log(user.trip);
 		setUser(user.users);
 		setTrip(user.trip);
-		console.log(user.trip._id, 'user trip id');
+    setTrips(user.users.trip);
 		navigate('/');
 		// } else {
 		// let fetchTrip = await fetch("/api/users/edit/trip", {
@@ -292,6 +307,8 @@ export default function App(props) {
 	}
 
 	async function getFlights(params) {
+		console.log('getflights call with cityCode')
+
 		setCurrentCat('flight');
 		axios
 			.get('/api/flights', {
@@ -299,15 +316,29 @@ export default function App(props) {
 					country: 'CA',
 					currency: 'cad',
 					locale: 'en-US',
-					originPlace: 'YYZ',
-					destinationPlace: 'YVR',
-					outboundPartialDate: '2022-04',
-					inboundPartialDate: '2022-06',
+					originPlace: cityCode.origin,
+					destinationPlace: cityCode.destination,
+					outboundPartialDate: moment(trip.startDate).format('YYYY-MM-DD'),
+					inboundPartialDate: moment(trip.endDate).format('YYYY-MM-DD')
 				},
 			})
 			.then((result) => {
+				console.log(result.data.Quotes, 'all the response flights')
 				setCarriers(result.data.Carriers);
-				setFlights(result.data.Quotes);
+				let flightMap = result.data.Quotes.map((e)=> e.MinPrice)
+				let index = []
+				flightMap.forEach((price, idx)=> {
+					if (price < trip.flight) {
+						index.push(idx)
+					}
+					return index
+				})
+				let finalFlights = []
+				index.forEach((p) => {
+					finalFlights.push(result.data.Quotes[p])
+				})
+				console.log(index)
+				setFlights(finalFlights);
 				setPlaces(result.data.Places);
 			})
 			.catch((err) => console.log(err, 'flight result error'));
@@ -341,11 +372,11 @@ export default function App(props) {
 					});
 					let user = await fetchUser.json();
 					setUser(user);
-					if (user.trip.length) {
-						setTrips(user.trip);
-					} else {
-						setTrips([]);
-					}
+          setTrips(user.trip);
+					// if (user.trip.length) {
+					// } else {
+					// 	setTrips([]);
+					// }
 				} catch (err) {
 					console.log('home page error: ', err);
 				}
@@ -401,7 +432,14 @@ export default function App(props) {
 						/>
 					}
 				/>
-				<Route path='/profile' element={<ProfilePage />} />
+				<Route
+          path='/profile' 
+          element={
+            <ProfilePage
+              user={user}
+              userLogout={userLogout}
+            />
+          } />
 				<Route
 					path='/trips'
 					element={

@@ -18,7 +18,7 @@ module.exports = {
   saveHotel,
   getOneTrip,
   saveFlight,
-  saveRestaurant,
+  // saveRestaurant,
 };
 
 async function login(req, res) {
@@ -176,8 +176,8 @@ async function saveFlight(req, res) {
     const trip = await user.trip.find((trip) => trip._id == req.body.tripId);
     console.log(trip, "trip");
     await trip.savedFlight.push({
-      departureDate: req.body.data.departureDate,
-      arrivalDate: req.body.data.arrivalDate,
+      departureDate: moment(req.body.data.departureDate).format('YYYY-MM-DD'),
+      arrivalDate: moment(req.body.data.arrivalDate).format('YYYY-MM-DD'),
       departureCity: req.body.data.departureCity,
       destinationCity: req.body.data.destinationCity,
       departureAirport: req.body.data.departureAirport,

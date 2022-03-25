@@ -34,7 +34,7 @@ export default function Login(props) {
 
       const userDoc = await JSON.parse(window.atob(token.split(".")[1])).user;
       props.setUserInState(userDoc);
-      navigate("/");
+      navigate("/trips");
     }
   }
 
@@ -73,13 +73,18 @@ export default function Login(props) {
         )}
         <br></br>
         <br></br>
-        <button type="submit" onSubmit={handleSubmit}>
-          Login
-        </button>
+        <div className="Login-btn-div" >
+          <button className="Login-btn" type="submit" onSubmit={handleSubmit}>Login</button>
+        </div>
       </form>
-      <p>
-        Not a Member? &nbsp;<Link to="/account/signup">Sign up here</Link>
-      </p>
+      <hr />
+      <p className="Login-or">or</p>
+      <div className="Login-other-login">
+        <img className="SearchPage-or-img" src={require('../../Images/google.svg')} alt="svg icon" />
+        <img className="SearchPage-or-img" src={require('../../Images/facebook.svg')} alt="svg icon" />
+        <img className="SearchPage-or-img" src={require('../../Images/apple.svg')} alt="svg icon" />
+      </div>
+      <p className="Login-dont">Don't have an account? &nbsp;<Link to="/account/signup">Sign up</Link></p>
     </div>
   );
 }
