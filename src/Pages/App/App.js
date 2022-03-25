@@ -28,13 +28,13 @@ export default function App(props) {
   const [trip, setTrip] = useState({
     _id: "623cfd8d2838e1fde836683c",
     name: "",
-    budget: 0,
+    budget: 5000,
     people: 0,
-    origin: "",
-    destination: "",
-    flight: 0,
-    accommodation: 0,
-    restaurant: 0,
+    origin: "Toronto",
+    destination: "New York",
+    flight: 1000,
+    accommodation: 1000,
+    restaurant: 1000,
     startDate: "",
     endDate: "",
     // hotel: [],
@@ -474,9 +474,9 @@ export default function App(props) {
 							hotelPhotos={hotelPhotos}
 							getHotelPhotos={getHotelPhotos}
 							savedFlight={savedFlight}
-              restaurants={restaurants}
-              getRestaurantDetail={getRestaurantDetail}
-              saveRestaurant={saveRestaurant}
+							restaurants={restaurants}
+							getRestaurantDetail={getRestaurantDetail}
+							saveRestaurant={saveRestaurant}
 						/>
 					}
 				/>

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Hotels from "../../Components/Hotels/Hotels";
 import Foods from "../../Components/Foods/Foods";
-
+import Flights from "../../Components/Flights/Flights";
 
 export default function TripDetailPage(props) {
     const [currentView, setCurrentView] = useState("flights");
@@ -24,19 +24,29 @@ export default function TripDetailPage(props) {
         if (currentView === "flights") {
         return (
             <>
-            {props.savedFlight.map((flight) => {
-                return (
-                <div>
-                    <p>{flight.departureDate}</p>
-                    <p>{flight.arrivalDate}</p>
-                    <p>{flight.departureCity}</p>
-                    <p>{flight.destinationCity}</p>
-                    <p>{flight.departureAirport}</p>
-                    <p>{flight.destinationAirport}</p>
-                    <p>{flight.price}</p>
+            {props.savedFlight.map(flight => 
+                <div className="Flight">
+                    <div>
+                        <div className="airline-name">
+                                <p>United</p>
+                        </div>
+                        <div className='Flight-stat'>
+                            <div className='Flight-stat-star'>
+                                <p>{flight.departureCity} ({flight.departureAirport}) - {flight.destinationCity} ({flight.destinationAirport})</p>
+                                <p>Departure Date: {moment(flight.departureDate).format('YYYY-MM-DD')}</p>
+                                <p>Return Date: {moment(flight.arrivalDate).format('YYYY-MM-DD')}</p>
+                            </div>
+                            <div className='Flight-stat-price'>
+                                <p>Price: ${flight.price}</p>
+                            </div>
+                        </div>
+                        <div className='Hotel-btn'>
+                            <button>see more</button>
+                            <button>Save</button>
+                        </div>
+                    </div>
                 </div>
-                );
-            })}
+            )}
             </>
         );
         } else if (currentView === "hotels") {
